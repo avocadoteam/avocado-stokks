@@ -1,5 +1,6 @@
 {
   "expo": {
+    "owner": "avocado-games",
     "name": "stokks-app",
     "slug": "stokks-app",
     "version": "1.0.0",
@@ -20,7 +21,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "avocado-games.stokks",
+      "bundleIdentifier": "avocadogames.stokks",
       "buildNumber": "1.0.0"
     },
     "android": {
@@ -28,7 +29,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "avocado-games.stokks",
+      "package": "avocadogames.stokks",
       "versionCode": 1
     }
   }
