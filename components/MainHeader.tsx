@@ -6,7 +6,7 @@ export const MainHeader = () => {
   const { colors } = useTheme();
 
   return (
-    <HStack mt={12} px={6} justifyContent="space-between" alignItems="center">
+    <HStack mt={12} py={2} px={6} justifyContent="space-between" alignItems="center">
       <Heading color={colors.heading}>Stokks</Heading>
       <IconButton
         variant="unstyled"
