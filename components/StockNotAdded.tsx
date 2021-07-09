@@ -22,20 +22,19 @@ export const StockNotAdded = React.memo(() => {
         </Heading>
         <Text color={colors.textGray}>Apple Inc.</Text>
       </Box>
-      <TouchableOpacity>
-        <Button
-          variant="solid"
-          py={1}
-          px={3}
-          backgroundColor={colors.upBg}
-          borderRadius={40}
-          endIcon={<Icon as={Ionicons} name="add-sharp" size={4} color={colors.upTextColor} />}
-        >
-          <Text color={colors.upTextColor} fontSize={'sm'} fontWeight={700} py={1}>
-            Add
-          </Text>
-        </Button>
-      </TouchableOpacity>
+      <Button
+        variant="solid"
+        py={1}
+        px={3}
+        rounded={40}
+        backgroundColor={colors.upBg}
+        onPress={() => console.log('pressed')}
+        endIcon={<Icon as={Ionicons} name="ios-add" size={4} color={colors.upTextColor} />}
+      >
+        <Text color={colors.upTextColor} fontSize={'sm'} fontWeight={700} py={1}>
+          Add
+        </Text>
+      </Button>
     </HStack>
   );
 });

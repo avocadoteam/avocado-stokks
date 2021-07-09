@@ -4,13 +4,14 @@ import { HStack, Image, Box, Heading, Text, useTheme } from 'native-base';
 
 interface StockProps {
   up: boolean;
+  onPress: () => void;
 }
 
-export const Stock = React.memo<StockProps>(({ up }) => {
+export const Stock = React.memo<StockProps>(({ up, onPress }) => {
   const { colors } = useTheme();
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>
       <HStack alignItems="center" px={6}>
         <Box mr={7}>
           <Image
