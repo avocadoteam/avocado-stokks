@@ -12,7 +12,7 @@ export default function App() {
   let colorScheme = useColorScheme();
 
   if (!isLoadingComplete) {
-    return null;
+    return <SafeAreaProvider></SafeAreaProvider>;
   } else {
     return (
       <SafeAreaProvider>

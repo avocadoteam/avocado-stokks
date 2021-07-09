@@ -41,7 +41,7 @@ export const darkTheme = extendTheme({
       800: '#03CF6D',
       900: '#03CF6D',
     },
-    appBackground: '#444444',
+    appBackground: '#212121',
     downBg: 'rgba(236, 55, 55, 0.15);',
     downTextColor: '#EC3737',
     upBg: 'rgba(3, 207, 109, 0.15)',
