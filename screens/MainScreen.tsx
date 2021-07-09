@@ -1,12 +1,13 @@
 import React from 'react';
-import { NativeBaseProvider } from 'native-base';
+import { Box, useTheme } from 'native-base';
 import { MainHeader } from '../components/MainHeader';
-import { theme } from '../theme';
 
 export const MainScreen = () => {
+  const { colors } = useTheme();
+
   return (
-    <NativeBaseProvider theme={theme}>
+    <Box backgroundColor={colors.appBackground} flex={1}>
       <MainHeader />
-    </NativeBaseProvider>
+    </Box>
   );
 };
