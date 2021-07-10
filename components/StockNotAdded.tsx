@@ -28,7 +28,6 @@ export const StockNotAdded = React.memo(() => {
         px={3}
         rounded={40}
         backgroundColor={colors.upBg}
-        onPress={() => console.log('pressed')}
         endIcon={<Icon as={Ionicons} name="ios-add" size={4} color={colors.upTextColor} />}
       >
         <Text color={colors.upTextColor} fontSize={'sm'} fontWeight={700} py={1}>
