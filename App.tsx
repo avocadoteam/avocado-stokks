@@ -1,11 +1,12 @@
+import { NativeBaseProvider } from 'native-base';
 import React from 'react';
 import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { NativeBaseProvider } from 'native-base';
-
-import useCachedResources from './hooks/useCachedResources';
+import useCachedResources from './core/hooks/useCachedResources';
 import { Navigation } from './navigation';
-import { lightTheme, darkTheme } from './theme';
+import { darkTheme, lightTheme } from './core/theme';
+import { Provider as Redux } from 'react-redux';
+import { store } from './core/store';
 
 export default function App() {
   const isLoadingComplete = useCachedResources();
@@ -16,9 +17,11 @@ export default function App() {
   } else {
     return (
       <SafeAreaProvider>
-        <NativeBaseProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
-          <Navigation />
-        </NativeBaseProvider>
+        <Redux store={store}>
+          <NativeBaseProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
+            <Navigation />
+          </NativeBaseProvider>
+        </Redux>
       </SafeAreaProvider>
     );
   }
