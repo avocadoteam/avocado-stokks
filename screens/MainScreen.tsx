@@ -1,8 +1,8 @@
+import { MainHeader } from 'components/MainHeader';
+import { Stock } from 'components/Stock';
 import { Box, ScrollView, useTheme } from 'native-base';
 import React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
-import { MainHeader } from 'components/MainHeader';
-import { Stock } from 'components/Stock';
 
 interface MainScreenProps {
   navigation: NavigationStackProp;
