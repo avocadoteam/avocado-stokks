@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Image, HStack, Pressable, Text, Radio, FormControl } from 'native-base';
+import stockGraph from '../../assets/images/stock-graph.png';
 
 export const StockGraph = () => {
   const [style, setStyle] = React.useState(false);
@@ -9,7 +10,9 @@ export const StockGraph = () => {
       <Box alignItems="center" mb={8}>
         <Image
           alt="stock graph"
-          source={require('../../assets/images/stock-graph.png')}
+          source={{
+            uri: stockGraph,
+          }}
           resizeMode="contain"
         />
       </Box>

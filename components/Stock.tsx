@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { HStack, Image, Box, Heading, Text, useTheme } from 'native-base';
+import graphSrc from '../assets/images/Graph.png';
 
 interface StockProps {
   up: boolean;
@@ -14,12 +15,7 @@ export const Stock = React.memo<StockProps>(({ up, onPress }) => {
     <TouchableOpacity onPress={onPress}>
       <HStack alignItems="center" px={6}>
         <Box mr={7}>
-          <Image
-            alt="stock graph"
-            resizeMode="contain"
-            source={require('../assets/images/Graph.png')}
-            size={'md'}
-          />
+          <Image alt="stock graph" resizeMode="contain" source={{ uri: graphSrc }} size={'md'} />
         </Box>
         <Box style={{ marginRight: 'auto' }}>
           <Heading size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>

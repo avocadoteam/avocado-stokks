@@ -1,7 +1,7 @@
-import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { HStack, Image, Box, Heading, Text, useTheme, Button, Icon } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
+import { Box, Button, Heading, HStack, Icon, Image, Text, useTheme } from 'native-base';
+import React from 'react';
+import appleLogo from '../assets/images/apple-logo.png';
 
 export const StockNotAdded = React.memo(() => {
   const { colors } = useTheme();
@@ -12,7 +12,9 @@ export const StockNotAdded = React.memo(() => {
         <Image
           alt="stock graph"
           resizeMode="contain"
-          source={require('../assets/images/apple-logo.png')}
+          source={{
+            uri: appleLogo,
+          }}
           size={5}
         />
       </Box>
