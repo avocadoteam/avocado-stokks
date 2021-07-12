@@ -5,16 +5,16 @@ import { MainScreen } from '../screens/MainScreen';
 import { StockScreen } from '../screens/StockScreen';
 import { WelcomeScreen } from '../screens/WelcomeScreen';
 
-const Stack = createStackNavigator();
+const { Navigator, Screen } = createStackNavigator();
 
 export const Navigation = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MainScreen" headerMode="none">
-        <Stack.Screen name="MainScreen" component={MainScreen} />
-        <Stack.Screen name="WelcomeScreen" component={WelcomeScreen} />
-        <Stack.Screen name="StockScreen" component={StockScreen} />
-      </Stack.Navigator>
+      <Navigator initialRouteName="MainScreen" headerMode="none">
+        <Screen name="MainScreen" component={MainScreen} />
+        <Screen name="WelcomeScreen" component={WelcomeScreen} />
+        <Screen name="StockScreen" component={StockScreen} />
+      </Navigator>
     </NavigationContainer>
   );
 };
