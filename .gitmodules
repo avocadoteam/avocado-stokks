@@ -1,0 +1,3 @@
+[submodule "stokks-models"]
+	path = stokks-models
+	url = git@github.com:woophi/stokks-models.git
