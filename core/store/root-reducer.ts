@@ -1,10 +1,10 @@
 import { combineReducers, PayloadAction } from '@reduxjs/toolkit';
-import { pokemonApi } from 'core/modules/pokemon/query';
+import { urlParserApi } from 'core/modules/url-parser/query';
 import { counterReducer } from '../modules/counter/reducer';
 
 export const rootReducer = combineReducers({
   counter: counterReducer,
-  [pokemonApi.reducerPath]: pokemonApi.reducer,
+  [urlParserApi.reducerPath]: urlParserApi.reducer,
 });
 
 export type State = ReturnType<typeof rootReducer>;

@@ -1,12 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { pokemonApi } from 'core/modules/pokemon/query';
+import { urlParserApi } from 'core/modules/url-parser/query';
 import { rootReducer } from './root-reducer';
 
 export const store = configureStore({
   reducer: rootReducer,
   devTools: true,
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(pokemonApi.middleware),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(urlParserApi.middleware),
 });
 
 type extendend = { hot: { accept: (f: string, cb: () => void) => void } } & NodeModule;
