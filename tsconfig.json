@@ -9,6 +9,9 @@
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "."
+    "baseUrl": ".",
+    "@models": [
+      "./stokks-models/index"
+    ],
   }
 }
