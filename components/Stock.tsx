@@ -15,7 +15,7 @@ export const Stock = React.memo<StockProps>(({ up, onPress }) => {
     <TouchableOpacity onPress={onPress}>
       <HStack alignItems="center" px={6}>
         <Box mr={7}>
-          <Image alt="stock graph" resizeMode="contain" source={{ uri: graphSrc }} size={'md'} />
+          <Image alt="stock graph" resizeMode="contain" source={graphSrc} size={'md'} />
         </Box>
         <Box style={{ marginRight: 'auto' }}>
           <Heading size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>

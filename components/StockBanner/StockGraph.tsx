@@ -8,13 +8,7 @@ export const StockGraph = () => {
   return (
     <Box>
       <Box alignItems="center" mb={8}>
-        <Image
-          alt="stock graph"
-          source={{
-            uri: stockGraph,
-          }}
-          resizeMode="contain"
-        />
+        <Image alt="stock graph" source={stockGraph} resizeMode="contain" />
       </Box>
       {/* <Radio.Group name="stock-period">
         <HStack>
