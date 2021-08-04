@@ -2,7 +2,6 @@ import { BaseQueryFn } from '@reduxjs/toolkit/query';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 
 export const delay = (time = 2000) => new Promise(res => setTimeout(res, time));
-
 export const axiosBaseQuery =
   (
     { baseUrl }: { baseUrl: string } = { baseUrl: 'https://stokks.herokuapp.com/api/' },

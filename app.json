@@ -16,7 +16,9 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "avocadogames.stokks",
@@ -29,6 +31,9 @@
       },
       "package": "avocadogames.stokks",
       "versionCode": 1
+    },
+    "extra": {
+      "credentialSecret": "ggwp"
     }
   }
 }
