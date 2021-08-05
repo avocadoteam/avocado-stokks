@@ -18,7 +18,7 @@ const generatePassword = () => Crypto.digestStringAsync(Crypto.CryptoDigestAlgor
 export const authUser = async () => {
   let credentials = await secureStore.get(SecureStoreKey.Credentials);
 
-  if (!credentials) {
+  if (!credentials || !credentials.password || !credentials.userId) {
     const password = await generatePassword();
     const userId = await createUser({ password });
     credentials = {
