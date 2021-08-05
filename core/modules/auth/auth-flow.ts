@@ -1,11 +1,19 @@
 import axios from 'axios';
-import Constants from 'expo-constants';
-import * as Crypto from 'expo-crypto';
-import { secureStore, SecureStoreKey } from 'core/store/secure-store';
 import { baseUrl } from 'core/constants';
+import { secureStore, SecureStoreKey } from 'core/store/secure-store';
+import * as Crypto from 'expo-crypto';
 
-const generatePassword = () =>
-  Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, Constants.manifest.extra?.credentialSecret);
+const randomString = (length: number) => {
+  let result = '';
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const charactersLength = characters.length;
+  for (var i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
+
+const generatePassword = () => Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, randomString(8));
 
 export const authUser = async () => {
   let credentials = await secureStore.get(SecureStoreKey.Credentials);
