@@ -3,7 +3,7 @@ import React from 'react';
 import { useColorScheme } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useCachedResources from './core/hooks/useCachedResources';
-import { Navigation } from './navigation';
+import { RootNavigation } from './navigation';
 import { darkTheme, lightTheme } from './core/theme';
 import { Provider as Redux } from 'react-redux';
 import { store } from './core/store';
@@ -19,7 +19,7 @@ export default function App() {
       <SafeAreaProvider>
         <Redux store={store}>
           <NativeBaseProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
-            <Navigation />
+            <RootNavigation />
           </NativeBaseProvider>
         </Redux>
       </SafeAreaProvider>

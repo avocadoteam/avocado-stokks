@@ -1,9 +1,11 @@
 import { combineReducers, PayloadAction } from '@reduxjs/toolkit';
+import { authReducer } from 'core/modules/auth/reducer';
 import { urlParserApi } from 'core/modules/url-parser/query';
 import { counterReducer } from '../modules/counter/reducer';
 
 export const rootReducer = combineReducers({
   counter: counterReducer,
+  auth: authReducer,
   [urlParserApi.reducerPath]: urlParserApi.reducer,
 });
 

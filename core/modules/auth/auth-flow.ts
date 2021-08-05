@@ -1,7 +1,8 @@
 import axios from 'axios';
 import Constants from 'expo-constants';
 import * as Crypto from 'expo-crypto';
-import { secureStore, SecureStoreKey } from './secure-store';
+import { secureStore, SecureStoreKey } from 'core/store/secure-store';
+import { baseUrl } from 'core/constants';
 
 const generatePassword = () =>
   Crypto.digestStringAsync(Crypto.CryptoDigestAlgorithm.SHA256, Constants.manifest.extra?.credentialSecret);
@@ -20,12 +21,12 @@ export const authUser = async () => {
   }
   const token = await auth({ password: credentials.password, username: credentials.userId });
 
-  return token;
+  return { token, userId: credentials.userId };
 };
 
 const createUser = async (data: { password: string }) => {
   const result = await axios({
-    url: 'https://stokks.herokuapp.com/api/user',
+    url: `${baseUrl}user`,
     method: 'post',
     data,
   });
@@ -39,7 +40,7 @@ const createUser = async (data: { password: string }) => {
  */
 const auth = async (data: { username: number; password: string }) => {
   const result = await axios({
-    url: 'https://stokks.herokuapp.com/api/auth/login',
+    url: `${baseUrl}auth/login`,
     method: 'post',
     data,
   });
