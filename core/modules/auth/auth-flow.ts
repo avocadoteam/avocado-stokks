@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseUrl } from 'core/constants';
+import { baseUrl, isDev } from 'core/constants';
 import { secureStore, SecureStoreKey } from 'core/store/secure-store';
 import * as Crypto from 'expo-crypto';
 
@@ -30,6 +30,12 @@ export const authUser = async () => {
   const token = await auth({ password: credentials.password, username: credentials.userId });
 
   return { token, userId: credentials.userId };
+};
+
+export const clearStorageInDev = async () => {
+  if (isDev) {
+    await secureStore.delete(SecureStoreKey.Credentials);
+  }
 };
 
 const createUser = async (data: { password: string }) => {

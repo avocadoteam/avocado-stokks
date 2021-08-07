@@ -1,8 +1,11 @@
+import { If } from 'components/atoms/If';
 import { MainHeader } from 'components/MainHeader';
 import { Stock } from 'components/Stock';
+import { isDev } from 'core/constants';
+import { clearStorageInDev } from 'core/modules/auth/auth-flow';
 import { getToken } from 'core/modules/auth/selectors';
 import { useGetImgFromArticleQuery } from 'core/modules/url-parser/query';
-import { Box, ScrollView, useTheme } from 'native-base';
+import { Box, ScrollView, useTheme, Button } from 'native-base';
 import React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useSelector } from 'react-redux';
@@ -30,6 +33,9 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
       <MainHeader />
       <ScrollView>
         <Stock up={false} onPress={onPressStock} />
+        <If is={isDev}>
+          <Button onPress={clearStorageInDev}>clear storage</Button>
+        </If>
       </ScrollView>
     </Box>
   );

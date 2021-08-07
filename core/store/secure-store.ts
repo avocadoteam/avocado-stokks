@@ -20,5 +20,8 @@ export const secureStore = {
 
     return JSON.parse(v);
   },
-  delete: <T extends SecureStoreKey>(key: T) => SecureStore.deleteItemAsync(key),
+  delete: async <T extends SecureStoreKey>(key: T) => {
+    if (!(await SecureStore.isAvailableAsync())) return;
+    await SecureStore.deleteItemAsync(key);
+  },
 };
