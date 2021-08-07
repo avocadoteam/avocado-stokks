@@ -1,14 +1,14 @@
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { YahooSearchResult } from '@models';
+import { getUserId } from 'core/modules/auth/selectors';
+import { useAddToUserStoreMutation } from 'core/modules/user/query';
+import { Box, Button, Heading, HStack, Icon, Image, Text, useTheme } from 'native-base';
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
-import { HStack, Image, Box, Heading, Text, useTheme, Button, Icon } from 'native-base';
+import { TouchableHighlight } from 'react-native';
+import { useSelector } from 'react-redux';
 import graphDownSrc from '../assets/images/Graph.png';
 import graphUpSrc from '../assets/images/GraphUp.png';
 import { If } from './atoms/If';
-import { YahooSearchResult } from '@models';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useAddToUserStoreMutation } from 'core/modules/user/query';
-import { useSelector } from 'react-redux';
-import { getUserId } from 'core/modules/auth/selectors';
 
 interface StockProps {
   withGraph?: boolean;
@@ -27,8 +27,8 @@ export const Stock = React.memo<StockProps>(({ onPress, withGraph = false, data 
   }, [userId]);
 
   return (
-    <TouchableOpacity onPress={onPress}>
-      <HStack alignItems="center" px={6} marginBottom="24px">
+    <TouchableHighlight onPress={onPress}>
+      <HStack alignItems="center" px={6} py="12px" backgroundColor={colors.appBackground}>
         <If is={withGraph}>
           <Box mr={7}>
             <Image alt="stock graph" resizeMode="contain" source={up ? graphUpSrc : graphDownSrc} size={'md'} />
@@ -71,6 +71,6 @@ export const Stock = React.memo<StockProps>(({ onPress, withGraph = false, data 
           </If>
         </Box>
       </HStack>
-    </TouchableOpacity>
+    </TouchableHighlight>
   );
 });

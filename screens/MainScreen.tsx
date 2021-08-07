@@ -10,6 +10,7 @@ import { useSelector } from 'react-redux';
 import { If } from 'ui/atoms/If';
 import { MainHeader } from 'ui/MainHeader';
 import { Stock } from 'ui/Stock';
+import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
 
 interface MainScreenProps {
   navigation: NavigationStackProp;
@@ -51,7 +52,9 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
 
         <If is={userStore.isSuccess && !!userStore.data.length}>
           {userStore.data?.map(ts => (
-            <Stock onPress={onPressStock} key={ts.symbol} data={ts} withGraph />
+            <SwipeDeleteStock key={ts.symbol} symbolId={ts.symbolId}>
+              <Stock onPress={onPressStock} data={ts} withGraph />
+            </SwipeDeleteStock>
           ))}
         </If>
 
