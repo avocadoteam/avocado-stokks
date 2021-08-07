@@ -1,6 +1,6 @@
-import { If } from 'components/atoms/If';
-import { MainHeader } from 'components/MainHeader';
-import { Stock } from 'components/Stock';
+import { If } from 'ui/atoms/If';
+import { MainHeader } from 'ui/MainHeader';
+import { Stock } from 'ui/Stock';
 import { isDev } from 'core/constants';
 import { clearStorageInDev } from 'core/modules/auth/auth-flow';
 import { getToken } from 'core/modules/auth/selectors';

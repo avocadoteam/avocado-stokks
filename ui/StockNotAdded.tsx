@@ -9,14 +9,7 @@ export const StockNotAdded = React.memo(() => {
   return (
     <HStack alignItems="center" px={6} py={2}>
       <Box mr={6}>
-        <Image
-          alt="stock graph"
-          resizeMode="contain"
-          source={{
-            uri: appleLogo,
-          }}
-          size={5}
-        />
+        <Image alt="stock graph" resizeMode="contain" source={appleLogo} size={5} />
       </Box>
       <Box style={{ marginRight: 'auto' }}>
         <Heading size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>

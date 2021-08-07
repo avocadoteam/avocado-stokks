@@ -1,7 +1,7 @@
 import React from 'react';
 import { Box, useTheme, ScrollView, Text } from 'native-base';
-import { WelcomeHeader } from '../components/WelcomeHeader';
-import { StockNotAdded } from '../components/StockNotAdded';
+import { WelcomeHeader } from '../ui/WelcomeHeader';
+import { StockNotAdded } from '../ui/StockNotAdded';
 
 export const WelcomeScreen = () => {
   const { colors } = useTheme();
