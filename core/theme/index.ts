@@ -24,6 +24,7 @@ export const lightTheme = extendTheme({
     text: '#242424',
     textGray: '#757575',
     textDarkGray: '#535353',
+    bgDelete: 'rgba(231, 86, 86, 0.1);',
   },
 });
 
@@ -51,5 +52,8 @@ export const darkTheme = extendTheme({
     text: 'rgba(255, 255, 255, 0.9)',
     textGray: '#AEAEAE',
     textDarkGray: 'rgba(255, 255, 255, 0.9);',
+    bgDelete: 'rgba(231, 86, 86, 0.1);',
   },
 });
+
+export type Theme = typeof darkTheme;
