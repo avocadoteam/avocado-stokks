@@ -1,37 +1,74 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { HStack, Image, Box, Heading, Text, useTheme } from 'native-base';
-import graphSrc from '../assets/images/Graph.png';
+import { HStack, Image, Box, Heading, Text, useTheme, Button, Icon } from 'native-base';
+import graphDownSrc from '../assets/images/Graph.png';
+import graphUpSrc from '../assets/images/GraphUp.png';
+import { If } from './atoms/If';
+import { YahooSearchResult } from '@models';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useAddToUserStoreMutation } from 'core/modules/user/query';
+import { useSelector } from 'react-redux';
+import { getUserId } from 'core/modules/auth/selectors';
 
 interface StockProps {
-  up: boolean;
+  withGraph?: boolean;
   onPress: () => void;
+  data: YahooSearchResult;
 }
 
-export const Stock = React.memo<StockProps>(({ up, onPress }) => {
+export const Stock = React.memo<StockProps>(({ onPress, withGraph = false, data }) => {
   const { colors } = useTheme();
+  const up = data.regularMarketChange > 0;
+  const [addToStore, { isLoading }] = useAddToUserStoreMutation();
+  const userId = useSelector(getUserId);
+
+  const onAdd = React.useCallback(() => {
+    addToStore({ symbol: data.symbol, userId });
+  }, [userId]);
 
   return (
     <TouchableOpacity onPress={onPress}>
-      <HStack alignItems="center" px={6}>
-        <Box mr={7}>
-          <Image alt="stock graph" resizeMode="contain" source={graphSrc} size={'md'} />
-        </Box>
+      <HStack alignItems="center" px={6} marginBottom="24px">
+        <If is={withGraph}>
+          <Box mr={7}>
+            <Image alt="stock graph" resizeMode="contain" source={up ? graphUpSrc : graphDownSrc} size={'md'} />
+          </Box>
+        </If>
         <Box style={{ marginRight: 'auto' }}>
           <Heading size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>
-            Ndaq
+            {data.symbol}
           </Heading>
-          <Text color={colors.textGray}>Nasdaq, Inc.</Text>
+          <Text color={colors.textGray}>{data.shortname}</Text>
         </Box>
         <Box>
-          <Text color={colors.textDarkGray} fontSize={'sm'} fontWeight={700} py={1}>
-            2.365,70
-          </Text>
-          <Box bg={up ? colors.upBg : colors.downBg} borderRadius={30} py={1} px={2}>
-            <Text textAlign="center" color={up ? colors.upTextColor : colors.downTextColor} fontWeight={700}>
-              -0,67
+          <If
+            is={withGraph}
+            else={
+              <Button
+                backgroundColor={colors.upBg}
+                color={colors.upTextColor}
+                size="sm"
+                rounded={40}
+                endIcon={<Icon as={MaterialCommunityIcons} name="plus" size={4} color={colors.upTextColor} />}
+                width={74}
+                height={38}
+                onPress={onAdd}
+                isLoading={isLoading}
+                isDisabled={isLoading}
+              >
+                <Text color={colors.upTextColor}>Add</Text>
+              </Button>
+            }
+          >
+            <Text color={colors.textDarkGray} fontSize={'sm'} fontWeight={700} py={1}>
+              {data.regularMarketPrice}
             </Text>
-          </Box>
+            <Box bg={up ? colors.upBg : colors.downBg} borderRadius={30} py={1} px={2}>
+              <Text textAlign="center" color={up ? colors.upTextColor : colors.downTextColor} fontWeight={700}>
+                {data.regularMarketChange}
+              </Text>
+            </Box>
+          </If>
         </Box>
       </HStack>
     </TouchableOpacity>
