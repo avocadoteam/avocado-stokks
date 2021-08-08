@@ -40,7 +40,7 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
       <MainHeader showWelcome={trendingSymbols.isSuccess} />
       <If is={trendingSymbols.isSuccess}>
         <Box marginX="24px" marginBottom="24px">
-          <Text>Add companies to your tracking list to get started.</Text>
+          <Text color={colors.textGray}>Add companies to your tracking list to get started.</Text>
         </Box>
       </If>
       <ScrollView>

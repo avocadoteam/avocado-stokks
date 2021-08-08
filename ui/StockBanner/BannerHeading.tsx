@@ -9,7 +9,9 @@ export const BannerHeading = () => {
     <Box mb={8}>
       <HStack justifyContent="space-between" alignItems="center">
         <HStack alignItems="center">
-          <Heading mr={2}>1234,4</Heading>
+          <Heading mr={2} color={colors.heading}>
+            1234,4
+          </Heading>
           <Text color={colors.primary} fontSize={'xl'}>
             + 37,6
           </Text>
@@ -21,7 +23,9 @@ export const BannerHeading = () => {
           ></Button>
         </HStack>
       </HStack>
-      <Text fontSize={'sm'}>Nasdaq, Inc.</Text>
+      <Text fontSize={'sm'} color={colors.textGray}>
+        Nasdaq, Inc.
+      </Text>
     </Box>
   );
 };

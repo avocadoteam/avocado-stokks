@@ -14,6 +14,11 @@ export const lightTheme = extendTheme({
       800: '#34C075',
       900: '#34C075',
     },
+    gray: {
+      200: '#f0f0f0',
+      500: '#f0f0f0',
+      700: '#f0f0f0',
+    },
     appBackground: '#fff',
     downBg: 'rgba(236, 55, 55, 0.05)',
     downTextColor: '#E75656',
@@ -24,7 +29,7 @@ export const lightTheme = extendTheme({
     text: '#242424',
     textGray: '#757575',
     textDarkGray: '#535353',
-    bgDelete: 'rgba(231, 86, 86, 0.1);',
+    bgDelete: 'rgba(231, 86, 86, 0.1)',
   },
 });
 
@@ -41,6 +46,11 @@ export const darkTheme = extendTheme({
       700: '#03CF6D',
       800: '#03CF6D',
       900: '#03CF6D',
+    },
+    gray: {
+      200: '#424242',
+      500: '#424242',
+      700: '#424242',
     },
     appBackground: '#212121',
     downBg: 'rgba(236, 55, 55, 0.15);',
