@@ -3,6 +3,7 @@ import { YahooSearchResult } from '@models';
 import { getUserId } from 'core/modules/auth/selectors';
 import { useAddToUserStoreMutation } from 'core/modules/user/query';
 import { Box, Button, Heading, HStack, Icon, Image, Text, useTheme } from 'native-base';
+import { Text as NativeText } from 'react-native';
 import React from 'react';
 import { TouchableHighlight } from 'react-native';
 import { useSelector } from 'react-redux';
@@ -34,11 +35,18 @@ export const Stock = React.memo<StockProps>(({ onPress, withGraph = false, data 
             <Image alt="stock graph" resizeMode="contain" source={up ? graphUpSrc : graphDownSrc} size={'md'} />
           </Box>
         </If>
-        <Box style={{ marginRight: 'auto' }}>
+        <Box style={{ marginRight: 'auto', width: withGraph ? '55%' : '80%' }}>
           <Heading size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>
             {data.symbol}
           </Heading>
-          <Text color={colors.textGray}>{data.shortname}</Text>
+          <NativeText
+            style={{
+              color: colors.textGray,
+            }}
+            numberOfLines={1}
+          >
+            {data.shortname}
+          </NativeText>
         </Box>
         <Box>
           <If
@@ -60,12 +68,12 @@ export const Stock = React.memo<StockProps>(({ onPress, withGraph = false, data 
               </Button>
             }
           >
-            <Text color={colors.textDarkGray} fontSize={'sm'} fontWeight={700} py={1}>
-              {data.regularMarketPrice}
+            <Text color={colors.textDarkGray} fontSize={'sm'} fontWeight={700} py={1} textAlign="center">
+              {data.regularMarketPrice.toFixed(2)}
             </Text>
             <Box bg={up ? colors.upBg : colors.downBg} borderRadius={30} py={1} px={2}>
               <Text textAlign="center" color={up ? colors.upTextColor : colors.downTextColor} fontWeight={700}>
-                {data.regularMarketChange}
+                {data.regularMarketChange.toFixed(2)}
               </Text>
             </Box>
           </If>
