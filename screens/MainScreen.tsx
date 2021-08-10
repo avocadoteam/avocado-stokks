@@ -9,8 +9,9 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import { useSelector } from 'react-redux';
 import { If } from 'ui/atoms/If';
 import { MainHeader } from 'ui/MainHeader';
-import { Stock } from 'ui/Stock';
 import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
+import { TrendingStock } from 'ui/TrendingStock';
+import { UserStock } from 'ui/UserStock';
 
 interface MainScreenProps {
   navigation: NavigationStackProp;
@@ -46,14 +47,14 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
       <ScrollView>
         <If is={trendingSymbols.isSuccess && !!trendingSymbols.data.length}>
           {trendingSymbols.data?.map(ts => (
-            <Stock onPress={onPressStock} key={ts.symbol} data={ts} />
+            <TrendingStock onPress={onPressStock} key={ts.symbol} data={ts} />
           ))}
         </If>
 
         <If is={userStore.isSuccess && !!userStore.data.length}>
           {userStore.data?.map(ts => (
             <SwipeDeleteStock key={ts.symbol} symbolId={ts.symbolId}>
-              <Stock onPress={onPressStock} data={ts} withGraph />
+              <UserStock onPress={onPressStock} data={ts} />
             </SwipeDeleteStock>
           ))}
         </If>

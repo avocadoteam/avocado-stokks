@@ -1,8 +1,8 @@
-import React from 'react';
 import { Box, ScrollView, useTheme } from 'native-base';
-import { StockHeader } from '../ui/StockHeader';
-import { StockBanner } from '../ui/StockBanner';
+import React from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
+import { StockBanner } from 'ui/StockBanner';
+import { StockHeader } from 'ui/StockHeader';
 
 interface StockScreenProps {
   navigation: NavigationStackProp;
