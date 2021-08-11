@@ -12,13 +12,12 @@ interface StockProps {
 export const UserStock = React.memo<StockProps>(({ onPress, data }) => {
   const { colors } = useTheme();
   const up = data.regularMarketChange > 0;
-  const graphData = data.history.map(h => h.close);
 
   return (
     <TouchableHighlight onPress={onPress}>
       <HStack alignItems="center" px={6} py="12px" backgroundColor={colors.appBackground}>
         <Box mr={7}>
-          <AreaGraph data={graphData} up={up} />
+          <AreaGraph data={data.history.close} up={up} />
         </Box>
         <Box style={{ marginRight: 'auto', width: '55%' }}>
           <Heading size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>
