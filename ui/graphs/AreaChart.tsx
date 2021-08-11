@@ -23,8 +23,6 @@ export const AreaGraph = React.memo<Props>(({ data, up }) => {
         fillOpacity: 0.4,
         strokeLinecap: 'round',
       }}
-    >
-      <Grid />
-    </AreaChart>
+    />
   );
 });
