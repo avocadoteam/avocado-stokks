@@ -1,9 +1,11 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationScreen } from 'core/models';
 import { authUser } from 'core/modules/auth/auth-flow';
 import { authActions } from 'core/modules/auth/reducer';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { SearchScreen } from 'screens/SearchScreen';
 import { MainScreen } from '../screens/MainScreen';
 import { StockScreen } from '../screens/StockScreen';
 
@@ -18,9 +20,10 @@ export const RootNavigation = () => {
 
   return (
     <NavigationContainer>
-      <Navigator initialRouteName="MainScreen" headerMode="none">
-        <Screen name="MainScreen" component={MainScreen} />
-        <Screen name="StockScreen" component={StockScreen} />
+      <Navigator initialRouteName={NavigationScreen.Main} headerMode="none">
+        <Screen name={NavigationScreen.Main} component={MainScreen} />
+        <Screen name={NavigationScreen.Stock} component={StockScreen} />
+        <Screen name={NavigationScreen.Search} component={SearchScreen} />
       </Navigator>
     </NavigationContainer>
   );

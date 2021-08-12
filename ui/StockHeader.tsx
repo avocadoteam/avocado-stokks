@@ -13,7 +13,7 @@ export const StockHeader = React.memo<StockHeaderProps>(({ onPressBack }) => {
     <HStack mt={12} py={2} px={4}>
       <IconButton
         variant="unstyled"
-        icon={<Icon size="sm" as={<Ionicons name="arrow-back" />} color={colors.primary} />}
+        icon={<Icon size="sm" as={<Ionicons name="arrow-back" />} color={colors.primary[100]} />}
         onPress={onPressBack}
       />
     </HStack>

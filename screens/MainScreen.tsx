@@ -1,4 +1,5 @@
 import { isDev } from 'core/constants';
+import { NavigationScreen } from 'core/models';
 import { clearStorageInDev } from 'core/modules/auth/auth-flow';
 import { getUserId } from 'core/modules/auth/selectors';
 import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
@@ -33,7 +34,7 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
   );
 
   const onPressStock = () => {
-    navigation.navigate('StockScreen');
+    navigation.navigate(NavigationScreen.Stock);
   };
 
   return (

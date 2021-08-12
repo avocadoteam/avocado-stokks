@@ -30,6 +30,13 @@ export const lightTheme = extendTheme({
     textGray: '#757575',
     textDarkGray: '#535353',
     bgDelete: 'rgba(231, 86, 86, 0.1)',
+    placeholderColor: '#ACACAC',
+    searchBg: '#FAFAFA',
+    searchColor: '#303030',
+    searchIcon: '#B9B9B9',
+  },
+  borders: {
+    searchRadius: '16px',
   },
 });
 
@@ -63,6 +70,13 @@ export const darkTheme = extendTheme({
     textGray: '#AEAEAE',
     textDarkGray: 'rgba(255, 255, 255, 0.9);',
     bgDelete: 'rgba(231, 86, 86, 0.1);',
+    placeholderColor: '#A0A0A0',
+    searchBg: '#3E3E3E',
+    searchColor: 'rgba(255, 255, 255, 0.9);',
+    searchIcon: '#949494',
+  },
+  borders: {
+    searchRadius: '16px',
   },
 });
 
