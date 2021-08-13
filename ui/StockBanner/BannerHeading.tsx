@@ -1,19 +1,25 @@
-import React from 'react';
-import { HStack, Box, Heading, Text, Icon, useTheme, Button } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
+import { SymbolGeneralInfo } from '@models';
+import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
+import React, { memo } from 'react';
 
-export const BannerHeading = () => {
+type Props = {
+  data: SymbolGeneralInfo | undefined;
+};
+
+export const BannerHeading = memo<Props>(({ data }) => {
   const { colors } = useTheme();
+  const up = (data?.regularMarketChange ?? 0) > 0;
 
   return (
     <Box mb={8}>
       <HStack justifyContent="space-between" alignItems="center">
         <HStack alignItems="center">
           <Heading mr={2} color={colors.heading}>
-            1234,4
+            {data?.regularMarketPrice.toFixed(2)}
           </Heading>
-          <Text color={colors.primary} fontSize={'xl'}>
-            + 37,6
+          <Text color={up ? colors.upTextColor : colors.downTextColor} fontSize={'xl'}>
+            {up ? `+${data?.regularMarketChange.toFixed(2)}` : data?.regularMarketChange.toFixed(2)}
           </Text>
         </HStack>
         <HStack alignItems="center">
@@ -24,8 +30,8 @@ export const BannerHeading = () => {
         </HStack>
       </HStack>
       <Text fontSize={'sm'} color={colors.textGray}>
-        Nasdaq, Inc.
+        {data?.fullExchangeName}
       </Text>
     </Box>
   );
-};
+});

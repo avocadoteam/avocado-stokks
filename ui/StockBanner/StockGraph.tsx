@@ -1,32 +1,44 @@
-import React from 'react';
-import { Box, Image, Button, useTheme } from 'native-base';
-import stockGraph from '../../assets/images/stock-graph.png';
+import { HistoryPeriodTarget } from '@models';
+import { useGraphQuery } from 'core/modules/stock/query';
+import { getSelectedSymbol } from 'core/modules/stock/selectors';
+import { Box, Button, useTheme } from 'native-base';
+import React, { memo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { LineGraph } from 'ui/graphs/LineChart';
+import { periods, targets } from './constants';
 
-const periods = ['D', 'W', 'M', 'Y', '5Y', '10Y'] as Array<string>;
+type Props = {
+  up: boolean;
+};
 
-export const StockGraph = () => {
+export const StockGraph = memo<Props>(({ up }) => {
   const { colors } = useTheme();
-  const [selectedPeriod, setSelectedPeriod] = React.useState('D');
+  const [target, setHistoryTarget] = useState(HistoryPeriodTarget.Day);
+  const symbol = useSelector(getSelectedSymbol);
 
-  const handlePress = (period: string) => {
-    setSelectedPeriod(period);
-  };
+  const { data } = useGraphQuery(
+    {
+      symbol,
+      target,
+    },
+    { skip: !symbol },
+  );
 
   return (
     <Box>
       <Box alignItems="center" mb={8}>
-        <Image alt="stock graph" source={stockGraph} resizeMode="contain" />
+        <LineGraph up={up} data={data?.close ?? []} />
       </Box>
       <Button.Group justifyContent="space-between" colorScheme="gray" variant="ghost">
-        {periods.map((period, i) => (
+        {periods.map(period => (
           <Button
             _text={{
               color: colors.textGray,
             }}
             borderRadius={14}
-            key={period + i}
-            variant={selectedPeriod === period ? 'solid' : 'ghost'}
-            onPress={() => handlePress(period)}
+            key={period}
+            variant={target === targets[period] ? 'solid' : 'ghost'}
+            onPress={() => setHistoryTarget(targets[period])}
           >
             {period}
           </Button>
@@ -34,4 +46,4 @@ export const StockGraph = () => {
       </Button.Group>
     </Box>
   );
-};
+});

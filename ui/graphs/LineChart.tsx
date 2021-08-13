@@ -8,21 +8,19 @@ type Props = {
   data: number[];
 };
 
-export const AreaGraph = React.memo<Props>(({ data, up }) => {
+export const LineGraph = React.memo<Props>(({ data, up }) => {
   const { colors } = useTheme();
   const colorFill = up ? colors.upTextColor : colors.downTextColor;
   return (
     <AreaChart
-      style={{ height: 32, width: 82 }}
-      contentInset={{ top: 5, bottom: 5 }}
-      data={data.filter(d => typeof d === 'number')}
-      curve={shape.curveNatural}
+      curve={shape.curveLinear}
       svg={{
-        fill: colorFill,
         stroke: colorFill,
-        fillOpacity: 0.4,
-        strokeLinecap: 'round',
+        fillOpacity: 0,
       }}
+      style={{ width: 353, height: 260 }}
+      data={data.filter(d => typeof d === 'number')}
+      contentInset={{ top: 20, bottom: 20, left: -1, right: -1 }}
     />
   );
 });

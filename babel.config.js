@@ -12,7 +12,8 @@ module.exports = function (api) {
             'core': './core',
             'assets': './assets',
             'screens': './screens',
-            'navigation': './navigation'
+            'navigation': './navigation',
+            '@models': './stokks-models/index'
           },
         },
       ],

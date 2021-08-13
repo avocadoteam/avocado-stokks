@@ -3,12 +3,12 @@ import { YahooSearchResult } from '@models';
 import { getUserId } from 'core/modules/auth/selectors';
 import { useAddToUserStoreMutation } from 'core/modules/user/query';
 import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Text as NativeText, TouchableHighlight } from 'react-native';
 import { useSelector } from 'react-redux';
 
 interface StockProps {
-  onPress: () => void;
+  onPress: (symbol: string) => void;
   data: YahooSearchResult;
 }
 
@@ -17,12 +17,16 @@ export const TrendingStock = React.memo<StockProps>(({ onPress, data }) => {
   const [addToStore, { isLoading }] = useAddToUserStoreMutation();
   const userId = useSelector(getUserId);
 
-  const onAdd = React.useCallback(() => {
+  const onAdd = useCallback(() => {
     addToStore({ symbol: data.symbol, userId });
   }, [userId]);
 
+  const touchStock = useCallback(() => {
+    onPress(data.symbol);
+  }, [onPress, data.symbol]);
+
   return (
-    <TouchableHighlight onPress={onPress}>
+    <TouchableHighlight onPress={touchStock}>
       <HStack alignItems="center" px={6} py="12px" backgroundColor={colors.appBackground}>
         <Box style={{ marginRight: 'auto', width: '80%' }}>
           <Heading size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>

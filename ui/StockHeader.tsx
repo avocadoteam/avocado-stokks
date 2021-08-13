@@ -1,6 +1,6 @@
-import React from 'react';
-import { IconButton, Icon, HStack, useTheme } from 'native-base';
 import { Ionicons } from '@expo/vector-icons';
+import { HStack, Icon, IconButton, useTheme } from 'native-base';
+import React from 'react';
 
 interface StockHeaderProps {
   onPressBack: () => void;

@@ -1,11 +1,12 @@
 import { UserStoreItem } from '@models';
 import { Box, Heading, HStack, Text, useTheme } from 'native-base';
 import React from 'react';
+import { useCallback } from 'react';
 import { Text as NativeText, TouchableHighlight } from 'react-native';
 import { AreaGraph } from './graphs/AreaChart';
 
 interface StockProps {
-  onPress: () => void;
+  onPress: (symbol: string) => void;
   data: UserStoreItem;
 }
 
@@ -13,8 +14,12 @@ export const UserStock = React.memo<StockProps>(({ onPress, data }) => {
   const { colors } = useTheme();
   const up = data.regularMarketChange > 0;
 
+  const touchStock = useCallback(() => {
+    onPress(data.symbol);
+  }, [onPress, data.symbol]);
+
   return (
-    <TouchableHighlight onPress={onPress}>
+    <TouchableHighlight onPress={touchStock}>
       <HStack alignItems="center" px={6} py="12px" backgroundColor={colors.appBackground}>
         <Box mr={7}>
           <AreaGraph data={data.history.close} up={up} />

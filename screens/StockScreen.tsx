@@ -1,15 +1,23 @@
+import { useSymbolInfoQuery } from 'core/modules/stock/query';
+import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { Box, ScrollView, useTheme } from 'native-base';
-import React from 'react';
+import React, { memo } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
-import { StockBanner } from 'ui/StockBanner';
+import { useSelector } from 'react-redux';
+import { BannerHeading } from 'ui/StockBanner/BannerHeading';
+import { StockGraph } from 'ui/StockBanner/StockGraph';
 import { StockHeader } from 'ui/StockHeader';
 
-interface StockScreenProps {
+type Props = {
   navigation: NavigationStackProp;
-}
+};
 
-export const StockScreen = ({ navigation }: StockScreenProps) => {
+export const StockScreen = memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
+  const symbol = useSelector(getSelectedSymbol);
+  const { data } = useSymbolInfoQuery({ symbol }, { skip: !symbol });
+  const up = (data?.regularMarketChange ?? 0) > 0;
+
   const onPressBack = () => {
     navigation.goBack();
   };
@@ -18,8 +26,11 @@ export const StockScreen = ({ navigation }: StockScreenProps) => {
     <Box backgroundColor={colors.appBackground} flex={1}>
       <StockHeader onPressBack={onPressBack} />
       <ScrollView>
-        <StockBanner />
+        <Box px={6}>
+          <BannerHeading data={data} />
+          <StockGraph up={up} />
+        </Box>
       </ScrollView>
     </Box>
   );
-};
+});
