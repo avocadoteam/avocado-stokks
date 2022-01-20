@@ -27,9 +27,14 @@ export const authUser = async () => {
     };
     await secureStore.set(SecureStoreKey.Credentials, credentials);
   }
-  const token = await auth({ password: credentials.password, username: credentials.userId });
+  const { token } = await auth({ password: credentials.password, username: credentials.userId });
 
   return { token, userId: credentials.userId };
+};
+export const authUserDev = async () => {
+  const { token, userId } = await auth({ password: 'test123', username: 'testuserdev' });
+
+  return { token, userId };
 };
 
 export const clearStorageInDev = async () => {
@@ -52,11 +57,11 @@ const createUser = async (data: { password: string }) => {
  * @param data
  * @returns jwt-token
  */
-const auth = async (data: { username: number; password: string }) => {
+const auth = async (data: { username: number | string; password: string }) => {
   const result = await axios({
     url: `${baseUrl}auth/login`,
     method: 'post',
     data,
   });
-  return result.data.data as string;
+  return result.data.data as { token: string; userId: number };
 };
