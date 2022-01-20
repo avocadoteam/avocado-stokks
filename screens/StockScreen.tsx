@@ -1,12 +1,13 @@
-import { useSymbolInfoQuery } from 'core/modules/stock/query';
-import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { Box, ScrollView, useTheme } from 'native-base';
 import React, { memo } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useSelector } from 'react-redux';
+import { useSymbolInfoQuery } from 'core/modules/stock/query';
+import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { BannerHeading } from 'ui/StockBanner/BannerHeading';
 import { StockGraph } from 'ui/StockBanner/StockGraph';
 import { StockHeader } from 'ui/StockHeader';
+import { RegularMarketBanner } from 'ui/StockBanner/RegularMarketBanner';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -29,6 +30,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
         <Box px={6}>
           <BannerHeading data={data} />
           <StockGraph up={up} />
+          <RegularMarketBanner data={data} />
         </Box>
       </ScrollView>
     </Box>
