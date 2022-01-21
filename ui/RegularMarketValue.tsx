@@ -3,7 +3,7 @@ import { Box, Heading, useTheme } from 'native-base';
 import { Text as NativeText } from 'react-native';
 
 
-interface RegularMarketProps {
+type RegularMarketProps = {
     title: string
     value: number
 }
