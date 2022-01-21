@@ -24,4 +24,4 @@ export const RegularMarketValue = React.memo<RegularMarketProps>(({ title, value
             {value}
         </Heading>
     </Box>
-})
+}) 

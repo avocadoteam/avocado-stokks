@@ -8,6 +8,7 @@ import { BannerHeading } from 'ui/StockBanner/BannerHeading';
 import { StockGraph } from 'ui/StockBanner/StockGraph';
 import { StockHeader } from 'ui/StockHeader';
 import { RegularMarketBanner } from 'ui/StockBanner/RegularMarketBanner';
+import { PopularTweetsBanner } from 'ui/StockBanner/PopularTweetsBanner';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -31,6 +32,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
           <BannerHeading data={data} />
           <StockGraph up={up} />
           <RegularMarketBanner data={data} />
+          <PopularTweetsBanner data={data} />
         </Box>
       </ScrollView>
     </Box>
