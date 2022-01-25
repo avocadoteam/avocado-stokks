@@ -20,7 +20,7 @@ export const RegularMarketValue = React.memo<RegularMarketProps>(({ title, value
         >
             {title}
         </NativeText>
-        <Heading size={'sm'} textTransform={'uppercase'}>
+        <Heading size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>
             {value}
         </Heading>
     </Box>

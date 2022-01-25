@@ -2,7 +2,7 @@ import { Box, ScrollView, useTheme } from 'native-base';
 import React, { memo } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useSelector } from 'react-redux';
-import { useSymbolInfoQuery } from 'core/modules/stock/query';
+import { useSymbolInfoQuery, useTweetsQuery } from 'core/modules/stock/query';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { BannerHeading } from 'ui/StockBanner/BannerHeading';
 import { StockGraph } from 'ui/StockBanner/StockGraph';
@@ -17,8 +17,9 @@ type Props = {
 export const StockScreen = memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
   const symbol = useSelector(getSelectedSymbol);
-  const { data } = useSymbolInfoQuery({ symbol }, { skip: !symbol });
-  const up = (data?.regularMarketChange ?? 0) > 0;
+  const symbolInfo = useSymbolInfoQuery({ symbol }, { skip: !symbol }).data;
+  const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol }).data
+  const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
 
   const onPressBack = () => {
     navigation.goBack();
@@ -29,10 +30,10 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <StockHeader onPressBack={onPressBack} />
       <ScrollView>
         <Box px={6}>
-          <BannerHeading data={data} />
+          <BannerHeading data={symbolInfo} />
           <StockGraph up={up} />
-          <RegularMarketBanner data={data} />
-          <PopularTweetsBanner data={data} />
+          <RegularMarketBanner data={symbolInfo} />
+          <PopularTweetsBanner data={tweets} />
         </Box>
       </ScrollView>
     </Box>

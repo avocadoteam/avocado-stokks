@@ -1,31 +1,32 @@
 import React from "react";
-import { Box, Flex } from 'native-base';
-import { StyleSheet } from "react-native";
-
+import { Box, Flex, Image, useTheme } from 'native-base';
+import { StyleSheet, Text as NativeText } from "react-native";
+import { Tweet } from "@models";
 
 type PopularTweetProps = {
+    data: Tweet
 }
 
-export const PopularTweet = React.memo<PopularTweetProps>(({ }) => {
+export const PopularTweet = React.memo<PopularTweetProps>(({ data }) => {
+    const { colors } = useTheme()
 
-    return <Box style={styles.tweet}>
+    return <Box style={{ ...styles.tweet, borderColor: colors.gray[100] }}>
         <Flex direction="row" style={styles.header}>
-            <Box style={styles.headerAvatar}>
-                Img
+            <Box style={{ ...styles.headerAvatar }}>
+                <Image source={{ uri: data.avatar }} alt={data.userName.toUpperCase().slice(0, 2)} />
             </Box>
             <Box style={styles.headerName}>
-                Name
+                {data.userName}
             </Box>
         </Flex>
         <Box style={styles.description}>
-            Here long description
+            {data.text}
         </Box>
     </Box>
 })
 
 const styles = StyleSheet.create({
     tweet: {
-        borderColor: '#F6F6F6',
         borderRadius: 22,
         borderWidth: 1,
         padding: 20,
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     headerName: {
         height: 40,
         width: 89,
-        marginRight: 12
+        marginLeft: 12
     },
     description: {
         height: 160,
