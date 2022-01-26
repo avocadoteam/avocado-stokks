@@ -33,10 +33,10 @@ export const stockApi = createApi({
     tweets: builder.query<Tweet[], TweetsModel>({
       query: data => ({ url: `stocks/symbol/tweets?query=${data.query}`, method: 'get' }),
     }),
-    news: builder.query<NewsItem[], NewsItemsModel>({
+    newsItems: builder.query<NewsItem[], NewsItemsModel>({
       query: data => ({ url: `stocks/symbol/news?query=${data.query}`, method: 'get' }),
     })
   }),
 });
 
-export const { useGetTrendingSumbolsQuery, useLazySearchQuery, useSymbolInfoQuery, useGraphQuery, useTweetsQuery, useNewsQuery } = stockApi;
+export const { useGetTrendingSumbolsQuery, useLazySearchQuery, useSymbolInfoQuery, useGraphQuery, useTweetsQuery, useNewsItemsQuery } = stockApi;

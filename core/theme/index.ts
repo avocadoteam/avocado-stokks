@@ -34,6 +34,9 @@ export const lightTheme = extendTheme({
     searchBg: '#FAFAFA',
     searchColor: '#303030',
     searchIcon: '#B9B9B9',
+    borderColor: '#F6F6F6',
+    bgTweet: '#fff',
+    separator: '#EDEDED'
   },
   borders: {
     searchRadius: '16px',
@@ -74,6 +77,9 @@ export const darkTheme = extendTheme({
     searchBg: '#3E3E3E',
     searchColor: 'rgba(255, 255, 255, 0.9);',
     searchIcon: '#949494',
+    borderColor: '#2F2F2F',
+    bgTweet: '#2F2F2F',
+    separator: '#3A3A3A'
   },
   borders: {
     searchRadius: '16px',
