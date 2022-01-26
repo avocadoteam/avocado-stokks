@@ -4,7 +4,6 @@ import { Heading, useTheme, ScrollView, Box } from 'native-base';
 import { Tweet } from "@models";
 import { PopularTweet } from "ui/PopularTweet";
 
-
 type PopularTweetsBannerProps = {
     data?: Tweet[]
 }

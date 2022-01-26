@@ -2,7 +2,6 @@ import React from "react";
 import { Box, Heading, useTheme } from 'native-base';
 import { Text as NativeText } from 'react-native';
 
-
 type RegularMarketProps = {
     title: string
     value: number

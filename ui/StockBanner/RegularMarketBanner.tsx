@@ -4,7 +4,6 @@ import { StyleSheet } from "react-native";
 import { SymbolGeneralInfo } from "@models";
 import { RegularMarketValue } from "../RegularMarketValue";
 
-
 type RegularMarketBannerProps = {
     data?: SymbolGeneralInfo
 }

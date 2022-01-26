@@ -2,8 +2,7 @@ import React from "react";
 import { Box } from 'native-base';
 import { NewsItem } from "@models";
 import { NewsItemFeed } from "ui/NewsItemFeed";
-import { Separator } from "ui/Separator";
-
+import { Separator } from "ui/atoms/Separator";
 
 type LatestNewsBannerProps = {
     data: NewsItem[]

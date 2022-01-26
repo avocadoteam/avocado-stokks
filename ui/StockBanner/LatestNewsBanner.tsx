@@ -2,10 +2,7 @@ import React from "react";
 import { Heading, useTheme, Box } from 'native-base';
 import { NewsItem } from "@models";
 import { MainNewsItem } from "ui/MainNewsItem";
-import { NewsItemFeed } from "ui/NewsItemFeed";
-import { Separator } from "ui/Separator";
 import { FeedNewsItems } from "ui/FeedNewsItems";
-
 
 type LatestNewsBannerProps = {
     data?: NewsItem[]
