@@ -13105,6 +13105,11 @@ react-native-web@~0.13.12:
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
 
+react-native-wheel-scroll-picker@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/react-native-wheel-scroll-picker/-/react-native-wheel-scroll-picker-0.2.4.tgz#d923f17d08334fd16ea01dc4c21d7641888ea55b"
+  integrity sha512-fwHKko8e/FprM6diUa5jTZrajK1oN8YBSqOAMFKrkPtyQGGR/zzv4vJduEQxG396291YsanLM+UM9ejDjzXsow==
+
 "react-native@https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz":
   version "0.63.2"
   resolved "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz#a3d42e4135c891cf15a335cf69922e96507d6b8d"
@@ -15534,8 +15539,10 @@ watchpack@^1.6.1:
   resolved "https://registry.yarnpkg.com/watchpack/-/watchpack-1.7.5.tgz#1267e6c55e0b9b5be44c2023aed5437a2c26c453"
   integrity sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
   dependencies:
+    chokidar "^3.4.1"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+    watchpack-chokidar2 "^2.0.1"
   optionalDependencies:
     chokidar "^3.4.1"
     watchpack-chokidar2 "^2.0.1"

@@ -5,9 +5,10 @@ import React, { memo } from 'react';
 
 type Props = {
   data: SymbolGeneralInfo | undefined;
+  openNotifyModal: () => void;
 };
 
-export const BannerHeading = memo<Props>(({ data }) => {
+export const BannerHeading = memo<Props>(({ data, openNotifyModal }) => {
   const { colors } = useTheme();
   const up = (data?.regularMarketChange ?? 0) > 0;
 
@@ -24,6 +25,7 @@ export const BannerHeading = memo<Props>(({ data }) => {
         </HStack>
         <HStack alignItems="center">
           <Button
+            onTouchStart={openNotifyModal}
             variant="unstyled"
             endIcon={<Icon as={Ionicons} name="ios-add" size={7} color={colors.upTextColor} />}
           ></Button>

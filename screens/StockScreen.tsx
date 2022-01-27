@@ -1,5 +1,5 @@
 import { Box, ScrollView, useTheme } from 'native-base';
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useSelector } from 'react-redux';
 import { useNewsItemsQuery, useSymbolInfoQuery, useTweetsQuery } from 'core/modules/stock/query';
@@ -10,6 +10,7 @@ import { StockHeader } from 'ui/StockHeader';
 import { RegularMarketBanner } from 'ui/StockBanner/RegularMarketBanner';
 import { PopularTweetsBanner } from 'ui/StockBanner/PopularTweetsBanner';
 import { LatestNewsBanner } from 'ui/StockBanner/LatestNewsBanner';
+import { NotifyModal } from 'ui/StockBanner/NotifyModal';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -22,6 +23,14 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol }).data
   const newsItems = useNewsItemsQuery({ query: symbol }, { skip: !symbol }).data
   const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
+  const [notifyModalIsOpen, setNotifyModal] = useState(false)
+
+  const openNotifyModal = () => {
+    setNotifyModal(true)
+  }
+  const closeNotifyModal = () => {
+    setNotifyModal(false)
+  }
 
   const onPressBack = () => {
     navigation.goBack();
@@ -32,11 +41,12 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <StockHeader onPressBack={onPressBack} />
       <ScrollView>
         <Box px={6}>
-          <BannerHeading data={symbolInfo} />
+          <BannerHeading data={symbolInfo} openNotifyModal={openNotifyModal} />
           <StockGraph up={up} />
           <RegularMarketBanner data={symbolInfo} />
           <PopularTweetsBanner data={tweets} />
           <LatestNewsBanner data={newsItems} />
+          <NotifyModal isOpen={notifyModalIsOpen} closeNotifyModal={closeNotifyModal} />
         </Box>
       </ScrollView>
     </Box>

@@ -36,7 +36,8 @@ export const lightTheme = extendTheme({
     searchIcon: '#B9B9B9',
     borderColor: '#F6F6F6',
     bgTweet: '#fff',
-    separator: '#EDEDED'
+    separator: '#EDEDED',
+    bgScrollPicker: 'rgba(60, 60, 60, 0.02)'
   },
   borders: {
     searchRadius: '16px',
@@ -79,7 +80,8 @@ export const darkTheme = extendTheme({
     searchIcon: '#949494',
     borderColor: '#2F2F2F',
     bgTweet: '#2F2F2F',
-    separator: '#3A3A3A'
+    separator: '#3A3A3A',
+    bgScrollPicker: 'rgba(255, 255, 255, 0.05)'
   },
   borders: {
     searchRadius: '16px',
