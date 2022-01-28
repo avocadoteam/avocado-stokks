@@ -3671,6 +3671,14 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
   integrity sha512-1HcDas8SEj4z1Wc696tH56G8OlRaH/sqZOynNNB+HF0WOeXPaxTtbYzJY2oEfiUxjSKjhCKr+MvR7dCHcEelug==
 
+"@types/react-native-modal-dropdown@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@types/react-native-modal-dropdown/-/react-native-modal-dropdown-0.7.2.tgz#441db1ec31055f480cb81fe9437d1e42e984646d"
+  integrity sha512-r87shEJxAH28Tn+9KelvWyV1d7RIE1aDm6iw3SEFqDfckka6PE4k059twu2MX4Xpg2EZLgQsZPieyZ7lJKthHA==
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
 "@types/react-native-svg-charts@^5.0.9":
   version "5.0.9"
   resolved "https://registry.yarnpkg.com/@types/react-native-svg-charts/-/react-native-svg-charts-5.0.9.tgz#e867aac5f73b3dea8bdc3bfba32d52d098d5e4d5"

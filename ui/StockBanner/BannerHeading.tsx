@@ -25,7 +25,7 @@ export const BannerHeading = memo<Props>(({ data, openNotifyModal }) => {
         </HStack>
         <HStack alignItems="center">
           <Button
-            onTouchStart={openNotifyModal}
+            onPress={openNotifyModal}
             variant="unstyled"
             endIcon={<Icon as={Ionicons} name="ios-add" size={7} color={colors.upTextColor} />}
           ></Button>
@@ -34,6 +34,6 @@ export const BannerHeading = memo<Props>(({ data, openNotifyModal }) => {
       <Text fontSize={'sm'} color={colors.textGray}>
         {data?.fullExchangeName}
       </Text>
-    </Box>
+    </Box >
   );
 });

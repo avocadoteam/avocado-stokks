@@ -23,13 +23,13 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol }).data
   const newsItems = useNewsItemsQuery({ query: symbol }, { skip: !symbol }).data
   const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
-  const [notifyModalIsOpen, setNotifyModal] = useState(false)
+  const [visibleNotifyModal, setVisibleNotifyModal] = useState(false)
 
   const openNotifyModal = () => {
-    setNotifyModal(true)
+    setVisibleNotifyModal(true)
   }
   const closeNotifyModal = () => {
-    setNotifyModal(false)
+    setVisibleNotifyModal(false)
   }
 
   const onPressBack = () => {
@@ -46,7 +46,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
           <RegularMarketBanner data={symbolInfo} />
           <PopularTweetsBanner data={tweets} />
           <LatestNewsBanner data={newsItems} />
-          <NotifyModal isOpen={notifyModalIsOpen} closeNotifyModal={closeNotifyModal} />
+          <NotifyModal visible={visibleNotifyModal} closeNotifyModal={closeNotifyModal} />
         </Box>
       </ScrollView>
     </Box>

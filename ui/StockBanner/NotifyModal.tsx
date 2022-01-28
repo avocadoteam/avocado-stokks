@@ -1,27 +1,42 @@
 import { Ionicons } from '@expo/vector-icons';
 import { NotificationIntervalTarget, SymbolGeneralInfo } from '@models';
-import { Box, Button, Heading, HStack, Icon, Text as NativeText, useTheme } from 'native-base';
+import { Box, Button, Flex, Heading, HStack, Icon, Text as NativeText, useTheme } from 'native-base';
 import React, { memo, useState } from 'react';
 import { Modal, StyleSheet } from "react-native";
+import ModalDropdown from 'react-native-modal-dropdown';
 //@ts-ignore
 import ScrollPicker from 'react-native-wheel-scroll-picker';
+import { If } from 'ui/atoms/If';
 import { Separator } from 'ui/atoms/Separator';
 import { HorizontalSelect } from 'ui/HorizontalSelect/HorizontalSelect';
 
 type NotifyModalProps = {
-    isOpen: boolean;
+    visible: boolean;
     closeNotifyModal: () => void;
 };
 
-export const NotifyModal = memo<NotifyModalProps>(({ isOpen, closeNotifyModal }) => {
+export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }) => {
     const { colors } = useTheme();
-    const [pickedItem, setPickedItem] = useState('Every hour')
+    const [visibleConditionDropdown, setVisibleConditionDropdown] = useState(false)
+    const openDropdownCondition = () => {
+        setVisibleConditionDropdown(true)
+    }
+    const closeDropdownCondition = () => {
+        setVisibleConditionDropdown(false)
+    }
+    const [condition, setCondition] = useState('Equals to')
+    const conditions = ['Equals to', 'Greater than', 'Less than']
+    const onPressConditionItem = (value: string) => {
+        setCondition(value)
+    }
+
+    const [intervalTime, setIntervalTime] = useState('Every hour')
     const timeIntervalItems = [
         'Every hour', 'Every 8 hours',
         'Daily', 'Weekly', 'Monthly'
     ]
-    const onPressTimeIntervalItem = (item: string) => {
-        setPickedItem(item)
+    const onPressTimeIntervalItem = (value: string) => {
+        setIntervalTime(value)
     }
 
     return (
@@ -30,7 +45,7 @@ export const NotifyModal = memo<NotifyModalProps>(({ isOpen, closeNotifyModal })
                 transparent={true}
                 animationType="slide"
                 onRequestClose={closeNotifyModal}
-                visible={isOpen}>
+                visible={visible}>
                 <Box style={{ ...styles.mainBox }}>
                     <Box style={{ ...styles.contentBox, backgroundColor: colors.bgTweet }}>
                         <Box style={styles.swipeController}>
@@ -46,7 +61,20 @@ export const NotifyModal = memo<NotifyModalProps>(({ isOpen, closeNotifyModal })
                             <Box style={styles.conditionPricePicker}>
                                 <NativeText style={{ color: colors.textGray }}>
                                     The price reaches:
+                                    <Button
+                                        onPress={openDropdownCondition}
+                                        variant="unstyled"
+                                        endIcon={<Icon as={Ionicons} name="ios-chevron-down" size={3} color={colors.textGray} />}
+                                    ></Button>
                                 </NativeText>
+                                <If is={visibleConditionDropdown}>
+                                    <Box style={styles.dropdownCondition}>
+                                        <ModalDropdown
+                                            options={conditions}
+                                            onSelect={onPressConditionItem}
+                                        />
+                                    </Box>
+                                </If>
                             </Box>
                             <Box style={{ ...styles.pricePickerForm, backgroundColor: colors.bgScrollPicker }}>
                                 <ScrollPicker
@@ -68,10 +96,13 @@ export const NotifyModal = memo<NotifyModalProps>(({ isOpen, closeNotifyModal })
                             <Box style={styles.timePickerForm}>
                                 <HorizontalSelect
                                     onPressOption={onPressTimeIntervalItem}
-                                    value={pickedItem}
+                                    value={intervalTime}
                                     values={timeIntervalItems} />
                             </Box>
                         </Box>
+                        <Flex direction='row' style={styles.panelButtons}>
+
+                        </Flex>
                     </Box>
                 </Box>
             </Modal>
@@ -112,6 +143,9 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center'
     },
+    dropdownCondition: {
+        zIndex: 1000
+    },
     pricePickerForm: {
         justifyContent: 'flex-end',
         marginLeft: 'auto',
@@ -129,5 +163,16 @@ const styles = StyleSheet.create({
     timePickerForm: {
         marginHorizontal: 30,
         width: 'auto'
+    },
+    panelButtons: {
+        marginTop: 40
+    },
+    buttonAccept: {
+        height: 50,
+        width: 50
+    },
+    buttonDelete: {
+        height: 50,
+        width: 50
     }
 })
