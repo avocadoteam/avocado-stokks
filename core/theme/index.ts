@@ -37,7 +37,13 @@ export const lightTheme = extendTheme({
     borderColor: '#F6F6F6',
     bgTweet: '#fff',
     separator: '#EDEDED',
-    bgScrollPicker: 'rgba(60, 60, 60, 0.02)'
+    bgScrollPicker: 'rgba(60, 60, 60, 0.02)',
+    horizontalSelect: {
+      bgActiveOption: 'rgba(60, 60, 60, 0.05)',
+      textActiveOption: '#3C3C3C',
+      bgOption: '#fff',
+      textOption: 'rgba(137, 137, 137, 0.9)'
+    },
   },
   borders: {
     searchRadius: '16px',
@@ -81,7 +87,13 @@ export const darkTheme = extendTheme({
     borderColor: '#2F2F2F',
     bgTweet: '#2F2F2F',
     separator: '#3A3A3A',
-    bgScrollPicker: 'rgba(255, 255, 255, 0.05)'
+    bgScrollPicker: 'rgba(255, 255, 255, 0.05)',
+    horizontalSelect: {
+      bgActiveOption: '#fff',
+      textActiveOption: '#2D2D2D',
+      bgOption: 'rgba(255, 255, 255, 0.05)',
+      textOption: 'rgba(255, 255, 255, 0.9)'
+    },
   },
   borders: {
     searchRadius: '16px',

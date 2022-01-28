@@ -1,13 +1,12 @@
 import { Ionicons } from '@expo/vector-icons';
-import { SymbolGeneralInfo } from '@models';
+import { NotificationIntervalTarget, SymbolGeneralInfo } from '@models';
 import { Box, Button, Heading, HStack, Icon, Text as NativeText, useTheme } from 'native-base';
-import React, { memo } from 'react';
-import { Modal, ScrollView, StyleSheet } from "react-native";
+import React, { memo, useState } from 'react';
+import { Modal, StyleSheet } from "react-native";
 //@ts-ignore
 import ScrollPicker from 'react-native-wheel-scroll-picker';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { background } from 'styled-system';
 import { Separator } from 'ui/atoms/Separator';
+import { HorizontalSelect } from 'ui/HorizontalSelect/HorizontalSelect';
 
 type NotifyModalProps = {
     isOpen: boolean;
@@ -16,13 +15,20 @@ type NotifyModalProps = {
 
 export const NotifyModal = memo<NotifyModalProps>(({ isOpen, closeNotifyModal }) => {
     const { colors } = useTheme();
+    const [pickedItem, setPickedItem] = useState('Every hour')
+    const timeIntervalItems = [
+        'Every hour', 'Every 8 hours',
+        'Daily', 'Weekly', 'Monthly'
+    ]
+    const onPressTimeIntervalItem = (item: string) => {
+        setPickedItem(item)
+    }
 
     return (
         <Box>
             <Modal
                 transparent={true}
                 animationType="slide"
-                presentationStyle="formSheet"
                 onRequestClose={closeNotifyModal}
                 visible={isOpen}>
                 <Box style={{ ...styles.mainBox }}>
@@ -42,7 +48,7 @@ export const NotifyModal = memo<NotifyModalProps>(({ isOpen, closeNotifyModal })
                                     The price reaches:
                                 </NativeText>
                             </Box>
-                            <Box style={{ ...styles.inputPricePicker, backgroundColor: colors.bgScrollPicker }}>
+                            <Box style={{ ...styles.pricePickerForm, backgroundColor: colors.bgScrollPicker }}>
                                 <ScrollPicker
                                     dataSource={[1, 2, 3, 4]}
                                     activeItemColor={colors.headingSmall}
@@ -53,13 +59,19 @@ export const NotifyModal = memo<NotifyModalProps>(({ isOpen, closeNotifyModal })
                                     wrapperWidth={87} />
                             </Box>
                         </Box>
-                        <Box style={styles.titleTimePicker}>
-                            Also:
+                        <Box style={styles.timePicker}>
+                            <Box style={styles.titleTimePicker}>
+                                <NativeText style={{ color: colors.textGray }}>
+                                    Also:
+                                </NativeText>
+                            </Box>
+                            <Box style={styles.timePickerForm}>
+                                <HorizontalSelect
+                                    onPressOption={onPressTimeIntervalItem}
+                                    value={pickedItem}
+                                    values={timeIntervalItems} />
+                            </Box>
                         </Box>
-                        <ScrollView style={styles.timeElementsPicker} horizontal={true}>
-                            {[1, 2, 3, 4].map(item => <Box key={`time${item}`} style={{ ...styles.timeItem, backgroundColor: colors.bgScrollPicker }}>
-                                <NativeText>{item}</NativeText></Box>)}
-                        </ScrollView>
                     </Box>
                 </Box>
             </Modal>
@@ -78,8 +90,8 @@ const styles = StyleSheet.create({
         height: 404,
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
-        paddingLeft: 24,
-        flexDirection: 'column'
+        paddingHorizontal: 24,
+        flexDirection: 'column',
     },
     swipeController: {
         flexDirection: 'row',
@@ -100,30 +112,22 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center'
     },
-    inputPricePicker: {
+    pricePickerForm: {
         justifyContent: 'flex-end',
-        marginRight: 24,
         marginLeft: 'auto',
-        borderRadius: 16,
-        borderWidth: 1
+        borderRadius: 16
     },
     timePicker: {
         marginTop: 31,
         flexDirection: 'row',
-        height: 46
+        height: 46,
     },
     titleTimePicker: {
         flexDirection: 'column',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
-    timeElementsPicker: {
-        marginLeft: 12
-    },
-    timeItem: {
-        borderRadius: 24,
-        height: 46,
-        width: 132,
-        flexDirection: 'row',
-        justifyContent: 'center'
+    timePickerForm: {
+        marginHorizontal: 30,
+        width: 'auto'
     }
 })
