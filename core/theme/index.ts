@@ -44,6 +44,7 @@ export const lightTheme = extendTheme({
       bgOption: '#fff',
       textOption: 'rgba(137, 137, 137, 0.9)'
     },
+    bgDropdown: '#fff'
   },
   borders: {
     searchRadius: '16px',
@@ -94,6 +95,7 @@ export const darkTheme = extendTheme({
       bgOption: 'rgba(255, 255, 255, 0.05)',
       textOption: 'rgba(255, 255, 255, 0.9)'
     },
+    bgDropdown: '#383838'
   },
   borders: {
     searchRadius: '16px',

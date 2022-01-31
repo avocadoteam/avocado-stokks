@@ -10,7 +10,7 @@ import { StockHeader } from 'ui/StockHeader';
 import { RegularMarketBanner } from 'ui/StockBanner/RegularMarketBanner';
 import { PopularTweetsBanner } from 'ui/StockBanner/PopularTweetsBanner';
 import { LatestNewsBanner } from 'ui/StockBanner/LatestNewsBanner';
-import { NotifyModal } from 'ui/StockBanner/NotifyModal';
+import { NotifyModal } from 'ui/NotifyModal/NotifyModal';
 
 type Props = {
   navigation: NavigationStackProp;
