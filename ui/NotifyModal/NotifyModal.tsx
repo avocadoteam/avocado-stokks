@@ -32,6 +32,11 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
             icon: <LessThanIcon />
         }
     ]
+    const listPrice = [1, 2, 3, 4, 5]
+    const [price, setPrice] = useState(3)
+    const pricePickerHandler = (value: number) => {
+        setPrice(value)
+    }
 
     const [intervalTime, setIntervalTime] = useState('Every hour')
     const timeIntervalItems = [
@@ -53,6 +58,8 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
                     <Box style={{ ...styles.contentBox, backgroundColor: colors.bgTweet }}>
                         <Header />
                         <PricePicker
+                            price={price} listPrice={listPrice}
+                            pricePickerHandler={pricePickerHandler}
                             conditions={conditions} condition={condition}
                             conditionItemHandler={conditionItemHandler} />
                         <TimePicker
