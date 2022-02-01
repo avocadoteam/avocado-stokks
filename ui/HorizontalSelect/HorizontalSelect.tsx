@@ -7,11 +7,11 @@ import { Option } from './Option'
 type ReminderPickerProps = {
     values: string[]
     value: string
-    onPressOption: (value: string) => void
+    changeHandler: (value: string) => void
 }
 
-export const HorizontalSelect = React.memo<ReminderPickerProps>(({ values, value, onPressOption }) => {
-    const options = mapValuesToOptionsIncludeValue(values, value, onPressOption)
+export const HorizontalSelect = React.memo<ReminderPickerProps>(({ values, value, changeHandler }) => {
+    const options = mapValuesToOptionsIncludeValueAndOptionHandler(values, value, changeHandler)
 
     return <ScrollView
         horizontal={true}>
@@ -19,14 +19,14 @@ export const HorizontalSelect = React.memo<ReminderPickerProps>(({ values, value
     </ScrollView>
 })
 
-const mapValuesToOptionsIncludeValue = (
-    values: string[], value: string, onPressOption: (value: string) => void) => {
+const mapValuesToOptionsIncludeValueAndOptionHandler = (
+    values: string[], value: string, optionHandler: (value: string) => void) => {
     return values.map(v => {
         let option = <></>
         if (v === value) {
             option = <ActiveOption title={v} />
         } else {
-            option = <Option title={v} onPress={() => onPressOption(v)} />
+            option = <Option title={v} onPress={() => optionHandler(v)} />
         }
         return <Box key={`timeInterval-${v}`} ml={2}>{option}</Box>
     })

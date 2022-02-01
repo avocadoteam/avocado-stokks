@@ -8,6 +8,7 @@ type DropdownItemProps = {
     onPress: () => void
     isActive: boolean
     icon: ReactElement<any, any>
+    children: ReactElement<any, any>
 }
 
 export const DropdownItem = React.memo<DropdownItemProps>(({ onPress, isActive, children, icon }) => {

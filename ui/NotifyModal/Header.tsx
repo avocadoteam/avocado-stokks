@@ -1,6 +1,6 @@
-import { Box, Heading, useTheme } from 'native-base';
 import React, { memo } from 'react';
 import { StyleSheet } from "react-native";
+import { Box, Heading, useTheme } from 'native-base';
 import { Separator } from 'ui/atoms/Separator';
 
 type HeaderProps = {
@@ -28,11 +28,11 @@ const styles = StyleSheet.create({
     swipeController: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 24
+        marginTop: 24,
     },
     header: {
-        marginTop: 36,
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        marginTop: 36,
     }
 })

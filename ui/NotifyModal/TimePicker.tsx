@@ -1,15 +1,15 @@
-import { Box, Text as NativeText, useTheme } from 'native-base';
 import React, { memo } from 'react';
 import { StyleSheet } from "react-native";
+import { Box, Text as NativeText, useTheme } from 'native-base';
 import { HorizontalSelect } from 'ui/HorizontalSelect/HorizontalSelect';
 
 type TimePickerProps = {
-    onPressOption: (value: string) => void
     value: string
     values: string[]
+    changeHandler: (value: string) => void
 };
 
-export const TimePicker = memo<TimePickerProps>(({ values, value, onPressOption }) => {
+export const TimePicker = memo<TimePickerProps>(({ values, value, changeHandler }) => {
     const { colors } = useTheme();
 
     return (
@@ -21,7 +21,7 @@ export const TimePicker = memo<TimePickerProps>(({ values, value, onPressOption 
             </Box>
             <Box style={styles.timePickerForm}>
                 <HorizontalSelect
-                    onPressOption={onPressOption}
+                    changeHandler={changeHandler}
                     value={value}
                     values={values} />
             </Box>

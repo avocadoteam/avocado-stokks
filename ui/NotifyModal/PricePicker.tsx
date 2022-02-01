@@ -1,9 +1,9 @@
-import { Box, Flex, Text as NativeText, Menu, Pressable, useTheme } from 'native-base';
 import React, { memo, ReactElement } from 'react';
 import { StyleSheet } from "react-native";
-import { ArrowDropDownIcon } from 'ui/icons/ArrowDropDownIcon';
+import { Box, Flex, Text as NativeText, Menu, Pressable, useTheme } from 'native-base';
 //@ts-ignore
 import ScrollPicker from 'react-native-wheel-scroll-picker';
+import { ArrowDropDownIcon } from 'ui/icons/ArrowDropDownIcon';
 import { DropdownItem } from 'ui/DropdownItem';
 
 type PricePickerProps = {
@@ -14,11 +14,12 @@ type PricePickerProps = {
 
 export const PricePicker = memo<PricePickerProps>(({ conditions, conditionItemHandler, condition }) => {
     const { colors } = useTheme();
+
     const conditionsJSX = conditions.map(c => <DropdownItem
         icon={c.icon}
         onPress={() => conditionItemHandler(c.title)}
         isActive={condition === c.title}
-    >{c.title}</DropdownItem>)
+    ><NativeText style={{ color: colors.text }}>{c.title}</NativeText></DropdownItem>)
 
     return (
         <Box style={styles.pricePicker}>
@@ -36,7 +37,7 @@ export const PricePicker = memo<PricePickerProps>(({ conditions, conditionItemHa
                             </Flex>
                         </Pressable>
                     }}>
-                    {conditions}
+                    {conditionsJSX}
                 </Menu>
             </Box>
             <Box style={{ ...styles.pricePickerForm, backgroundColor: colors.bgScrollPicker }}>
@@ -55,8 +56,8 @@ export const PricePicker = memo<PricePickerProps>(({ conditions, conditionItemHa
 
 const styles = StyleSheet.create({
     pricePicker: {
-        marginTop: 19,
         flexDirection: 'row',
+        marginTop: 19,
         height: 70
     },
     conditionPricePicker: {

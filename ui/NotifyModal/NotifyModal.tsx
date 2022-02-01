@@ -1,6 +1,6 @@
-import { Box, useTheme } from 'native-base';
 import React, { memo, useState } from 'react';
 import { Modal, StyleSheet } from "react-native";
+import { Box, useTheme } from 'native-base';
 import { EqualToIcon } from 'ui/icons/EqualToIcon';
 import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
 import { LessThanIcon } from 'ui/icons/LessThanIcon';
@@ -30,14 +30,15 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
         }, {
             title: 'Less than',
             icon: <LessThanIcon />
-        }]
+        }
+    ]
 
     const [intervalTime, setIntervalTime] = useState('Every hour')
     const timeIntervalItems = [
         'Every hour', 'Every 8 hours',
         'Daily', 'Weekly', 'Monthly'
     ]
-    const onPressTimeIntervalItem = (value: string) => {
+    const timeIntervalItemHandler = (value: string) => {
         setIntervalTime(value)
     }
 
@@ -56,7 +57,7 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
                             conditionItemHandler={conditionItemHandler} />
                         <TimePicker
                             values={timeIntervalItems} value={intervalTime}
-                            onPressOption={onPressTimeIntervalItem} />
+                            changeHandler={timeIntervalItemHandler} />
                         <PanelButtons />
                     </Box>
                 </Box>
@@ -73,10 +74,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(0,0,0,0.5)'
     },
     contentBox: {
+        flexDirection: 'column',
         height: 404,
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
         paddingHorizontal: 24,
-        flexDirection: 'column',
     },
 })
