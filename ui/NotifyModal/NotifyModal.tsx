@@ -32,10 +32,18 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
             icon: <LessThanIcon />
         }
     ]
-    const listPrice = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const [listPrice, setListPrice] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9])
     const [price, setPrice] = useState(3)
-    const pricePickerHandler = (value: number) => {
+    const tryPricePickerHandler = (value: number) => {
         setPrice(value)
+        if (value >= listPrice[8] || value <= listPrice[0]) {
+            setListPrice([value - 4, value - 3, value - 2, value - 1, value, value + 1, value + 2, value + 3, value + 4])
+        }
+    }
+    const pricePickerHandler = (value: number) => {
+        if (+value) {
+            tryPricePickerHandler(value)
+        }
     }
 
     const [intervalTime, setIntervalTime] = useState('Every hour')

@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { Box, Flex, Text as NativeText, Menu, Pressable, useTheme } from 'native-base';
 import { ArrowDropDownIcon } from 'ui/icons/ArrowDropDownIcon';
 import { DropdownItem } from 'ui/DropdownItem';
-import { ScrollPicker } from 'ui/MyScrollPicker/TrueMyScrollPicker';
+import { ScrollPicker } from 'ui/ScrollPicker/ScrollPicker';
 
 type PricePickerProps = {
     listPrice: number[]
@@ -45,7 +45,7 @@ export const PricePicker = memo<PricePickerProps>(({ conditions, conditionItemHa
             <Box style={{ ...styles.pricePickerForm, backgroundColor: colors.bgScrollPicker }}>
                 <ScrollPicker
                     height={70} width={87}
-                    changeHandler={pricePickerHandler}
+                    changeHandler={(value: string) => +value && pricePickerHandler(+value)}
                     selectedItem={{ title: String(price), value: price }}
                     items={listPrice.map(p => { return { title: String(p), value: p } })} />
             </Box>
