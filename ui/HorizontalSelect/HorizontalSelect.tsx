@@ -14,6 +14,7 @@ export const HorizontalSelect = React.memo<ReminderPickerProps>(({ values, value
     const options = mapValuesToOptionsIncludeValueAndOptionHandler(values, value, changeHandler)
 
     return <ScrollView
+        showsHorizontalScrollIndicator={false}
         horizontal={true}>
         {options}
     </ScrollView>

@@ -44,6 +44,7 @@ export const PricePicker = memo<PricePickerProps>(({ conditions, conditionItemHa
             </Box>
             <Box style={{ ...styles.pricePickerForm, backgroundColor: colors.bgScrollPicker }}>
                 <ScrollPicker
+                    height={70} width={87}
                     changeHandler={pricePickerHandler}
                     selectedItem={{ title: String(price), value: price }}
                     items={listPrice.map(p => { return { title: String(p), value: p } })} />
