@@ -3,6 +3,8 @@ import { StyleSheet } from "react-native";
 import { Heading, useTheme, ScrollView, Box } from 'native-base';
 import { Tweet } from "@models";
 import { PopularTweet } from "ui/PopularTweet";
+import { If } from "ui/atoms/If";
+import { textAlign } from "styled-system";
 
 type PopularTweetsBannerProps = {
     data?: Tweet[]
@@ -16,8 +18,16 @@ export const PopularTweetsBanner = React.memo<PopularTweetsBannerProps>(({ data 
         <Heading size={'sm'} my={5} mr={2} color={colors.heading}>
             Popular Tweets
         </Heading>
-        <ScrollView horizontal={true} style={styles.mainBox}>
-            {tweets}
+        <ScrollView
+            showsHorizontalScrollIndicator={false}
+            horizontal={true} style={styles.mainBox}>
+            <If is={tweets.length > 0}
+                else={<Heading
+                    size={"sm"} color={colors.textGray}>
+                    Tweets for this stokk not found
+                </Heading>}>
+                {tweets}
+            </If>
         </ScrollView>
     </Box>
 })

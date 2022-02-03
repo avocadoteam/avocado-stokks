@@ -16,6 +16,11 @@ type NotifyModalProps = {
 
 export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }) => {
     const { colors } = useTheme();
+    const [height, setHeight] = useState(404)
+    const verticalSwipeHandler = (dif: number) => {
+        setHeight(prev => (prev + dif))
+    }
+
     const [condition, setCondition] = useState('Equals to')
     const conditions = [
         {
@@ -57,15 +62,15 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
     }
 
     return (
-        <Box>
+        <Box >
             <Modal
                 transparent={true}
                 animationType="slide"
                 onRequestClose={closeNotifyModal}
                 visible={visible}>
                 <Box style={{ ...styles.mainBox }}>
-                    <Box style={{ ...styles.contentBox, backgroundColor: colors.bgTweet }}>
-                        <Header />
+                    <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>
+                        <Header verticalSwipeHandler={verticalSwipeHandler} />
                         <PricePicker
                             price={price} listPrice={listPrice}
                             pricePickerHandler={pricePickerHandler}
@@ -91,7 +96,6 @@ const styles = StyleSheet.create({
     },
     contentBox: {
         flexDirection: 'column',
-        height: 404,
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
         paddingHorizontal: 24,

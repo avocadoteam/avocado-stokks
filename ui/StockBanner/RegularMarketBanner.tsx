@@ -3,6 +3,7 @@ import { Box, Flex } from 'native-base';
 import { StyleSheet } from "react-native";
 import { SymbolGeneralInfo } from "@models";
 import { RegularMarketValue } from "../RegularMarketValue";
+import { convertNumberToShortForm } from "core/utils";
 
 type RegularMarketBannerProps = {
     data?: SymbolGeneralInfo
@@ -46,8 +47,8 @@ const createLeftSide = (data?: SymbolGeneralInfo) => {
 
 const createRightSide = (data?: SymbolGeneralInfo) => {
     return [
-        { title: 'Market Cup', value: data?.marketCap ?? 0 },
-        { title: 'Volume', value: data?.regularMarketVolume ?? 0 },
+        { title: 'Market Cup', value: data?.marketCap ? convertNumberToShortForm(data.marketCap) : 0 },
+        { title: 'Volume', value: data?.regularMarketVolume ? convertNumberToShortForm(data.regularMarketVolume) : 0 },
         { title: 'Low', value: data?.regularMarketDayRange.low ?? 0 }
     ]
 }

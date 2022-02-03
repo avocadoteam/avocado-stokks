@@ -1,19 +1,32 @@
-import React, { memo } from 'react';
+import React, { memo, useState } from 'react';
 import { StyleSheet } from "react-native";
-import { Box, Heading, useTheme } from 'native-base';
+import { Box, Heading, Pressable, useTheme } from 'native-base';
 import { Separator } from 'ui/atoms/Separator';
 
 type HeaderProps = {
+    verticalSwipeHandler: (dif: number) => void
 };
 
-export const Header = memo<HeaderProps>(({ }) => {
+export const Header = memo<HeaderProps>(({ verticalSwipeHandler }) => {
     const { colors } = useTheme();
 
+    const [lastValue, setLastValue] = useState(404)
     return (
         <Box>
-            <Box style={styles.swipeController}>
-                <Separator width={52} height={3} />
-            </Box>
+            <Pressable
+                onTouchStart={(e) => setLastValue(e.nativeEvent.pageY)}
+                onTouchMove={(e) => {
+                    const dif = lastValue - e.nativeEvent.pageY
+                    if (e.nativeEvent.pageY) {
+                        verticalSwipeHandler(dif)
+                        setLastValue(prev => prev - dif)
+                    }
+                }}>
+                <Box
+                    style={styles.swipeController}>
+                    <Separator width={52} height={3} />
+                </Box>
+            </Pressable>
             <Box style={styles.header}>
                 <Heading
                     color={colors.headingSmall} size={'sm'}>
@@ -28,11 +41,11 @@ const styles = StyleSheet.create({
     swipeController: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 24,
+        paddingTop: 24,
+        paddingBottom: 36
     },
     header: {
         flexDirection: 'row',
         justifyContent: 'center',
-        marginTop: 36,
     }
 })

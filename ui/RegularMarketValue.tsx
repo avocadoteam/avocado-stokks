@@ -4,7 +4,7 @@ import { Text as NativeText } from 'react-native';
 
 type RegularMarketProps = {
     title: string
-    value: number
+    value: number | string
 }
 
 export const RegularMarketValue = React.memo<RegularMarketProps>(({ title, value }) => {

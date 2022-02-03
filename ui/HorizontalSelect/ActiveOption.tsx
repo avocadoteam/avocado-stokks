@@ -10,7 +10,7 @@ export const ActiveOption = React.memo<PickedItemProps>(({ title }) => {
     const { colors } = useTheme()
     const { horizontalSelect } = colors
 
-    return <Button key={`pickedItem-${title}`}
+    return <Button key={`selectedItem-${title}`}
         style={{ ...styles.mainBox, backgroundColor: horizontalSelect.bgActiveOption }}>
         <Heading color={horizontalSelect.textActiveOption} size={'sm'}>
             {title}
