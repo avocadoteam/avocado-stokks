@@ -1,13 +1,13 @@
 import React, { memo, useState } from 'react';
 import { Modal, StyleSheet } from "react-native";
 import { Box, useTheme } from 'native-base';
-import { EqualToIcon } from 'ui/icons/EqualToIcon';
-import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
-import { LessThanIcon } from 'ui/icons/LessThanIcon';
 import { Header } from './Header';
 import { PanelButtons } from './PanelButtons';
 import { PricePicker } from './PricePicker';
 import { TimePicker } from './TimePicker';
+import { EqualToIcon } from 'ui/icons/EqualToIcon';
+import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
+import { LessThanIcon } from 'ui/icons/LessThanIcon';
 
 type NotifyModalProps = {
     visible: boolean;
@@ -17,9 +17,6 @@ type NotifyModalProps = {
 export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }) => {
     const { colors } = useTheme();
     const [condition, setCondition] = useState('Equals to')
-    const conditionItemHandler = (value: string) => {
-        setCondition(value)
-    }
     const conditions = [
         {
             title: 'Equals to',
@@ -32,6 +29,10 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
             icon: <LessThanIcon />
         }
     ]
+    const conditionItemHandler = (value: string) => {
+        setCondition(value)
+    }
+
     const [listPrice, setListPrice] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9])
     const [price, setPrice] = useState(3)
     const tryPricePickerHandler = (value: number) => {
@@ -40,9 +41,9 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
             setListPrice([value - 4, value - 3, value - 2, value - 1, value, value + 1, value + 2, value + 3, value + 4])
         }
     }
-    const pricePickerHandler = (value: number) => {
+    const pricePickerHandler = (value: string) => {
         if (+value) {
-            tryPricePickerHandler(value)
+            tryPricePickerHandler(+value)
         }
     }
 

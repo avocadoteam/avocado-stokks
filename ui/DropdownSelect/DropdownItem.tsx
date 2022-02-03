@@ -1,34 +1,38 @@
 import React, { ReactElement } from "react";
-import { Box, Flex, Image, Menu, Pressable, useTheme } from 'native-base';
+import { Box, Menu, Pressable, useTheme } from 'native-base';
 import { StyleSheet, Text as NativeText } from "react-native";
-import { If } from "./atoms/If";
-import { CheckMarkIcon } from "./icons/CheckMarkIcon";
+import { If } from "../atoms/If";
+import { CheckMarkIcon } from "../icons/CheckMarkIcon";
 
 type DropdownItemProps = {
     onPress: () => void
     isActive: boolean
     icon: ReactElement<any, any>
-    children: ReactElement<any, any>
+    children: ReactElement<any, any> | string
 }
 
 export const DropdownItem = React.memo<DropdownItemProps>(({ onPress, isActive, children, icon }) => {
     const { colors } = useTheme()
 
-    return <Menu.Item><Pressable
-        style={styles.mainBox}
-        onPress={onPress} >
-        <Box style={styles.leftBadge}>
-            {icon}
-        </Box>
-        <Box style={styles.titleDropdown}>
-            <NativeText style={{ color: colors.text }}>
-                {children}
-            </NativeText>
-        </Box>
-        <Box>
-            <If is={isActive}><CheckMarkIcon /></If>
-        </Box>
-    </Pressable></Menu.Item>
+    return <Menu.Item>
+        <Pressable
+            style={styles.mainBox}
+            onPress={onPress} >
+            <Box style={styles.leftBadge}>
+                {icon}
+            </Box>
+            <Box style={styles.titleDropdown}>
+                <NativeText style={{ color: colors.text }}>
+                    {children}
+                </NativeText>
+            </Box>
+            <Box>
+                <If is={isActive}>
+                    <CheckMarkIcon />
+                </If>
+            </Box>
+        </Pressable>
+    </Menu.Item>
 })
 
 const styles = StyleSheet.create({

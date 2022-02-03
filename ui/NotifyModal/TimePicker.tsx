@@ -9,7 +9,7 @@ type TimePickerProps = {
     changeHandler: (value: string) => void
 };
 
-export const TimePicker = memo<TimePickerProps>(({ values, value, changeHandler }) => {
+export const TimePicker = memo<TimePickerProps>(({ value, values, changeHandler }) => {
     const { colors } = useTheme();
 
     return (
@@ -31,16 +31,16 @@ export const TimePicker = memo<TimePickerProps>(({ values, value, changeHandler 
 
 const styles = StyleSheet.create({
     timePicker: {
+        height: 46,
         marginTop: 31,
         flexDirection: 'row',
-        height: 46,
     },
     titleTimePicker: {
         flexDirection: 'column',
         justifyContent: 'center',
     },
     timePickerForm: {
+        width: 'auto',
         marginHorizontal: 30,
-        width: 'auto'
     },
 })
