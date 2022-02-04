@@ -8,6 +8,7 @@ import { TimePicker } from './TimePicker';
 import { EqualToIcon } from 'ui/icons/EqualToIcon';
 import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
 import { LessThanIcon } from 'ui/icons/LessThanIcon';
+import { useSwipeHandler } from 'core/hooks/useSwipeHandler';
 
 type NotifyModalProps = {
     visible: boolean;
@@ -17,9 +18,11 @@ type NotifyModalProps = {
 export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }) => {
     const { colors } = useTheme();
     const [height, setHeight] = useState(404)
-    const verticalSwipeHandler = (dif: number) => {
-        setHeight(prev => (prev + dif))
+    const minHeightHandler = () => {
+        closeNotifyModal()
+        setHeight(404)
     }
+    const [touchStartHandler, touchMoveHandler] = useSwipeHandler({ min: 300, current: height }, setHeight, { min: minHeightHandler })
 
     const [condition, setCondition] = useState('Equals to')
     const conditions = [
@@ -68,9 +71,9 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
                 animationType="slide"
                 onRequestClose={closeNotifyModal}
                 visible={visible}>
-                <Box style={{ ...styles.mainBox }}>
+                <Box style={styles.mainBox}>
                     <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>
-                        <Header verticalSwipeHandler={verticalSwipeHandler} />
+                        <Header touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />
                         <PricePicker
                             price={price} listPrice={listPrice}
                             pricePickerHandler={pricePickerHandler}

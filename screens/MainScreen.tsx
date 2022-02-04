@@ -1,4 +1,5 @@
 import { isDev } from 'core/constants';
+import { useDoubleClick } from 'core/hooks/useDoubleClick';
 import { NavigationScreen } from 'core/models';
 import { clearStorageInDev } from 'core/modules/auth/auth-flow';
 import { getUserId } from 'core/modules/auth/selectors';
@@ -6,11 +7,12 @@ import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
 import { stockActions } from 'core/modules/stock/reducer';
 import { useGetUserStoreQuery } from 'core/modules/user/query';
 import { Box, Button, ScrollView, Text, useTheme } from 'native-base';
-import React from 'react';
+import React, { useState } from 'react';
 import { useCallback } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { If } from 'ui/atoms/If';
+import { InfoModal } from 'ui/InfoModal';
 import { MainHeader } from 'ui/MainHeader';
 import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
 import { TrendingStock } from 'ui/TrendingStock';
@@ -41,6 +43,15 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
     navigation.navigate(NavigationScreen.Stock);
   }, []);
 
+  const [visibleInfoModal, setVisibleInfoModal] = useState(false)
+  const openInfoModal = () => {
+    setVisibleInfoModal(true)
+  }
+  const closeInfoModal = () => {
+    setVisibleInfoModal(false)
+  }
+  const doubleClickTitleHandler = useDoubleClick(openInfoModal)
+
   return (
     <Box backgroundColor={colors.appBackground} flex={1}>
       <MainHeader showWelcome={trendingSymbols.isSuccess} />
@@ -68,6 +79,7 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
           <Button onPress={clearStorageInDev}>clear storage</Button>
         </If>
       </ScrollView>
+      <InfoModal visible={visibleInfoModal} closeInfoModal={closeInfoModal} />
     </Box>
   );
 });

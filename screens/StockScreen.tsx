@@ -1,7 +1,7 @@
-import { Box, ScrollView, useTheme } from 'native-base';
 import React, { memo, useState } from 'react';
-import { NavigationStackProp } from 'react-navigation-stack';
+import { Box, ScrollView, useTheme } from 'native-base';
 import { useSelector } from 'react-redux';
+import { NavigationStackProp } from 'react-navigation-stack';
 import { useNewsItemsQuery, useSymbolInfoQuery, useTweetsQuery } from 'core/modules/stock/query';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { BannerHeading } from 'ui/StockBanner/BannerHeading';
@@ -23,8 +23,8 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol }).data
   const newsItems = useNewsItemsQuery({ query: symbol }, { skip: !symbol }).data
   const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
-  const [visibleNotifyModal, setVisibleNotifyModal] = useState(false)
 
+  const [visibleNotifyModal, setVisibleNotifyModal] = useState(false)
   const openNotifyModal = () => {
     setVisibleNotifyModal(true)
   }

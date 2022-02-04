@@ -1,32 +1,20 @@
-import React, { memo, useState } from 'react';
-import { StyleSheet } from "react-native";
-import { Box, Heading, Pressable, useTheme } from 'native-base';
-import { Separator } from 'ui/atoms/Separator';
+import React, { memo } from 'react';
+import { GestureResponderEvent, StyleSheet } from "react-native";
+import { Box, Heading, useTheme } from 'native-base';
+import { Toggle } from 'ui/atoms/Toggle';
 
 type HeaderProps = {
-    verticalSwipeHandler: (dif: number) => void
+    touchStartHandler: (e: GestureResponderEvent) => void
+    touchMoveHandler: (e: GestureResponderEvent) => void
 };
 
-export const Header = memo<HeaderProps>(({ verticalSwipeHandler }) => {
+export const Header = memo<HeaderProps>(({ touchStartHandler, touchMoveHandler }) => {
     const { colors } = useTheme();
 
-    const [lastValue, setLastValue] = useState(404)
     return (
         <Box>
-            <Pressable
-                onTouchStart={(e) => setLastValue(e.nativeEvent.pageY)}
-                onTouchMove={(e) => {
-                    const dif = lastValue - e.nativeEvent.pageY
-                    if (e.nativeEvent.pageY) {
-                        verticalSwipeHandler(dif)
-                        setLastValue(prev => prev - dif)
-                    }
-                }}>
-                <Box
-                    style={styles.swipeController}>
-                    <Separator width={52} height={3} />
-                </Box>
-            </Pressable>
+            <Toggle
+                touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />
             <Box style={styles.header}>
                 <Heading
                     color={colors.headingSmall} size={'sm'}>
@@ -42,9 +30,9 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         paddingTop: 24,
-        paddingBottom: 36
     },
     header: {
+        marginTop: 36,
         flexDirection: 'row',
         justifyContent: 'center',
     }
