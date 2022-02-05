@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Heading, Link, Text as NativeText, useTheme } from "native-base";
 import { Modal, StyleSheet } from "react-native"
 import { Toggle } from "./atoms/Toggle";
-import { useSwipeHandler } from "core/hooks/useSwipeHandler";
+import { useVerticalSwipeHandler } from "core/hooks/useVerticalSwipeHandler";
 import { AppIcon } from "./icons/AppIcon";
 
 type InfoModalProps = {
@@ -13,7 +13,11 @@ type InfoModalProps = {
 export const InfoModal = React.memo<InfoModalProps>(({ closeInfoModal, visible }) => {
     const { colors } = useTheme();
     const [height, setHeight] = useState(557)
-    const [touchStartHandler, touchMoveHandler] = useSwipeHandler({ min: 400, current: height, max: 600 }, setHeight, { min: closeInfoModal })
+    const minHeightHandler = () => {
+        closeInfoModal()
+        setHeight(557)
+    }
+    const [touchStartHandler, touchMoveHandler] = useVerticalSwipeHandler({ min: 400, current: height, max: 600 }, setHeight, { min: minHeightHandler })
 
     return (
         <Modal
@@ -29,20 +33,24 @@ export const InfoModal = React.memo<InfoModalProps>(({ closeInfoModal, visible }
                     <Box style={styles.appIcon}>
                         <AppIcon />
                     </Box>
-                    <Heading style={styles.appTitle}
-                        color={colors.headingSmall} size={"sm"}>
-                        Stokks
-                    </Heading>
-                    <NativeText style={styles.appVersion}
-                        color={colors.textDarkGray}>
-                        1.0
-                    </NativeText>
-                    <NativeText style={styles.appVersion}
-                        color={colors.textDarkGray}>
-                        Icons from <Link
+                    <Box style={styles.appTitle}>
+                        <Heading color={colors.headingSmall} size={"sm"}>
+                            Stokks
+                        </Heading>
+                    </Box>
+                    <Box style={styles.appVersion}>
+                        <NativeText color={colors.textDarkGray}>
+                            1.0
+                        </NativeText>
+                    </Box>
+                    <Box style={styles.additionalInfo}>
+                        <NativeText color={colors.textDarkGray}>
+                            Icons from </NativeText>
+                        <Link
+                            isUnderlined _text={{ color: colors.textDarkGray }}
                             href={"https://useanimations.com/"}
                         >useanimations.com</Link>
-                    </NativeText>
+                    </Box>
                 </Box>
             </Box>
         </Modal>

@@ -54,7 +54,7 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
 
   return (
     <Box backgroundColor={colors.appBackground} flex={1}>
-      <MainHeader showWelcome={trendingSymbols.isSuccess} />
+      <MainHeader doubleClickTitleHandler={doubleClickTitleHandler} showWelcome={trendingSymbols.isSuccess} />
       <If is={trendingSymbols.isSuccess}>
         <Box marginX="24px" marginBottom="24px">
           <Text color={colors.textGray}>Add companies to your tracking list to get started.</Text>

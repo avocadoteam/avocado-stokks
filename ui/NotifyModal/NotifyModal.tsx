@@ -8,7 +8,7 @@ import { TimePicker } from './TimePicker';
 import { EqualToIcon } from 'ui/icons/EqualToIcon';
 import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
 import { LessThanIcon } from 'ui/icons/LessThanIcon';
-import { useSwipeHandler } from 'core/hooks/useSwipeHandler';
+import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
 
 type NotifyModalProps = {
     visible: boolean;
@@ -22,7 +22,7 @@ export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }
         closeNotifyModal()
         setHeight(404)
     }
-    const [touchStartHandler, touchMoveHandler] = useSwipeHandler({ min: 300, current: height }, setHeight, { min: minHeightHandler })
+    const [touchStartHandler, touchMoveHandler] = useVerticalSwipeHandler({ min: 300, current: height }, setHeight, { min: minHeightHandler })
 
     const [condition, setCondition] = useState('Equals to')
     const conditions = [

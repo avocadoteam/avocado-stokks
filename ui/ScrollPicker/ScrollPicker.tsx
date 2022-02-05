@@ -80,7 +80,7 @@ export const ScrollPicker = memo<ScrollPickerProps>(({ items, selectedItem, chan
     }, [tryMomentumScrollEndHanlder])
 
     const doubleClickHandler = useCallback(useDoubleClick(onFocusInput), [onFocusInput])
-    const changeInputHanlder = useCallback((text: string) => {
+    const changeInputHandler = useCallback((text: string) => {
         changeHandler(text)
     }, [changeHandler])
 
@@ -101,7 +101,7 @@ export const ScrollPicker = memo<ScrollPickerProps>(({ items, selectedItem, chan
                 isFocusInput ? <Input
                     textAlign={"center"} fontWeight={"bold"} fontSize={20}
                     height={height} width={width} borderRadius={borderRadius}
-                    color={colors.text} onChangeText={changeInputHanlder}
+                    color={colors.text} onChangeText={changeInputHandler}
                     autoFocus={true} onBlur={onBlurInput} /> :
                     <Pressable onPress={doubleClickHandler}>
                         {itemsJSX}

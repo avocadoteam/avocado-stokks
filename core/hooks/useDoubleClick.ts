@@ -7,6 +7,7 @@ export const useDoubleClick = (callback: () => void) => {
     return () => {
         setClickCount(prev => (prev + 1))
         if (clickCount === 2) {
+            setClickCount(0)
             clearTimeout(timer)
             callback()
         } else {

@@ -3,12 +3,14 @@ import { IconButton, Icon, HStack, Heading, useTheme } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationScreen } from 'core/models';
+import { Pressable } from 'react-native';
 
 type Props = {
   showWelcome: boolean;
+  doubleClickTitleHandler: () => void;
 };
 
-export const MainHeader = memo<Props>(({ showWelcome }) => {
+export const MainHeader = memo<Props>(({ showWelcome, doubleClickTitleHandler }) => {
   const { colors } = useTheme();
   const navigation = useNavigation();
 
@@ -18,7 +20,9 @@ export const MainHeader = memo<Props>(({ showWelcome }) => {
 
   return (
     <HStack mt={12} py={2} px={6} justifyContent="space-between" alignItems="center">
-      <Heading color={colors.heading}>{showWelcome ? 'Welcome' : 'Stokks'}</Heading>
+      <Pressable onPress={doubleClickTitleHandler}>
+        <Heading color={colors.heading}>{showWelcome ? 'Welcome' : 'Stokks'}</Heading>
+      </Pressable>
       <IconButton
         onPress={openSearch}
         variant="unstyled"

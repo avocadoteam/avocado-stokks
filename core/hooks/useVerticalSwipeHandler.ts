@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Dimensions, GestureResponderEvent } from "react-native"
 
 const heightDevice = Dimensions.get('window').height
-export const useSwipeHandler = (height: Height, setHeight: SetHeight, heightHandler?: HeightHanlder) => {
+export const useVerticalSwipeHandler = (height: Height, setHeight: SetHeight, heightHandler?: HeightHanlder) => {
     const [lastValue, setLastValue] = useState(0)
     const touchStartHandler = (e: GestureResponderEvent) => {
         setLastValue(e.nativeEvent.pageY)
