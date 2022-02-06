@@ -9,9 +9,9 @@ type LatestNewsBannerProps = {
 }
 
 export const FeedNewsItems = React.memo<LatestNewsBannerProps>(({ data }) => {
-    const newsItems = data.map((n, index) => <Box key={`newsItem${n.uuid}`} my={2}>
-        <NewsItemFeed data={n} />{(index !== data.length - 1) && <Separator />}
-    </Box>)
+    const newsItems = data.map((n, index) => <><Box key={`newsItem${n.uuid}`} py={1}>
+        <NewsItemFeed data={n} />
+    </Box>{(index !== data.length - 1) && <Separator />}</>)
 
     return <Box>
         {newsItems}

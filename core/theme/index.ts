@@ -44,7 +44,12 @@ export const lightTheme = extendTheme({
       bgOption: '#fff',
       textOption: 'rgba(137, 137, 137, 0.9)'
     },
-    bgDropdown: '#fff'
+    bgDropdown: '#fff',
+    appIcon: {
+      bg: '#F5FCF8',
+      icon: '#03CF6D'
+    },
+    skeleton: '#F4F4F4'
   },
   borders: {
     searchRadius: '16px',
@@ -95,7 +100,12 @@ export const darkTheme = extendTheme({
       bgOption: 'rgba(255, 255, 255, 0.05)',
       textOption: 'rgba(255, 255, 255, 0.9)'
     },
-    bgDropdown: '#383838'
+    bgDropdown: '#383838',
+    appIcon: {
+      bg: '#174B2E',
+      icon: '#03CF6D'
+    },
+    skeleton: '#3E3E3E'
   },
   borders: {
     searchRadius: '16px',

@@ -1,7 +1,8 @@
 import React from "react";
-import { Box, Flex, Image, useTheme } from 'native-base';
 import { StyleSheet, Text as NativeText } from "react-native";
+import { Box, Flex, Heading, Image, useTheme } from 'native-base';
 import { Tweet } from "@models";
+import { If } from "./atoms/If";
 
 type PopularTweetProps = {
     data: Tweet
@@ -12,8 +13,16 @@ export const PopularTweet = React.memo<PopularTweetProps>(({ data }) => {
 
     return <Box style={{ ...styles.tweet, borderColor: colors.borderColor, backgroundColor: colors.bgTweet }}>
         <Flex direction="row" style={styles.header}>
-            <Box style={{ ...styles.headerAvatar }}>
-                <Image source={{ uri: data.avatar }} alt={data.userName.toUpperCase().slice(0, 2)} />
+            <Box style={styles.headerAvatar}>
+                <If is={!!data.avatar}
+                    else={<Heading textAlign={"center"} color={colors.headingSmall} size={"sm"}>
+                        {data.userName.toUpperCase().slice(0, 2)}
+                    </Heading>}>
+                    <Image
+                        style={styles.avatar}
+                        resizeMode={"cover"}
+                        source={{ uri: data.avatar ?? "alt" }} alt={""} />
+                </If>
             </Box>
             <Box style={styles.headerName}>
                 <NativeText style={{ color: colors.text }}>
@@ -45,8 +54,14 @@ const styles = StyleSheet.create({
         width: 40,
         backgroundColor: '#FAFAFA',
         borderRadius: 200,
-        textAlign: 'center',
-        textAlignVertical: 'center'
+        overflow: 'hidden',
+        flexDirection: 'column',
+        justifyContent: 'center',
+    },
+    avatar: {
+        height: 40,
+        width: 40,
+        borderRadius: 20000
     },
     headerName: {
         height: 40,

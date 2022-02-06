@@ -11,6 +11,7 @@ import { RegularMarketBanner } from 'ui/StockBanner/RegularMarketBanner';
 import { PopularTweetsBanner } from 'ui/StockBanner/PopularTweetsBanner';
 import { LatestNewsBanner } from 'ui/StockBanner/LatestNewsBanner';
 import { NotifyModal } from 'ui/NotifyModal/NotifyModal';
+import { NewsItem } from '@models';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -40,7 +41,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
     <Box backgroundColor={colors.appBackground} flex={1}>
       <StockHeader onPressBack={onPressBack} />
       <ScrollView>
-        <Box px={6}>
+        <Box px={6} paddingBottom={6}>
           <BannerHeading data={symbolInfo} openNotifyModal={openNotifyModal} />
           <StockGraph up={up} />
           <RegularMarketBanner data={symbolInfo} />

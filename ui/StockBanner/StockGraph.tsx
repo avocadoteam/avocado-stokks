@@ -23,7 +23,6 @@ export const StockGraph = memo<Props>(({ up }) => {
     },
     { skip: !symbol },
   );
-
   return (
     <Box>
       <Box alignItems="center" mb={8}>

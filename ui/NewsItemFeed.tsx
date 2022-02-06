@@ -29,21 +29,26 @@ export const NewsItemFeed = React.memo<NewsItemProps>(({ data }) => {
             </Box>
         </Flex>
         <Box style={styles.imageBox}>
-            <Image source={{ uri: data.link }} />
+            <Image
+                style={styles.image}
+                source={{ uri: data.link }} resizeMode={"cover"} />
         </Box>
     </Flex>
 })
 
 const styles = StyleSheet.create({
     infoBox: {
-        width: 269,
+        width: 250,
         minHeight: 107
     },
     imageBox: {
-        marginLeft: 24,
+        overflow: 'hidden',
         flexDirection: 'column',
         justifyContent: 'center'
+    },
+    image: {
+        borderRadius: 14,
+        width: 60,
+        height: 60
     }
 })
-
-
