@@ -1,16 +1,14 @@
 import React from "react";
 import { Box, Flex } from 'native-base';
 import { StyleSheet } from "react-native";
-import { SymbolGeneralInfo } from "@models";
-import { convertNumberToShortForm } from "core/utils";
-import { SkeletonBlock } from "../SkeletonBlock";
+import { SkeletonBox } from "../SkeletonBox";
 
-type RegularMarketBannerProps = {
+type SkeletonRegularMarketBannerProps = {
 }
 
-export const SkeletonRegularMarketBanner = React.memo<RegularMarketBannerProps>(({ }) => {
-    const leftSideJSX = [1, 2, 3].map(l => <Rmvs key={`rmvs${l}`} />)
-    const rightSideJSX = [4, 5, 6].map(r => <Rmvs key={`rmvs${r}`} />)
+export const SkeletonRegularMarketBanner = React.memo<SkeletonRegularMarketBannerProps>(({ }) => {
+    const leftSideJSX = [1, 2, 3].map(l => <Srmv key={`rmvs${l}`} />)
+    const rightSideJSX = [4, 5, 6].map(r => <Srmv key={`rmvs${r}`} />)
 
     return <Flex marginTop={8} direction="row" style={styles.mainBox}>
         <Box style={styles.leftSide}>
@@ -34,13 +32,9 @@ const styles = StyleSheet.create({
     }
 })
 
-const Rmvs = React.memo<{ key: string }>(({ key }) => {
-    return <Box key={key} marginTop={3}>
-        <Box>
-            <SkeletonBlock width={57} height={14} />
-        </Box>
-        <Box marginTop={1}>
-            <SkeletonBlock width={88} height={18} />
-        </Box>
+const Srmv = React.memo<{ key: string }>(({ key }) => {
+    return <Box key={key} marginTop={4}>
+        <SkeletonBox width={57} height={14} />
+        <SkeletonBox width={88} height={18} marginTop={10} />
     </Box>
 })

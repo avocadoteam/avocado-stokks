@@ -49,7 +49,10 @@ export const lightTheme = extendTheme({
       bg: '#F5FCF8',
       icon: '#03CF6D'
     },
-    skeleton: '#F4F4F4'
+    skeleton: '#F4F4F4',
+    skeletonTweet: '#F4F4F4',
+    skeletonMainNewsBg: '#F4F4F4',
+    skeletonMainNewsItem: '#EAEAEA'
   },
   borders: {
     searchRadius: '16px',
@@ -105,7 +108,10 @@ export const darkTheme = extendTheme({
       bg: '#174B2E',
       icon: '#03CF6D'
     },
-    skeleton: '#3E3E3E'
+    skeleton: '#3E3E3E',
+    skeletonTweet: '#464646',
+    skeletonMainNewsBg: '#2F2F2F',
+    skeletonMainNewsItem: '#464646'
   },
   borders: {
     searchRadius: '16px',

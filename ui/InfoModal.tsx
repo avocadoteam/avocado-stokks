@@ -45,11 +45,14 @@ export const InfoModal = React.memo<InfoModalProps>(({ closeInfoModal, visible }
                     </Box>
                     <Box style={styles.additionalInfo}>
                         <NativeText color={colors.textDarkGray}>
-                            Icons from </NativeText>
+                            Icons from
+                        </NativeText>
                         <Link
                             isUnderlined _text={{ color: colors.textDarkGray }}
                             href={"https://useanimations.com/"}
-                        >useanimations.com</Link>
+                        >
+                            useanimations.com
+                        </Link>
                     </Box>
                 </Box>
             </Box>

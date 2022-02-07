@@ -1,10 +1,9 @@
 import React from 'react';
-import { Box, Flex, HStack, useTheme } from 'native-base';
+import { Box, Flex, useTheme } from 'native-base';
 import { LittleGraphSkeleton } from 'ui/icons/LittleGraphSkeleton';
-import { SkeletonBlock } from './SkeletonBlock';
+import { SkeletonBox } from './SkeletonBox';
 
 type SkeletonUserStockProps = {
-
 }
 
 export const SkeletonUserStock = React.memo<SkeletonUserStockProps>(({ }) => {
@@ -17,20 +16,12 @@ export const SkeletonUserStock = React.memo<SkeletonUserStockProps>(({ }) => {
                     <LittleGraphSkeleton />
                 </Box>
                 <Box style={{ marginRight: 'auto', width: '55%' }}>
-                    <Box>
-                        <SkeletonBlock width={94} height={15} />
-                    </Box>
-                    <Box marginTop={1}>
-                        <SkeletonBlock />
-                    </Box>
+                    <SkeletonBox width={94} height={15} />
+                    <SkeletonBox marginTop={6} />
                 </Box>
                 <Box>
-                    <Box>
-                        <SkeletonBlock width={48} />
-                    </Box>
-                    <Box marginTop={1}>
-                        <SkeletonBlock width={48} />
-                    </Box>
+                    <SkeletonBox width={48} />
+                    <SkeletonBox width={48} marginTop={6} />
                 </Box>
             </Flex>
         </Box>

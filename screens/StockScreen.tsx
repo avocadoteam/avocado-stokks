@@ -11,7 +11,8 @@ import { RegularMarketBanner } from 'ui/StockBanner/RegularMarketBanner';
 import { PopularTweetsBanner } from 'ui/StockBanner/PopularTweetsBanner';
 import { LatestNewsBanner } from 'ui/StockBanner/LatestNewsBanner';
 import { NotifyModal } from 'ui/NotifyModal/NotifyModal';
-import { NewsItem } from '@models';
+import { SkeletonStockScreen } from 'ui/Skeletons/SkeletonStockScreen';
+import { If } from 'ui/atoms/If';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -24,6 +25,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol }).data
   const newsItems = useNewsItemsQuery({ query: symbol }, { skip: !symbol }).data
   const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
+  const isInit = !!(symbol && symbolInfo && Array.isArray(tweets))
 
   const [visibleNotifyModal, setVisibleNotifyModal] = useState(false)
   const openNotifyModal = () => {
@@ -42,12 +44,14 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <StockHeader onPressBack={onPressBack} />
       <ScrollView>
         <Box px={6} paddingBottom={6}>
-          <BannerHeading data={symbolInfo} openNotifyModal={openNotifyModal} />
-          <StockGraph up={up} />
-          <RegularMarketBanner data={symbolInfo} />
-          <PopularTweetsBanner data={tweets} />
-          <LatestNewsBanner data={newsItems} />
-          <NotifyModal visible={visibleNotifyModal} closeNotifyModal={closeNotifyModal} />
+          <If is={isInit} else={<SkeletonStockScreen />}>
+            <BannerHeading data={symbolInfo} openNotifyModal={openNotifyModal} />
+            <StockGraph up={up} />
+            <RegularMarketBanner data={symbolInfo} />
+            <PopularTweetsBanner data={tweets} />
+            <LatestNewsBanner data={newsItems} />
+            <NotifyModal visible={visibleNotifyModal} closeNotifyModal={closeNotifyModal} />
+          </If>
         </Box>
       </ScrollView>
     </Box>

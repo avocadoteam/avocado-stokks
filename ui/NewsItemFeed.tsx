@@ -1,7 +1,7 @@
-import { NewsItem } from "@models";
-import { Box, Flex, Heading, useTheme } from "native-base";
 import React from "react";
 import { StyleSheet, Text as NativeText, Image } from "react-native";
+import { Box, Flex, Heading, useTheme } from "native-base";
+import { NewsItem } from "@models";
 
 type NewsItemProps = {
     data: NewsItem
