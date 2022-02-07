@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { If } from 'ui/atoms/If';
 import { InfoModal } from 'ui/InfoModal';
 import { MainHeader } from 'ui/MainHeader';
+import { SkeletonUserStocks } from 'ui/Skeletons/SkeletonUserStocks';
 import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
 import { TrendingStock } from 'ui/TrendingStock';
 import { UserStock } from 'ui/UserStock';
@@ -74,7 +75,7 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
             </SwipeDeleteStock>
           ))}
         </If>
-
+        {(!Array.isArray(userStore.data)) && <SkeletonUserStocks />}
         <If is={isDev}>
           <Button onPress={clearStorageInDev}>clear storage</Button>
         </If>
