@@ -52,7 +52,8 @@ export const lightTheme = extendTheme({
     skeleton: '#F4F4F4',
     skeletonTweet: '#F4F4F4',
     skeletonMainNewsBg: '#F4F4F4',
-    skeletonMainNewsItem: '#EAEAEA'
+    skeletonMainNewsItem: '#EAEAEA',
+    skeletonGraph: '#E5E5E5'
   },
   borders: {
     searchRadius: '16px',
@@ -111,7 +112,8 @@ export const darkTheme = extendTheme({
     skeleton: '#3E3E3E',
     skeletonTweet: '#464646',
     skeletonMainNewsBg: '#2F2F2F',
-    skeletonMainNewsItem: '#464646'
+    skeletonMainNewsItem: '#464646',
+    skeletonGraph: '#5E5E5E'
   },
   borders: {
     searchRadius: '16px',
