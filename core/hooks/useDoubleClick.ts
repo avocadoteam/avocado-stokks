@@ -2,7 +2,7 @@ import { useState } from "react"
 
 export const useDoubleClick = (callback: () => void) => {
     const [clickCount, setClickCount] = useState(0)
-    const [timer, setTimer] = useState<number>(123)
+    let timer:number;
 
     return () => {
         setClickCount(prev => (prev + 1))
@@ -11,9 +11,9 @@ export const useDoubleClick = (callback: () => void) => {
             clearTimeout(timer)
             callback()
         } else {
-            setTimer(setTimeout(() => {
+            timer = setTimeout(() => {
                 setClickCount(0)
-            }, 3000))
+            }, 3000)
         }
     }
 }

@@ -1,19 +1,20 @@
-import React from "react"
-import { Button, useTheme, Heading } from "native-base"
-import { styles } from "./OptionStyle";
+import React from 'react';
+import { Button, useTheme, Heading } from 'native-base';
+import { styles } from './OptionStyle';
 
 type PickedItemProps = {
-    title: string
-}
+  title: React.ReactNode;
+};
 
 export const ActiveOption = React.memo<PickedItemProps>(({ title }) => {
-    const { colors } = useTheme()
-    const { horizontalSelect } = colors
+  const { colors } = useTheme();
+  const { horizontalSelect } = colors;
 
-    return <Button key={`selectedItem-${title}`}
-        style={{ ...styles.mainBox, backgroundColor: horizontalSelect.bgActiveOption }}>
-        <Heading color={horizontalSelect.textActiveOption} size={'sm'}>
-            {title}
-        </Heading>
+  return (
+    <Button style={{ ...styles.mainBox, backgroundColor: horizontalSelect.bgActiveOption }}>
+      <Heading color={horizontalSelect.textActiveOption} size={'sm'}>
+        {title}
+      </Heading>
     </Button>
-})
+  );
+});

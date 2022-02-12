@@ -1,17 +1,21 @@
-import React from "react"
-import { Box, useTheme } from "native-base"
+import React from 'react';
+import { Box, useTheme } from 'native-base';
 
 type SeparatorProps = {
-    height?: number | string;
-    width?: number | string
-}
+  height?: number | string;
+  width?: number | string;
+};
 
 export const Separator = React.memo<SeparatorProps>(({ height, width }) => {
-    const { colors } = useTheme()
+  const { colors } = useTheme();
 
-    return <Box style={{
+  return (
+    <Box
+      style={{
         backgroundColor: colors.separator,
         width: width ? width : '100%',
-        height: height ? height : 1
-    }} />
-})
+        height: height ? height : 1,
+      }}
+    />
+  );
+});

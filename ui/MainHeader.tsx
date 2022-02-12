@@ -4,16 +4,22 @@ import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { NavigationScreen } from 'core/models';
 import { Pressable } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { openInfoModal } from 'core/modules/home/reducer';
+import { useDoubleClick } from 'core/hooks/useDoubleClick';
 
 type Props = {
   showWelcome: boolean;
-  doubleClickTitleHandler: () => void;
 };
 
-export const MainHeader = memo<Props>(({ showWelcome, doubleClickTitleHandler }) => {
+export const MainHeader = memo<Props>(({ showWelcome }) => {
   const { colors } = useTheme();
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const doubleClickTitleHandler = useDoubleClick(() => {
+    dispatch(openInfoModal());
+  });
 
+  const navigation = useNavigation();
   const openSearch = React.useCallback(() => {
     navigation.navigate(NavigationScreen.Search);
   }, []);

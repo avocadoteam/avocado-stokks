@@ -1,106 +1,62 @@
 import React, { memo, useState } from 'react';
-import { Modal, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from 'react-redux';
+import { Modal, StyleSheet } from 'react-native';
 import { Box, useTheme } from 'native-base';
+import { getNoticification, getVisibleNotifyModal } from 'core/modules/stock/selectors';
+import { closeNotifyModal } from 'core/modules/stock/reducer';
 import { Header } from './Header';
 import { PanelButtons } from './PanelButtons';
 import { PricePicker } from './PricePicker';
 import { TimePicker } from './TimePicker';
-import { EqualToIcon } from 'ui/icons/EqualToIcon';
-import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
-import { LessThanIcon } from 'ui/icons/LessThanIcon';
 import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
 
-type NotifyModalProps = {
-    visible: boolean;
-    closeNotifyModal: () => void;
-};
+export const NotifyModal = memo(({}) => {
+  const { colors } = useTheme();
+  const dispatch = useDispatch();
+  const isNotifyModalVisible = useSelector(getVisibleNotifyModal);
+  const { triggerParam, triggerValue, notifyInterval } = useSelector(getNoticification);
 
-export const NotifyModal = memo<NotifyModalProps>(({ visible, closeNotifyModal }) => {
-    const { colors } = useTheme();
-    const [height, setHeight] = useState(404)
-    const minHeightHandler = () => {
-        closeNotifyModal()
-        setHeight(404)
-    }
-    const [touchStartHandler, touchMoveHandler] = useVerticalSwipeHandler({ min: 300, current: height }, setHeight, { min: minHeightHandler })
+  const [height, setHeight] = useState(404);
+  const minHeightHandler = () => {
+    dispatch(closeNotifyModal());
+    setHeight(404);
+  };
+  const [touchStartHandler, touchMoveHandler] = useVerticalSwipeHandler({ min: 100, current: height }, setHeight, {
+    min: minHeightHandler,
+  });
 
-    const [condition, setCondition] = useState('Equals to')
-    const conditions = [
-        {
-            title: 'Equals to',
-            icon: <EqualToIcon />
-        }, {
-            title: 'Greater than',
-            icon: <GreaterThanIcon />
-        }, {
-            title: 'Less than',
-            icon: <LessThanIcon />
-        }
-    ]
-    const conditionItemHandler = (value: string) => {
-        setCondition(value)
-    }
-
-    const [listPrice, setListPrice] = useState([1, 2, 3, 4, 5, 6, 7, 8, 9])
-    const [price, setPrice] = useState(3)
-    const tryPricePickerHandler = (value: number) => {
-        setPrice(value)
-        if (value >= listPrice[8] || value <= listPrice[0]) {
-            setListPrice([value - 4, value - 3, value - 2, value - 1, value, value + 1, value + 2, value + 3, value + 4])
-        }
-    }
-    const pricePickerHandler = (value: string) => {
-        if (+value) {
-            tryPricePickerHandler(+value)
-        }
-    }
-
-    const [intervalTime, setIntervalTime] = useState('Every hour')
-    const timeIntervalItems = [
-        'Every hour', 'Every 8 hours',
-        'Daily', 'Weekly', 'Monthly'
-    ]
-    const timeIntervalItemHandler = (value: string) => {
-        setIntervalTime(value)
-    }
-
-    return (
-        <Box >
-            <Modal
-                transparent={true}
-                animationType="slide"
-                onRequestClose={closeNotifyModal}
-                visible={visible}>
-                <Box style={styles.mainBox}>
-                    <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>
-                        <Header touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />
-                        <PricePicker
-                            price={price} listPrice={listPrice}
-                            pricePickerHandler={pricePickerHandler}
-                            conditions={conditions} condition={condition}
-                            conditionItemHandler={conditionItemHandler} />
-                        <TimePicker
-                            values={timeIntervalItems} value={intervalTime}
-                            changeHandler={timeIntervalItemHandler} />
-                        <PanelButtons />
-                    </Box>
-                </Box>
-            </Modal>
+  return (
+    <Box>
+      <Modal
+        transparent={true}
+        animationType={'slide'}
+        onRequestClose={() => dispatch(closeNotifyModal())}
+        visible={isNotifyModalVisible}
+      >
+        <Box style={styles.mainBox}>
+          <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>
+            <Header touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />
+            <PricePicker triggerParam={triggerParam} triggerValue={triggerValue} />
+            <TimePicker notifyInterval={notifyInterval} />
+            <PanelButtons />
+          </Box>
         </Box>
-    );
+      </Modal>
+    </Box>
+  );
 });
 
 const styles = StyleSheet.create({
-    mainBox: {
-        flex: 1,
-        justifyContent: 'flex-end',
-        height: '100%',
-        backgroundColor: 'rgba(0,0,0,0.5)'
-    },
-    contentBox: {
-        flexDirection: 'column',
-        borderTopLeftRadius: 24,
-        borderTopRightRadius: 24,
-        paddingHorizontal: 24,
-    },
-})
+  mainBox: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    height: '100%',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  contentBox: {
+    flexDirection: 'column',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    paddingHorizontal: 24,
+  },
+});

@@ -1,31 +1,37 @@
-import React from "react";
+import React from 'react';
 import { Heading, useTheme, Box } from 'native-base';
-import { NewsItem } from "@models";
-import { MainNewsItem } from "ui/MainNewsItem";
-import { FeedNewsItems } from "ui/FeedNewsItems";
-import { If } from "ui/atoms/If";
+import { useNewsItemsQuery } from 'core/modules/stock/query';
+import { MainNewsItem } from 'ui/MainNewsItem';
+import { FeedNewsItems } from 'ui/FeedNewsItems';
+import { If } from 'ui/atoms/If';
+import { SkeletonLatestNewsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonLatestNewsBanner';
 
 type LatestNewsBannerProps = {
-    data?: NewsItem[]
-}
+  data: { symbol: string };
+};
 
-export const LatestNewsBanner = React.memo<LatestNewsBannerProps>(({ data }) => {
-    const { colors } = useTheme()
-    const mainNewsItem = (data && data[0]) && <MainNewsItem data={data[0]} />
+export const LatestNewsBanner = React.memo<LatestNewsBannerProps>(({ data: { symbol } }) => {
+  const { colors } = useTheme();
+  const newsItems = useNewsItemsQuery({ query: symbol }, { skip: !symbol }).data;
+  const mainNewsItem = newsItems && newsItems[0] && <MainNewsItem data={newsItems[0]} />;
 
-    return <Box>
-        <If is={!!data?.length}>
-            <Heading size={'sm'} my={5} mr={2} color={colors.heading}>
-                Latest News
-            </Heading>
-            <Box>
-                <Box>
-                    {mainNewsItem}
-                </Box>
-                <Box my={4}>
-                    <FeedNewsItems data={(data && data.length > 1) ? [...data].slice(1,) : []} />
-                </Box>
+  if (Array.isArray(newsItems)) {
+    return (
+      <Box>
+        <If is={!!newsItems?.length}>
+          <Heading size={'sm'} my={5} mr={2} color={colors.heading}>
+            Latest News
+          </Heading>
+          <Box>
+            <Box>{mainNewsItem}</Box>
+            <Box my={4}>
+              <FeedNewsItems data={newsItems.length > 1 ? [...newsItems].slice(1) : []} />
             </Box>
+          </Box>
         </If>
-    </Box>
-})
+      </Box>
+    );
+  } else {
+    return <SkeletonLatestNewsBanner />;
+  }
+});

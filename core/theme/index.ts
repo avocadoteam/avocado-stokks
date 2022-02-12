@@ -95,6 +95,7 @@ export const darkTheme = extendTheme({
     searchColor: 'rgba(255, 255, 255, 0.9);',
     searchIcon: '#949494',
     borderColor: '#2F2F2F',
+    borderInputFocused: '#46C882',
     bgTweet: '#2F2F2F',
     separator: '#3A3A3A',
     bgScrollPicker: 'rgba(255, 255, 255, 0.05)',

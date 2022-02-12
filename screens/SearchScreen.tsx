@@ -1,6 +1,6 @@
 import { NavigationScreen } from 'core/models';
 import { useLazySearchQuery } from 'core/modules/stock/query';
-import { stockActions } from 'core/modules/stock/reducer';
+import { selectSymbol } from 'core/modules/stock/reducer';
 import { Box, ScrollView, useTheme } from 'native-base';
 import React, { useCallback } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
@@ -19,7 +19,7 @@ export const SearchScreen = React.memo<Props>(({ navigation }) => {
   const dispatch = useDispatch();
 
   const onPressStock = useCallback((symbol: string) => {
-    dispatch(stockActions.selectSymbol(symbol));
+    dispatch(selectSymbol(symbol));
     navigation.navigate(NavigationScreen.Stock);
   }, []);
 

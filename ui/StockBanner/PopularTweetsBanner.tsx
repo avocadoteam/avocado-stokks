@@ -1,34 +1,45 @@
-import React from "react";
-import { StyleSheet } from "react-native";
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { Heading, useTheme, ScrollView, Box } from 'native-base';
-import { Tweet } from "@models";
-import { PopularTweet } from "ui/PopularTweet";
-import { If } from "ui/atoms/If";
+import { useTweetsQuery } from 'core/modules/stock/query';
+import { PopularTweet } from 'ui/PopularTweet';
+import { If } from 'ui/atoms/If';
+import { SkeletonPopularTweetsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonPopularTweetsBanner';
 
 type PopularTweetsBannerProps = {
-    data?: Tweet[]
-}
+  data: { symbol: string };
+};
 
-export const PopularTweetsBanner = React.memo<PopularTweetsBannerProps>(({ data }) => {
-    const { colors } = useTheme()
-    const tweets = data?.map(t => <Box mx={2}><PopularTweet data={t} key={`tweet${t.id}`} /></Box>) ?? []
+export const PopularTweetsBanner = React.memo<PopularTweetsBannerProps>(({ data: { symbol } }) => {
+  const { colors } = useTheme();
+  const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol }).data;
+  const tweetsJSX =
+    tweets?.map(t => (
+      <Box mx={2} key={`tweet${t.id}`}>
+        <PopularTweet data={t} />
+      </Box>
+    )) ?? [];
 
-    return <Box>
-        <If is={!!tweets.length}>
-            <Heading size={'sm'} my={5} mr={2} color={colors.heading}>
-                Popular Tweets
-            </Heading>
-            <ScrollView
-                showsHorizontalScrollIndicator={false}
-                horizontal={true} style={styles.mainBox}>
-                {tweets}
-            </ScrollView>
+  if (Array.isArray(tweets)) {
+    return (
+      <Box>
+        <If is={!!tweetsJSX.length}>
+          <Heading size={'sm'} my={5} mr={2} color={colors.heading}>
+            Popular Tweets
+          </Heading>
+          <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={styles.mainBox}>
+            {tweetsJSX}
+          </ScrollView>
         </If>
-    </Box>
-})
+      </Box>
+    );
+  } else {
+    return <SkeletonPopularTweetsBanner />;
+  }
+});
 
 const styles = StyleSheet.create({
-    mainBox: {
-        height: 254
-    }
-})
+  mainBox: {
+    height: 254,
+  },
+});
