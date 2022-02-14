@@ -7,10 +7,10 @@ import { If } from 'ui/atoms/If';
 import { SkeletonLatestNewsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonLatestNewsBanner';
 
 type LatestNewsBannerProps = {
-  data: { symbol: string };
+  symbol: string;
 };
 
-export const LatestNewsBanner = React.memo<LatestNewsBannerProps>(({ data: { symbol } }) => {
+export const LatestNewsBanner = React.memo<LatestNewsBannerProps>(({ symbol }) => {
   const { colors } = useTheme();
   const newsItems = useNewsItemsQuery({ query: symbol }, { skip: !symbol }).data;
   const mainNewsItem = newsItems && newsItems[0] && <MainNewsItem data={newsItems[0]} />;

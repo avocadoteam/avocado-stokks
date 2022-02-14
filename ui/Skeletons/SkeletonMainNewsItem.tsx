@@ -9,7 +9,7 @@ export const SkeletonMainNewsItem = React.memo(({}) => {
   return (
     <Box style={styles.mainBox} backgroundColor={colors.skeletonMainNewsBg}>
       {[70, 257, 116].map(w => (
-        <SkeletonBox marginTop={10} width={w} height={16} bgColor={colors.skeletonMainNewsItem} />
+        <SkeletonBox key={`smni${w}`} marginTop={10} width={w} height={16} bgColor={colors.skeletonMainNewsItem} />
       ))}
     </Box>
   );

@@ -1,6 +1,7 @@
 import { Ionicons } from '@expo/vector-icons';
 import { SymbolGeneralInfo } from '@models';
-import { openNotifyModal } from 'core/modules/stock/reducer';
+import { NavigationModal } from 'core/models';
+import { modalActions } from 'core/modules/modal/reducer';
 import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
 import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
@@ -12,10 +13,10 @@ type Props = {
 
 export const BannerHeading = memo<Props>(({ data }) => {
   const { colors } = useTheme();
-  const dispatch = useDispatch()
-  const handlerOpenNotifyModal = () => {
-    dispatch(openNotifyModal())
-  }
+  const dispatch = useDispatch();
+  const handlerOpenModal = () => {
+    dispatch(modalActions.openModal(NavigationModal.Notify));
+  };
   const up = (data?.regularMarketChange ?? 0) > 0;
 
   if (data) {
@@ -32,7 +33,7 @@ export const BannerHeading = memo<Props>(({ data }) => {
           </HStack>
           <HStack alignItems="center">
             <Button
-              onPress={handlerOpenNotifyModal}
+              onPress={handlerOpenModal}
               variant="unstyled"
               endIcon={<Icon as={Ionicons} name="ios-add" size={7} color={colors.upTextColor} />}
             ></Button>
@@ -41,9 +42,9 @@ export const BannerHeading = memo<Props>(({ data }) => {
         <Text fontSize={'sm'} color={colors.textGray}>
           {data?.fullExchangeName}
         </Text>
-      </Box >
+      </Box>
     );
   } else {
-    return <SkeletonBannerHeading />
+    return <SkeletonBannerHeading />;
   }
 });

@@ -2,27 +2,29 @@ import React, { memo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, StyleSheet } from 'react-native';
 import { Box, useTheme } from 'native-base';
-import { getNoticification, getVisibleNotifyModal } from 'core/modules/stock/selectors';
-import { closeNotifyModal } from 'core/modules/stock/reducer';
+import { getNoticification } from 'core/modules/stock/selectors';
+import { getVisibleModal } from 'core/modules/modal/selectors';
+import { modalActions } from 'core/modules/modal/reducer';
 import { Header } from './Header';
 import { PanelButtons } from './PanelButtons';
 import { PricePicker } from './PricePicker';
 import { TimePicker } from './TimePicker';
 import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
+import { NavigationModal } from 'core/models';
 
 export const NotifyModal = memo(({}) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const isNotifyModalVisible = useSelector(getVisibleNotifyModal);
+  const visibleModal = useSelector(getVisibleModal);
   const { triggerParam, triggerValue, notifyInterval } = useSelector(getNoticification);
 
   const [height, setHeight] = useState(404);
-  const minHeightHandler = () => {
-    dispatch(closeNotifyModal());
+  const closeModalHandler = () => {
+    dispatch(modalActions.closeModal());
     setHeight(404);
   };
   const [touchStartHandler, touchMoveHandler] = useVerticalSwipeHandler({ min: 100, current: height }, setHeight, {
-    min: minHeightHandler,
+    min: closeModalHandler,
   });
 
   return (
@@ -30,8 +32,8 @@ export const NotifyModal = memo(({}) => {
       <Modal
         transparent={true}
         animationType={'slide'}
-        onRequestClose={() => dispatch(closeNotifyModal())}
-        visible={isNotifyModalVisible}
+        onRequestClose={closeModalHandler}
+        visible={visibleModal === NavigationModal.Notify}
       >
         <Box style={styles.mainBox}>
           <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>

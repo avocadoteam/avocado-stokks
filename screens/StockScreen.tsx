@@ -35,8 +35,8 @@ export const StockScreen = memo<Props>(({ navigation }) => {
           <BannerHeading data={symbolInfo} />
           <StockGraph up={up} />
           <RegularMarketBanner data={symbolInfo} />
-          <PopularTweetsBanner data={{ symbol }} />
-          <LatestNewsBanner data={{ symbol }} />
+          <PopularTweetsBanner symbol={symbol} />
+          <LatestNewsBanner symbol={symbol} />
           <NotifyModal />
         </Box>
       </ScrollView>

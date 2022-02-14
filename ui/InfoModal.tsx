@@ -2,27 +2,33 @@ import React, { useState } from 'react';
 import { Box, Heading, Link, Text as NativeText, useTheme } from 'native-base';
 import { Modal, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { closeInfoModal } from 'core/modules/home/reducer';
-import { getVisibleInfoModal } from 'core/modules/home/selectors';
-import { Toggle } from './atoms/Toggle';
+import { NavigationModal } from 'core/models';
+import { modalActions } from 'core/modules/modal/reducer';
+import { getVisibleModal } from 'core/modules/modal/selectors';
 import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
+import { Toggle } from './atoms/Toggle';
 import { AppIcon } from './icons/AppIcon';
 
 export const InfoModal = React.memo(({}) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const isInfoModalVisible = useSelector(getVisibleInfoModal);
+  const visibleModal = useSelector(getVisibleModal);
   const [height, setHeight] = useState(557);
-  const minHeightHandler = () => {
-    dispatch(closeInfoModal());
+  const closeModalHandler = () => {
+    dispatch(modalActions.closeModal());
     setHeight(557);
   };
   const [touchStartHandler, touchMoveHandler] = useVerticalSwipeHandler({ min: 400, current: height, max: 600 }, setHeight, {
-    min: minHeightHandler,
+    min: closeModalHandler,
   });
 
   return (
-    <Modal transparent={true} animationType="slide" onRequestClose={closeInfoModal} visible={isInfoModalVisible}>
+    <Modal
+      transparent={true}
+      animationType="slide"
+      onRequestClose={closeModalHandler}
+      visible={visibleModal === NavigationModal.Info}
+    >
       <Box style={styles.mainBox}>
         <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>
           <Toggle touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />

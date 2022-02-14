@@ -7,10 +7,10 @@ import { If } from 'ui/atoms/If';
 import { SkeletonPopularTweetsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonPopularTweetsBanner';
 
 type PopularTweetsBannerProps = {
-  data: { symbol: string };
+  symbol: string;
 };
 
-export const PopularTweetsBanner = React.memo<PopularTweetsBannerProps>(({ data: { symbol } }) => {
+export const PopularTweetsBanner = React.memo<PopularTweetsBannerProps>(({ symbol }) => {
   const { colors } = useTheme();
   const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol }).data;
   const tweetsJSX =

@@ -3,7 +3,7 @@ import { NavigationScreen } from 'core/models';
 import { clearStorageInDev } from 'core/modules/auth/auth-flow';
 import { getUserId } from 'core/modules/auth/selectors';
 import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
-import { selectSymbol } from 'core/modules/stock/reducer';
+import { stockActions } from 'core/modules/stock/reducer';
 import { useGetUserStoreQuery } from 'core/modules/user/query';
 import { Box, Button, ScrollView, Text, useTheme } from 'native-base';
 import React, { useState } from 'react';
@@ -39,7 +39,7 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
   );
 
   const onPressStock = useCallback((symbol: string) => {
-    dispatch(selectSymbol(symbol));
+    dispatch(stockActions.selectSymbol(symbol));
     navigation.navigate(NavigationScreen.Stock);
   }, []);
 
