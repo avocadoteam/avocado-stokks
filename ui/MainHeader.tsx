@@ -2,7 +2,11 @@ import React, { memo } from 'react';
 import { IconButton, Icon, HStack, Heading, useTheme } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import { NavigationScreen } from 'core/models';
+import { NavigationModal, NavigationScreen } from 'core/models';
+import { Pressable } from 'react-native';
+import { useDispatch } from 'react-redux';
+import { modalActions } from 'core/modules/modal/reducer';
+import { useDoubleClick } from 'core/hooks/useDoubleClick';
 
 type Props = {
   showWelcome: boolean;
@@ -10,15 +14,21 @@ type Props = {
 
 export const MainHeader = memo<Props>(({ showWelcome }) => {
   const { colors } = useTheme();
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const doubleClickTitleHandler = useDoubleClick(() => {
+    dispatch(modalActions.openModal(NavigationModal.Info));
+  });
 
+  const navigation = useNavigation();
   const openSearch = React.useCallback(() => {
     navigation.navigate(NavigationScreen.Search);
   }, []);
 
   return (
     <HStack mt={12} py={2} px={6} justifyContent="space-between" alignItems="center">
-      <Heading color={colors.heading}>{showWelcome ? 'Welcome' : 'Stokks'}</Heading>
+      <Pressable onPress={doubleClickTitleHandler}>
+        <Heading color={colors.heading}>{showWelcome ? 'Welcome' : 'Stokks'}</Heading>
+      </Pressable>
       <IconButton
         onPress={openSearch}
         variant="unstyled"

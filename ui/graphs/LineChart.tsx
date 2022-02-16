@@ -19,7 +19,7 @@ export const LineGraph = React.memo<Props>(({ data, up }) => {
         fillOpacity: 0,
       }}
       style={{ width: 353, height: 260 }}
-      data={data.filter(d => typeof d === 'number')}
+      data={data?.filter(d => typeof d === 'number') ?? []}
       contentInset={{ top: 20, bottom: 20, left: -1, right: -1 }}
     />
   );

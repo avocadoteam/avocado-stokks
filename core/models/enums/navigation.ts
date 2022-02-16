@@ -3,3 +3,8 @@ export enum NavigationScreen {
   Stock = 'StockScreen',
   Search = 'SearchScreen',
 }
+
+export enum NavigationModal {
+  Info = 'Info',
+  Notify = 'Notify',
+}

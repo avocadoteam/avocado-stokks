@@ -15,7 +15,7 @@ export const AreaGraph = React.memo<Props>(({ data, up }) => {
     <AreaChart
       style={{ height: 32, width: 82 }}
       contentInset={{ top: 5, bottom: 5 }}
-      data={data.filter(d => typeof d === 'number')}
+      data={data?.filter(d => typeof d === 'number') ?? []}
       curve={shape.curveNatural}
       svg={{
         fill: colorFill,

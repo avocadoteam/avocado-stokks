@@ -6,12 +6,14 @@ import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
 import { stockActions } from 'core/modules/stock/reducer';
 import { useGetUserStoreQuery } from 'core/modules/user/query';
 import { Box, Button, ScrollView, Text, useTheme } from 'native-base';
-import React from 'react';
+import React, { useState } from 'react';
 import { useCallback } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { If } from 'ui/atoms/If';
+import { InfoModal } from 'ui/InfoModal';
 import { MainHeader } from 'ui/MainHeader';
+import { SkeletonUserStocks } from 'ui/Skeletons/SkeletonUserStocks';
 import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
 import { TrendingStock } from 'ui/TrendingStock';
 import { UserStock } from 'ui/UserStock';
@@ -63,11 +65,12 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
             </SwipeDeleteStock>
           ))}
         </If>
-
+        {!Array.isArray(userStore.data) && <SkeletonUserStocks />}
         <If is={isDev}>
           <Button onPress={clearStorageInDev}>clear storage</Button>
         </If>
       </ScrollView>
+      <InfoModal />
     </Box>
   );
 });

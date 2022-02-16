@@ -2,8 +2,8 @@ import { Ionicons } from '@expo/vector-icons';
 import { SearchModel } from '@models';
 import { useNavigation } from '@react-navigation/native';
 import { HStack, Icon, IconButton, Input, useTheme } from 'native-base';
-import React, { useMemo } from 'react';
-import { debounceTime, of, Subject, throttle } from 'rxjs';
+import React, { useCallback, useMemo } from 'react';
+import { debounceTime, of, Subject, tap, throttle } from 'rxjs';
 
 type Props = {
   search: (arg: SearchModel) => void;
@@ -26,7 +26,7 @@ export const SearchHeader = React.memo<Props>(({ search }) => {
     return sub;
   }, []);
 
-  const handleSearch = React.useCallback((text: string) => {
+  const handleSearch = useCallback((text: string) => {
     if (text) {
       searchSubj.next({ query: text });
     }

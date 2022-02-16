@@ -15,23 +15,23 @@ export const axiosBaseQuery =
     unknown,
     unknown
   > =>
-  async ({ url, method, data }, bqApi) => {
-    try {
-      const state = bqApi.getState() as State;
+    async ({ url, method, data }, bqApi) => {
+      try {
+        const state = bqApi.getState() as State;
 
-      const result = await axios({
-        url: `${baseUrl}${url}`,
-        method,
-        data,
-        headers: {
-          Authorization: `Bearer ${state.auth.token}`,
-        },
-      });
-      return { data: result.data.data };
-    } catch (axiosError) {
-      let err = axiosError as AxiosError;
-      return {
-        error: { status: err.response?.status, data: err.response?.data },
-      };
-    }
-  };
+        const result = await axios({
+          url: `${baseUrl}${url}`,
+          method,
+          data,
+          headers: {
+            Authorization: `Bearer ${state.auth.token}`,
+          },
+        });
+        return { data: result.data.data };
+      } catch (axiosError) {
+        let err = axiosError as AxiosError;
+        return {
+          error: { status: err.response?.status, data: err.response?.data },
+        };
+      }
+    };
