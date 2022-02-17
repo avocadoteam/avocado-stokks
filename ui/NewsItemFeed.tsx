@@ -2,7 +2,9 @@ import React from 'react';
 import { StyleSheet, Text as NativeText, Image } from 'react-native';
 import { Box, Flex, Heading, useTheme } from 'native-base';
 import { NewsItem } from '@models';
+import { useGetImgFromArticleQuery } from 'core/modules/url-parser/query';
 import newsItemImage from 'assets/images/NewsItem.png';
+import { If } from './atoms/If';
 
 type NewsItemProps = {
   data: NewsItem;
@@ -10,6 +12,7 @@ type NewsItemProps = {
 
 export const NewsItemFeed = React.memo<NewsItemProps>(({ data }) => {
   const { colors } = useTheme();
+  const dataImgUrl = useGetImgFromArticleQuery({ link: data.link }).data
 
   return (
     <Flex direction="row">
@@ -26,9 +29,11 @@ export const NewsItemFeed = React.memo<NewsItemProps>(({ data }) => {
           <NativeText style={{ color: colors.textGray }}>{data.providerPublishTime}</NativeText>
         </Box>
       </Flex>
-      <Box style={styles.imageBox}>
-        <Image style={styles.image} source={newsItemImage} resizeMode={'cover'} />
-      </Box>
+      <If is={!!dataImgUrl?.imgUrl}>
+        <Box style={styles.imageBox}>
+          <Image style={styles.image} source={dataImgUrl?.imgUrl ? { uri: dataImgUrl.imgUrl } : newsItemImage} resizeMode={'cover'} />
+        </Box>
+      </If>
     </Flex>
   );
 });
