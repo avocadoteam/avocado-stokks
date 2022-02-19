@@ -22,5 +22,5 @@ export const rootReducer = combineReducers({
 export type State = ReturnType<typeof rootReducer>;
 
 declare module 'react-redux' {
-  export interface DefaultRootState extends State {}
+  export interface DefaultRootState extends State { }
 }
