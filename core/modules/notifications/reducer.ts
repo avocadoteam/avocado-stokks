@@ -1,16 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NotificationIntervalTarget, TriggerParam, UserNotificationUpdateModel } from '@models';
+import { NotificationIntervalTarget, TriggerName, TriggerParam, UserNotificationInfo } from '@models';
 
 export type NotificationsState = {
-  noticification: UserNotificationUpdateModel;
+  noticification: UserNotificationInfo;
 };
 
 const initialState: NotificationsState = {
   noticification: {
-    notifyInterval: NotificationIntervalTarget.Daily,
+    id: 0,
+    triggerName: TriggerName.PriceMatch,
+    notifyInterval: NotificationIntervalTarget.EveryHour,
     triggerParam: TriggerParam.Equals,
-    triggerValue: '1200',
-    delete: false,
+    triggerValue: '0',
+    deleted: null,
   },
 };
 
@@ -27,6 +29,9 @@ export const notificationSlice = createSlice({
     setNotifyTriggerValue: (state, action: PayloadAction<string>) => {
       state.noticification.triggerValue = action.payload;
     },
+    setNotification: (state, action: PayloadAction<UserNotificationInfo>) => {
+      state.noticification = action.payload
+    }
   },
 });
 

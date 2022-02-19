@@ -2,7 +2,7 @@ import React, { memo, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { StyleSheet } from 'react-native';
 import { Box, Flex, Text as NativeText, useTheme, Input } from 'native-base';
-import { stockActions } from 'core/modules/stock/reducer';
+import { notificationActions } from 'core/modules/notifications/reducer';
 import { TriggerParam } from '@models';
 import { DropdownSelect } from 'ui/DropdownSelect/DropdownSelect';
 import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
@@ -19,12 +19,12 @@ export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue 
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const dropdownSelectHandler = (value: TriggerParam) => {
-    dispatch(stockActions.setNotifyTriggerParam(value));
+    dispatch(notificationActions.setNotifyTriggerParam(value));
   };
 
   const [isFocusInput, setFocusInput] = useState(false);
   const changeInputHandler = useCallback((value: string) => {
-    dispatch(stockActions.setNotifyTriggerValue(value));
+    dispatch(notificationActions.setNotifyTriggerValue(value));
   }, []);
   const blurInputHandler = useCallback(() => {
     setFocusInput(false);

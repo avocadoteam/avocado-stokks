@@ -4,7 +4,7 @@ import { Box, Text as NativeText, useTheme } from 'native-base';
 import { NotificationIntervalTarget } from '@models';
 import { HorizontalSelect } from 'ui/HorizontalSelect/HorizontalSelect';
 import { useDispatch } from 'react-redux';
-import { stockActions } from 'core/modules/stock/reducer';
+import { notificationActions } from 'core/modules/notifications/reducer';
 
 type TimePickerProps = {
   notifyInterval: string;
@@ -14,7 +14,7 @@ export const TimePicker = memo<TimePickerProps>(({ notifyInterval }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const changeHandler = (value: NotificationIntervalTarget) => {
-    dispatch(stockActions.setNotifyInterval(value));
+    dispatch(notificationActions.setNotifyInterval(value));
   };
 
   return (

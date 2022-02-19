@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Modal, StyleSheet } from 'react-native';
 import { Box, useTheme } from 'native-base';
-import { getNoticification } from 'core/modules/stock/selectors';
+import { getNotification } from 'core/modules/notifications/selectors';
 import { getVisibleModal } from 'core/modules/modal/selectors';
 import { modalActions } from 'core/modules/modal/reducer';
 import { Header } from './Header';
@@ -12,11 +12,11 @@ import { TimePicker } from './TimePicker';
 import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
 import { NavigationModal } from 'core/models';
 
-export const NotifyModal = memo(({}) => {
+export const NotifyModal = memo(({ }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const visibleModal = useSelector(getVisibleModal);
-  const { triggerParam, triggerValue, notifyInterval } = useSelector(getNoticification);
+  const notification = useSelector(getNotification);
 
   const [height, setHeight] = useState(404);
   const closeModalHandler = () => {
@@ -38,9 +38,9 @@ export const NotifyModal = memo(({}) => {
         <Box style={styles.mainBox}>
           <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>
             <Header touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />
-            <PricePicker triggerParam={triggerParam} triggerValue={triggerValue} />
-            <TimePicker notifyInterval={notifyInterval} />
-            <PanelButtons />
+            <PricePicker {...notification} />
+            <TimePicker {...notification} />
+            <PanelButtons notification={notification} closeModalHandler={closeModalHandler} />
           </Box>
         </Box>
       </Modal>
