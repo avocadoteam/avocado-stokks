@@ -30,8 +30,8 @@ export const notificationSlice = createSlice({
       state.noticification.triggerValue = action.payload;
     },
     setNotification: (state, action: PayloadAction<UserNotificationInfo>) => {
-      state.noticification = action.payload
-    }
+      state.noticification = action.payload;
+    },
   },
 });
 
