@@ -5,13 +5,17 @@ import { modalActions } from 'core/modules/modal/reducer';
 import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
 import React, { memo } from 'react';
 import { useDispatch } from 'react-redux';
+import { If } from 'ui/atoms/If';
+import { NotificationOutlineIcon } from 'ui/icons/NotificationOutlineIcon';
+import { NotificationOutlineOffIcon } from 'ui/icons/NotificationOutlineOffIcon';
 import { SkeletonBannerHeading } from 'ui/Skeletons/SkeletonStockBanner/SkeletonBannerHeading';
 
 type Props = {
+  isUserSubscribedNotification: boolean;
   symbolInfo: SymbolGeneralInfo | undefined;
 };
 
-export const BannerHeading = memo<Props>(({ symbolInfo }) => {
+export const BannerHeading = memo<Props>(({ isUserSubscribedNotification, symbolInfo }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const openModalHandler = () => {
@@ -32,8 +36,12 @@ export const BannerHeading = memo<Props>(({ symbolInfo }) => {
             </Text>
           </HStack>
           <HStack alignItems="center">
+            <Button variant={'unstyled'} onPress={openModalHandler}>
+              <If else={<NotificationOutlineIcon />} is={isUserSubscribedNotification}>
+                <NotificationOutlineOffIcon />
+              </If>
+            </Button>
             <Button
-              onPress={openModalHandler}
               variant="unstyled"
               endIcon={<Icon as={Ionicons} name="ios-add" size={7} color={colors.upTextColor} />}
             ></Button>
