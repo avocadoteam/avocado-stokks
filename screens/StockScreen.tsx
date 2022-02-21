@@ -31,12 +31,15 @@ export const StockScreen = memo<Props>(({ navigation }) => {
 
   const dispatch = useDispatch();
   const userId = useSelector(getUserId);
-  const notification = useGetNotificationQuery({ symbolId: symbolInfo?.symbolId ?? '', userId }, { skip: !symbolInfo }).data;
+  const notification = useGetNotificationQuery({ symbolId: symbolInfo?.symbolId ?? '', userId }, { skip: !symbolInfo });
   useEffect(() => {
-    if (notification) {
-      dispatch(notificationActions.setNotification(notification));
+    notification.refetch();
+  }, [symbol]);
+  useEffect(() => {
+    if (notification.data) {
+      dispatch(notificationActions.setNotification(notification.data));
     } else {
-      dispatch(notificationActions.setNotifyTriggerValue(String(symbolInfo?.regularMarketPrice) ?? '0'));
+      dispatch(notificationActions.setNotifyTriggerValue(String(symbolInfo?.regularMarketPrice.toFixed(2)) ?? '0'));
     }
   }, [notification, symbol]);
 
@@ -45,10 +48,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <StockHeader onPressBack={onPressBack} />
       <ScrollView>
         <Box px={6} paddingBottom={6}>
-          <BannerHeading
-            isUserSubscribedNotification={notification && !notification.deleted ? true : false}
-            symbolInfo={symbolInfo}
-          />
+          <BannerHeading symbol={symbol} userId={userId} symbolInfo={symbolInfo} />
           <StockGraph up={up} />
           <RegularMarketBanner data={symbolInfo} />
           <PopularTweetsBanner symbol={symbol} />

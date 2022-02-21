@@ -11,11 +11,11 @@ type MainNewsItemProps = {
 };
 
 export const MainNewsItem = React.memo<MainNewsItemProps>(({ data }) => {
-  const dataImgUrl = useGetImgFromArticleQuery({ link: data.link }).data
+  const dataImgUrl = useGetImgFromArticleQuery({ link: data.link }).data;
 
   return (
     <If is={!!dataImgUrl?.imgUrl} else={<NewsItemFeed data={data} />}>
-      <ImageBackground style={styles.imageBackground} borderRadius={20} source={{ uri: dataImgUrl?.imgUrl ?? "" }}>
+      <ImageBackground style={styles.imageBackground} borderRadius={20} source={{ uri: dataImgUrl?.imgUrl ?? '' }}>
         <Box style={styles.mainBox}>
           <Box>
             <NativeText style={styles.text}>{data.publisher}</NativeText>
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     flexDirection: 'column',
     justifyContent: 'flex-end',
+    flexWrap: 'wrap',
   },
   text: {
     color: 'rgba(255, 255, 255, 0.9)',

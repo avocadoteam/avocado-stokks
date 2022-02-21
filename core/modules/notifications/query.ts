@@ -2,6 +2,11 @@ import { UserNotificationInfo, UserGetNotificationModel, UserNotificationModel, 
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'core/operations/data-fetch';
 
+type UserNotificationUpdate = UserNotificationUpdateModel & {
+  userId: number;
+  id: number;
+};
+
 export const notificationsApi = createApi({
   reducerPath: 'notificationsApi',
   baseQuery: axiosBaseQuery(),
@@ -12,7 +17,7 @@ export const notificationsApi = createApi({
     subscribeNotification: builder.mutation<number, UserNotificationModel>({
       query: data => ({ url: 'user/notification', method: 'post', data }),
     }),
-    updateNotification: builder.mutation<UserNotificationInfo, UserNotificationUpdateModel>({
+    updateNotification: builder.mutation<UserNotificationInfo, UserNotificationUpdate>({
       query: data => ({ url: `user/${data.userId}/notification/${data.id}`, method: 'put', data }),
     }),
   }),

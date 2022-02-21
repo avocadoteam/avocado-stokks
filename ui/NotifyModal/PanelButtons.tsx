@@ -5,34 +5,44 @@ import { CheckMarkLargeIcon } from 'ui/icons/CheckMarkLargeIcon';
 import { TrashLargeIcon } from 'ui/icons/TrashLargeIcon';
 import { UserNotificationInfo } from '@models';
 import { useSubscribeNotificationMutation, useUpdateNotificationMutation } from 'core/modules/notifications/query';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { getUserId } from 'core/modules/auth/selectors';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { stockActions } from 'core/modules/stock/reducer';
 
 type PanelButtonsProps = {
-  notification: UserNotificationInfo
-  closeModalHandler: () => void
-}
+  notification: UserNotificationInfo;
+  closeModalHandler: () => void;
+};
 
 export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalHandler }) => {
-  const symbol = useSelector(getSelectedSymbol)
-  const userId = useSelector(getUserId)
-  const [subscribeNotification] = useSubscribeNotificationMutation()
-  const [updateNotification] = useUpdateNotificationMutation()
+  const symbol = useSelector(getSelectedSymbol);
+  const userId = useSelector(getUserId);
+  const [subscribeNotification] = useSubscribeNotificationMutation();
+  const [updateNotification] = useUpdateNotificationMutation();
+
+  const dispatch = useDispatch();
+
   const acceptHandler = async () => {
     if (notification.id === 0) {
-      subscribeNotification({ symbol, userId, ...notification })
+      const data = await subscribeNotification({ symbol, userId, ...notification });
+      if (typeof data === 'number') {
+        dispatch(notificationActions.setNotification({ ...notification, id: data }));
+      }
     } else {
-      updateNotification({ delete: false, userId, ...notification })
+      const data = await updateNotification({ delete: false, userId, ...notification });
+      dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: null }));
     }
-    closeModalHandler()
-  }
+    closeModalHandler();
+  };
   const deleteHandler = async () => {
     if (notification.id) {
-      updateNotification({ delete: true, userId, ...notification })
+      const data = await updateNotification({ delete: true, userId, ...notification });
+      dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: new Date() }));
     }
-    closeModalHandler()
-  }
+    closeModalHandler();
+  };
 
   return (
     <Flex direction="row" style={styles.panelButtons}>
