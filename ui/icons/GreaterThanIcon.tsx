@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-export const GreaterThanIcon = () => {
+export const GreaterThanIcon = memo(() => {
   return (
     <Svg width="24" height="25" viewBox="0 0 24 25" fill="none">
       <Path
@@ -13,4 +13,4 @@ export const GreaterThanIcon = () => {
       />
     </Svg>
   );
-};
+});

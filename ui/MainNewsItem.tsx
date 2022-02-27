@@ -20,7 +20,7 @@ export const MainNewsItem = React.memo<MainNewsItemProps>(({ data }) => {
           <Box>
             <NativeText style={styles.text}>{data.publisher}</NativeText>
           </Box>
-          <Box>
+          <Box flexDirection="row">
             <Heading style={styles.text} size={'sm'}>
               {data.title}
             </Heading>
@@ -49,9 +49,9 @@ const styles = StyleSheet.create({
     paddingBottom: 24,
     flexDirection: 'column',
     justifyContent: 'flex-end',
-    flexWrap: 'wrap',
   },
   text: {
+    width: 273,
     color: 'rgba(255, 255, 255, 0.9)',
   },
 });

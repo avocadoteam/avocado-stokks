@@ -1,8 +1,8 @@
 import { useTheme } from 'native-base';
-import React from 'react';
+import React, { memo } from 'react';
 import Svg, { Path, Rect } from 'react-native-svg';
 
-export const AppIcon = () => {
+export const AppIcon = memo(() => {
   const { colors } = useTheme();
 
   return (
@@ -16,4 +16,4 @@ export const AppIcon = () => {
       />
     </Svg>
   );
-};
+});

@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-export const TrashLargeIcon = () => {
+export const TrashLargeIcon = memo(() => {
   return (
     <Svg width="28" height="28" viewBox="0 0 28 28" fill="none">
       <Path
@@ -12,4 +12,4 @@ export const TrashLargeIcon = () => {
       />
     </Svg>
   );
-};
+});

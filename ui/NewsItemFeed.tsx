@@ -12,7 +12,7 @@ type NewsItemProps = {
 
 export const NewsItemFeed = React.memo<NewsItemProps>(({ data }) => {
   const { colors } = useTheme();
-  const dataImgUrl = useGetImgFromArticleQuery({ link: data.link }).data
+  const dataImgUrl = useGetImgFromArticleQuery({ link: data.link }).data;
 
   return (
     <Flex direction="row">
@@ -31,7 +31,11 @@ export const NewsItemFeed = React.memo<NewsItemProps>(({ data }) => {
       </Flex>
       <If is={!!dataImgUrl?.imgUrl}>
         <Box style={styles.imageBox}>
-          <Image style={styles.image} source={dataImgUrl?.imgUrl ? { uri: dataImgUrl.imgUrl } : newsItemImage} resizeMode={'cover'} />
+          <Image
+            style={styles.image}
+            source={dataImgUrl?.imgUrl ? { uri: dataImgUrl.imgUrl } : newsItemImage}
+            resizeMode={'cover'}
+          />
         </Box>
       </If>
     </Flex>
