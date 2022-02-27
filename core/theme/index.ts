@@ -34,6 +34,7 @@ export const lightTheme = extendTheme({
     searchBg: '#FAFAFA',
     searchColor: '#303030',
     searchIcon: '#B9B9B9',
+    checkMarkLargeIcon: '#46C882',
     borderColor: '#F6F6F6',
     bgTweet: '#fff',
     separator: '#EDEDED',
@@ -42,18 +43,19 @@ export const lightTheme = extendTheme({
       bgActiveOption: 'rgba(60, 60, 60, 0.05)',
       textActiveOption: '#3C3C3C',
       bgOption: '#fff',
-      textOption: 'rgba(137, 137, 137, 0.9)'
+      textOption: 'rgba(137, 137, 137, 0.9)',
     },
     bgDropdown: '#fff',
     appIcon: {
       bg: '#F5FCF8',
-      icon: '#03CF6D'
+      icon: '#03CF6D',
     },
+    bgSnackbar: '#F8F8F8',
     skeleton: '#F4F4F4',
     skeletonTweet: '#F4F4F4',
     skeletonMainNewsBg: '#F4F4F4',
     skeletonMainNewsItem: '#EAEAEA',
-    skeletonGraph: '#E5E5E5'
+    skeletonGraph: '#E5E5E5',
   },
   borders: {
     searchRadius: '16px',
@@ -94,6 +96,7 @@ export const darkTheme = extendTheme({
     searchBg: '#3E3E3E',
     searchColor: 'rgba(255, 255, 255, 0.9);',
     searchIcon: '#949494',
+    checkMarkLargeIcon: '#fff',
     borderColor: '#2F2F2F',
     borderInputFocused: '#46C882',
     bgTweet: '#2F2F2F',
@@ -103,18 +106,19 @@ export const darkTheme = extendTheme({
       bgActiveOption: '#fff',
       textActiveOption: '#2D2D2D',
       bgOption: 'rgba(255, 255, 255, 0.05)',
-      textOption: 'rgba(255, 255, 255, 0.9)'
+      textOption: 'rgba(255, 255, 255, 0.9)',
     },
     bgDropdown: '#383838',
     appIcon: {
       bg: '#174B2E',
-      icon: '#03CF6D'
+      icon: '#03CF6D',
     },
+    bgSnackbar: '#3A3A3A',
     skeleton: '#3E3E3E',
     skeletonTweet: '#464646',
     skeletonMainNewsBg: '#2F2F2F',
     skeletonMainNewsItem: '#464646',
-    skeletonGraph: '#5E5E5E'
+    skeletonGraph: '#5E5E5E',
   },
   borders: {
     searchRadius: '16px',

@@ -1,5 +1,5 @@
 import React, { memo, useEffect } from 'react';
-import { Box, ScrollView, useTheme } from 'native-base';
+import { Box, Flex, ScrollView, useTheme } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useSymbolInfoQuery } from 'core/modules/stock/query';
@@ -14,6 +14,9 @@ import { NotifyModal } from 'ui/NotifyModal/NotifyModal';
 import { getUserId } from 'core/modules/auth/selectors';
 import { useGetNotificationQuery } from 'core/modules/notifications/query';
 import { notificationActions } from 'core/modules/notifications/reducer';
+import { SubscribedSnackbar } from 'ui/Snackbars/SubscribedSnackbar';
+import { UnsubscribedSnackbar } from 'ui/Snackbars/UnsubscribedSnackbar';
+import { ErrorSnackbar } from 'ui/Snackbars/ErrorSnackbar';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -56,6 +59,9 @@ export const StockScreen = memo<Props>(({ navigation }) => {
           <NotifyModal />
         </Box>
       </ScrollView>
+      <SubscribedSnackbar />
+      <UnsubscribedSnackbar />
+      <ErrorSnackbar />
     </Box>
   );
 });

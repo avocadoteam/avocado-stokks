@@ -8,3 +8,9 @@ export enum NavigationModal {
   Info = 'Info',
   Notify = 'Notify',
 }
+
+export enum NavigationSnackbar {
+  SubscribedNotification = 'SubscribedNotification',
+  UnsubscribedNotification = 'UnsubscribedNotification',
+  Error = 'Error',
+}

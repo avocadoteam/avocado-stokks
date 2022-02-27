@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-export const LessThanIcon = () => {
+export const LessThanIcon = memo(() => {
   return (
     <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
       <Path
@@ -13,4 +13,4 @@ export const LessThanIcon = () => {
       />
     </Svg>
   );
-};
+});

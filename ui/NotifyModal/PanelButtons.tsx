@@ -1,6 +1,6 @@
-import React, { memo } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { Box, Button, Flex } from 'native-base';
+import { Box, Button, Flex, useTheme } from 'native-base';
 import { CheckMarkLargeIcon } from 'ui/icons/CheckMarkLargeIcon';
 import { TrashLargeIcon } from 'ui/icons/TrashLargeIcon';
 import { UserNotificationInfo } from '@models';
@@ -9,7 +9,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { getUserId } from 'core/modules/auth/selectors';
 import { notificationActions } from 'core/modules/notifications/reducer';
-import { stockActions } from 'core/modules/stock/reducer';
+import { snackbarActions } from 'core/modules/snackbar/reducer';
+import { NavigationSnackbar } from 'core/models';
 
 type PanelButtonsProps = {
   notification: UserNotificationInfo;
@@ -17,37 +18,61 @@ type PanelButtonsProps = {
 };
 
 export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalHandler }) => {
+  const { colors } = useTheme();
+  const dispatch = useDispatch();
   const symbol = useSelector(getSelectedSymbol);
   const userId = useSelector(getUserId);
-  const [subscribeNotification] = useSubscribeNotificationMutation();
-  const [updateNotification] = useUpdateNotificationMutation();
+  const [subscribeNotification, payloadSubscribe] = useSubscribeNotificationMutation();
+  const [updateNotification, payloadUpdate] = useUpdateNotificationMutation();
+  const isLoading = useMemo(() => payloadSubscribe.isLoading || payloadUpdate.isLoading, [payloadSubscribe, payloadUpdate]);
 
-  const dispatch = useDispatch();
+  const trySubscribeNotification = useCallback(async () => {
+    const data = await subscribeNotification({ symbol, userId, ...notification });
+    if (typeof data === 'number') {
+      dispatch(notificationActions.setNotification({ ...notification, id: data }));
+    }
+  }, [userId, symbol, notification]);
+  const tryUpdateNotification = useCallback(async () => {
+    const data = await updateNotification({ delete: false, userId, ...notification });
+    dispatch(notificationActions.setNotification({ ...notification, ...data.data, deleted: null }));
+  }, [userId, notification]);
+  const tryDeleteNotification = useCallback(async () => {
+    const data = await updateNotification({ delete: true, userId, ...notification });
+    dispatch(notificationActions.setNotification({ ...notification, ...data.data, deleted: new Date() }));
+  }, [userId, notification]);
 
-  const acceptHandler = async () => {
-    if (notification.id === 0) {
-      const data = await subscribeNotification({ symbol, userId, ...notification });
-      if (typeof data === 'number') {
-        dispatch(notificationActions.setNotification({ ...notification, id: data }));
+  const acceptHandler = useCallback(async () => {
+    try {
+      if (notification.id === -1) {
+        await trySubscribeNotification();
+      } else {
+        await tryUpdateNotification();
       }
-    } else {
-      const data = await updateNotification({ delete: false, userId, ...notification });
-      dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: null }));
+      closeModalHandler();
+      dispatch(snackbarActions.openSnackbar(NavigationSnackbar.SubscribedNotification));
+    } catch (e) {
+      dispatch(snackbarActions.openSnackbar(NavigationSnackbar.Error));
     }
-    closeModalHandler();
-  };
-  const deleteHandler = async () => {
-    if (notification.id) {
-      const data = await updateNotification({ delete: true, userId, ...notification });
-      dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: new Date() }));
+  }, [tryUpdateNotification, trySubscribeNotification]);
+  const deleteHandler = useCallback(async () => {
+    try {
+      await tryDeleteNotification();
+      closeModalHandler();
+      dispatch(snackbarActions.openSnackbar(NavigationSnackbar.UnsubscribedNotification));
+    } catch (e) {
+      dispatch(snackbarActions.openSnackbar(NavigationSnackbar.Error));
     }
-    closeModalHandler();
-  };
+  }, [notification, tryDeleteNotification]);
 
   return (
     <Flex direction="row" style={styles.panelButtons}>
       <Box style={styles.sideDelete}>
-        <Button onPress={deleteHandler} style={styles.buttonDelete} variant={'unstyled'}>
+        <Button
+          disabled={isLoading || notification.id === -1}
+          onPress={deleteHandler}
+          style={styles.buttonDelete}
+          variant={'unstyled'}
+        >
           <TrashLargeIcon />
         </Button>
       </Box>

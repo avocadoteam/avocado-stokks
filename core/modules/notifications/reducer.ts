@@ -7,7 +7,7 @@ export type NotificationsState = {
 
 const initialState: NotificationsState = {
   noticification: {
-    id: 0,
+    id: -1,
     triggerName: TriggerName.PriceMatch,
     notifyInterval: NotificationIntervalTarget.EveryHour,
     triggerParam: TriggerParam.Equals,

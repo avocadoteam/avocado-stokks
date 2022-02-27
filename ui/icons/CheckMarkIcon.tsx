@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Svg, { Circle, Path } from 'react-native-svg';
 
-export const CheckMarkIcon = () => {
+export const CheckMarkIcon = memo(() => {
   return (
     <Svg width="29" height="29" viewBox="0 0 29 29" fill="none">
       <Circle opacity="0.07" cx="15" cy="14.5" r="9.99997" fill="#46C882" />
@@ -14,4 +14,4 @@ export const CheckMarkIcon = () => {
       />
     </Svg>
   );
-};
+});

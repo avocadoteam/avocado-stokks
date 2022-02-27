@@ -1,8 +1,8 @@
 import { useTheme } from 'native-base';
-import React from 'react';
+import React, { memo } from 'react';
 import Svg, { Path } from 'react-native-svg';
 
-export const LargeGraphSkeleton = () => {
+export const LargeGraphSkeleton = memo(() => {
   const { colors } = useTheme();
 
   return (
@@ -15,4 +15,4 @@ export const LargeGraphSkeleton = () => {
       />
     </Svg>
   );
-};
+});
