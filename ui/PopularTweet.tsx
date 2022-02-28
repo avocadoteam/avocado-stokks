@@ -3,6 +3,7 @@ import { StyleSheet, Text as NativeText } from 'react-native';
 import { Box, Flex, Heading, Image, useTheme } from 'native-base';
 import { Tweet } from '@models';
 import { If } from './atoms/If';
+import { ScrollView } from 'react-native-gesture-handler';
 
 type PopularTweetProps = {
   data: Tweet;
@@ -30,9 +31,9 @@ export const PopularTweet = React.memo<PopularTweetProps>(({ data }) => {
           <NativeText style={{ color: colors.text }}>{data.userName}</NativeText>
         </Box>
       </Flex>
-      <Box style={styles.description}>
+      <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={styles.description}>
         <NativeText style={{ color: colors.text }}>{data.text}</NativeText>
-      </Box>
+      </ScrollView>
     </Box>
   );
 });
