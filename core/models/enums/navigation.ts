@@ -7,6 +7,7 @@ export enum NavigationScreen {
 export enum NavigationModal {
   Info = 'Info',
   Notify = 'Notify',
+  Login = 'Login',
 }
 
 export enum NavigationSnackbar {
