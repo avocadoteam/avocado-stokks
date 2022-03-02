@@ -11,11 +11,11 @@ type MainNewsItemProps = {
 };
 
 export const MainNewsItem = React.memo<MainNewsItemProps>(({ data }) => {
-  const dataImgUrl = useGetImgFromArticleQuery({ link: data.link }).data;
+  const dataImgUrl = useGetImgFromArticleQuery({ links: [data.link] }).data;
 
   return (
-    <If is={!!dataImgUrl?.imgUrl} else={<NewsItemFeed data={data} />}>
-      <ImageBackground style={styles.imageBackground} borderRadius={20} source={{ uri: dataImgUrl?.imgUrl ?? '' }}>
+    <If is={!!dataImgUrl?.[0].imgUrl} else={<NewsItemFeed data={data} imgUrl={null} />}>
+      <ImageBackground style={styles.imageBackground} borderRadius={20} source={{ uri: dataImgUrl?.[0].imgUrl ?? '' }}>
         <Box style={styles.mainBox}>
           <Box>
             <NativeText style={styles.text}>{data.publisher}</NativeText>

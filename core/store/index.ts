@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import { notificationsApi } from 'core/modules/notifications/query';
 import { stockApi } from 'core/modules/stock/query';
 import { urlParserApi } from 'core/modules/url-parser/query';
 import { userApi } from 'core/modules/user/query';
@@ -9,7 +10,12 @@ export const store = configureStore({
   reducer: rootReducer,
   devTools: true,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(urlParserApi.middleware, userApi.middleware, stockApi.middleware),
+    getDefaultMiddleware().concat(
+      urlParserApi.middleware,
+      userApi.middleware,
+      stockApi.middleware,
+      notificationsApi.middleware,
+    ),
 });
 
 type extendend = { hot: { accept: (f: string, cb: () => void) => void } } & NodeModule;
