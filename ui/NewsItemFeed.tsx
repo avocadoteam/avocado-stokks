@@ -1,18 +1,17 @@
-import React from 'react';
-import { StyleSheet, Text as NativeText, Image } from 'react-native';
-import { Box, Flex, Heading, useTheme } from 'native-base';
 import { NewsItem } from '@models';
-import { useGetImgFromArticleQuery } from 'core/modules/url-parser/query';
 import newsItemImage from 'assets/images/NewsItem.png';
+import { Box, Flex, Heading, useTheme } from 'native-base';
+import React from 'react';
+import { Image, StyleSheet, Text as NativeText } from 'react-native';
 import { If } from './atoms/If';
 
 type NewsItemProps = {
   data: NewsItem;
+  imgUrl: string | null;
 };
 
-export const NewsItemFeed = React.memo<NewsItemProps>(({ data }) => {
+export const NewsItemFeed = React.memo<NewsItemProps>(({ data, imgUrl }) => {
   const { colors } = useTheme();
-  const dataImgUrl = useGetImgFromArticleQuery({ link: data.link }).data;
 
   return (
     <Flex direction="row">
@@ -29,13 +28,9 @@ export const NewsItemFeed = React.memo<NewsItemProps>(({ data }) => {
           <NativeText style={{ color: colors.textGray }}>{data.providerPublishTime}</NativeText>
         </Box>
       </Flex>
-      <If is={!!dataImgUrl?.imgUrl}>
+      <If is={!!imgUrl}>
         <Box style={styles.imageBox}>
-          <Image
-            style={styles.image}
-            source={dataImgUrl?.imgUrl ? { uri: dataImgUrl.imgUrl } : newsItemImage}
-            resizeMode={'cover'}
-          />
+          <Image style={styles.image} source={imgUrl ? { uri: imgUrl } : newsItemImage} resizeMode={'cover'} />
         </Box>
       </If>
     </Flex>
