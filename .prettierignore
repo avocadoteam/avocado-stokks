@@ -1,0 +1,6 @@
+.expo
+.idea
+.vscode
+stokks-models
+*.lock
+*.json

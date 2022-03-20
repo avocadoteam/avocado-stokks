@@ -1,16 +1,16 @@
-import React, { memo, useCallback, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
-import { Box, Button, Flex, useTheme } from 'native-base';
-import { CheckMarkLargeIcon } from 'ui/icons/CheckMarkLargeIcon';
-import { TrashLargeIcon } from 'ui/icons/TrashLargeIcon';
 import { UserNotificationInfo } from '@models';
-import { useSubscribeNotificationMutation, useUpdateNotificationMutation } from 'core/modules/notifications/query';
-import { useDispatch, useSelector } from 'react-redux';
-import { getSelectedSymbol } from 'core/modules/stock/selectors';
+import { NavigationSnackbar } from 'core/models';
 import { getUserId } from 'core/modules/auth/selectors';
+import { useSubscribeNotificationMutation, useUpdateNotificationMutation } from 'core/modules/notifications/query';
 import { notificationActions } from 'core/modules/notifications/reducer';
 import { snackbarActions } from 'core/modules/snackbar/reducer';
-import { NavigationSnackbar } from 'core/models';
+import { getSelectedSymbol } from 'core/modules/stock/selectors';
+import { Box, Button, Flex } from 'native-base';
+import React, { memo, useCallback, useMemo } from 'react';
+import { StyleSheet } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { CheckMarkLargeIcon } from 'ui/icons/CheckMarkLargeIcon';
+import { TrashLargeIcon } from 'ui/icons/TrashLargeIcon';
 
 type PanelButtonsProps = {
   notification: UserNotificationInfo;
@@ -18,13 +18,15 @@ type PanelButtonsProps = {
 };
 
 export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalHandler }) => {
-  const { colors } = useTheme();
   const dispatch = useDispatch();
   const symbol = useSelector(getSelectedSymbol);
   const userId = useSelector(getUserId);
   const [subscribeNotification, payloadSubscribe] = useSubscribeNotificationMutation();
   const [updateNotification, payloadUpdate] = useUpdateNotificationMutation();
-  const isLoading = useMemo(() => payloadSubscribe.isLoading || payloadUpdate.isLoading, [payloadSubscribe, payloadUpdate]);
+  const isLoading = useMemo(
+    () => payloadSubscribe.isLoading || payloadUpdate.isLoading,
+    [payloadSubscribe.isLoading, payloadUpdate.isLoading],
+  );
 
   const trySubscribeNotification = useCallback(async () => {
     const data = await subscribeNotification({ symbol, userId, ...notification });
@@ -33,17 +35,17 @@ export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalH
     }
   }, [userId, symbol, notification]);
   const tryUpdateNotification = useCallback(async () => {
-    const data = await updateNotification({ delete: false, userId, ...notification });
-    dispatch(notificationActions.setNotification({ ...notification, ...data.data, deleted: null }));
+    const data = await updateNotification({ delete: false, userId, ...notification }).unwrap();
+    dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: null }));
   }, [userId, notification]);
   const tryDeleteNotification = useCallback(async () => {
-    const data = await updateNotification({ delete: true, userId, ...notification });
-    dispatch(notificationActions.setNotification({ ...notification, ...data.data, deleted: new Date() }));
+    const data = await updateNotification({ delete: true, userId, ...notification }).unwrap();
+    dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: new Date() }));
   }, [userId, notification]);
 
   const acceptHandler = useCallback(async () => {
     try {
-      if (notification.id === -1) {
+      if (!notification.id) {
         await trySubscribeNotification();
       } else {
         await tryUpdateNotification();
@@ -68,7 +70,7 @@ export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalH
     <Flex direction="row" style={styles.panelButtons}>
       <Box style={styles.sideDelete}>
         <Button
-          disabled={isLoading || notification.id === -1}
+          disabled={isLoading || !notification.id}
           onPress={deleteHandler}
           style={styles.buttonDelete}
           variant={'unstyled'}

@@ -2,8 +2,8 @@ import { snackbarActions } from 'core/modules/snackbar/reducer';
 import { Box, Flex, Text as NativeText, useTheme } from 'native-base';
 import React, { memo, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-//@ts-ignore
 import { Snackbar } from 'react-native-paper';
+import { StyleSheet } from 'react-native';
 
 type Props = {
   snackbarIsVisible: boolean;
@@ -31,11 +31,10 @@ export const SnackbarCreator = memo<Props>(
         duration={duration}
         visible={snackbarIsVisible}
         action={{
-          //@ts-ignore
-          label: <NativeText color={colors.upTextColor}>{actionText}</NativeText>,
+          label: (<NativeText color={colors.upTextColor}>{actionText}</NativeText>) as unknown as string,
           onPress: actionHandler ?? (() => {}),
         }}
-        style={{ backgroundColor: colors.bgSnackbar, borderRadius: 24, padding: 5, marginHorizontal: 10 }}
+        style={{ backgroundColor: colors.bgSnackbar, ...styles.snackbar }}
       >
         <Flex flexDirection={'row'}>
           <Box>{before}</Box>
@@ -47,3 +46,7 @@ export const SnackbarCreator = memo<Props>(
     );
   },
 );
+
+const styles = StyleSheet.create({
+  snackbar: { borderRadius: 24, padding: 5, marginHorizontal: 10 },
+});

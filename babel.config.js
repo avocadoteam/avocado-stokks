@@ -8,12 +8,12 @@ module.exports = function (api) {
         'module-resolver',
         {
           alias: {
-            'ui': './ui',
-            'core': './core',
-            'assets': './assets',
-            'screens': './screens',
-            'navigation': './navigation',
-            '@models': './stokks-models/index'
+            ui: './ui',
+            core: './core',
+            assets: './assets',
+            screens: './screens',
+            navigation: './navigation',
+            '@models': './stokks-models/index',
           },
         },
       ],

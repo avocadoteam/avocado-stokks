@@ -11,9 +11,7 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
-      "@models": [
-        "./stokks-models/index"
-      ],
-    },
+      "@models": ["./stokks-models/index"]
+    }
   }
 }
