@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NavigationSnackbar } from 'core/models';
-import React from 'react';
 
 type SnackbarState = {
   visibleSnackbar: NavigationSnackbar | null;

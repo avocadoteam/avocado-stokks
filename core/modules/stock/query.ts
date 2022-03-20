@@ -9,7 +9,7 @@ import {
   SymbolGeneralInfo,
   HistoricalData,
   Tweet,
-  NewsItem
+  NewsItem,
 } from '@models';
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'core/operations/data-fetch';
@@ -35,8 +35,15 @@ export const stockApi = createApi({
     }),
     newsItems: builder.query<NewsItem[], NewsItemsModel>({
       query: data => ({ url: `stocks/symbol/news?query=${data.query}`, method: 'get' }),
-    })
+    }),
   }),
 });
 
-export const { useGetTrendingSumbolsQuery, useLazySearchQuery, useSymbolInfoQuery, useGraphQuery, useTweetsQuery, useNewsItemsQuery } = stockApi;
+export const {
+  useGetTrendingSumbolsQuery,
+  useLazySearchQuery,
+  useSymbolInfoQuery,
+  useGraphQuery,
+  useTweetsQuery,
+  useNewsItemsQuery,
+} = stockApi;
