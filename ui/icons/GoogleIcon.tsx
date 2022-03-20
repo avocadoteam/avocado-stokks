@@ -7,7 +7,7 @@ export const GoogleIcon = memo(() => {
 
   return (
     <Svg width="13" height="14" viewBox="0 0 13 14" fill="none">
-      <G clip-path="url(#clip0_59_2881)">
+      <G clipPath="url(#clip0_59_2881)">
         <Path
           d="M12.9932 7.12162C12.9932 6.58902 12.9489 6.20036 12.8532 5.79731H6.62952V8.20122H10.2827C10.2091 8.79862 9.81135 9.6983 8.92749 10.3029L8.9151 10.3833L10.8829 11.873L11.0193 11.8863C12.2713 10.7563 12.9932 9.0937 12.9932 7.12162Z"
           fill={colors.upTextColor}

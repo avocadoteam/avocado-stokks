@@ -7,9 +7,9 @@ export const CheckMarkGreenIcon = memo(() => {
       <Path
         d="M4.35718 13.3L11.2803 20.5L23.6429 7.64288"
         stroke="#03CF6D"
-        stroke-width="2.25"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2.25"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </Svg>
   );

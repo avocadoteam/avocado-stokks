@@ -7,9 +7,9 @@ export const LessThanIcon = memo(() => {
       <Path
         d="M5 9L9.5 13.5L12.5 10.5L18 16M18 16H14M18 16V12"
         stroke="#8D8D8D"
-        stroke-width="1.7"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="1.7"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </Svg>
   );
