@@ -8,7 +8,8 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "build:ios:dev": "expo build:ios -t simulator",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "jest": {
     "preset": "jest-expo"
@@ -67,7 +68,8 @@
     "expo-cli": "^4.10.0",
     "jest-expo": "~41.0.0",
     "prettier": "^2.6.0",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "husky": "^7.0.0"
   },
   "private": true
 }
