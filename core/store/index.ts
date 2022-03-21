@@ -1,6 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { notificationsApi } from 'core/modules/notifications/query';
+import { notificationAwaiter } from 'core/modules/notifications/request';
 import { stockApi } from 'core/modules/stock/query';
 import { urlParserApi } from 'core/modules/url-parser/query';
 import { userApi } from 'core/modules/user/query';
@@ -15,6 +16,7 @@ export const store = configureStore({
       userApi.middleware,
       stockApi.middleware,
       notificationsApi.middleware,
+      notificationAwaiter.middleware,
     ),
 });
 

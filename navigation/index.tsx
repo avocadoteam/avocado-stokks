@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { useNotificationCb } from 'core/hooks/useNotificationCb';
 import { NavigationScreen } from 'core/models';
 import { authUserDev } from 'core/modules/auth/auth-flow';
 import { authActions } from 'core/modules/auth/reducer';
@@ -13,6 +14,7 @@ const { Navigator, Screen } = createStackNavigator();
 
 export const RootNavigation = () => {
   const dispatch = useDispatch();
+  useNotificationCb();
 
   useEffect(() => {
     authUserDev().then(d => dispatch(authActions.completeAuth(d)));
