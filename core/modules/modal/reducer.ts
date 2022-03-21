@@ -6,7 +6,7 @@ export type ModalState = {
 };
 
 const initialState: ModalState = {
-  visibleModal: false,
+  visibleModal: NavigationModal.Login,
 };
 
 export const modalSlice = createSlice({

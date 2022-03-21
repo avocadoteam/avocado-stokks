@@ -7,18 +7,20 @@ import { modalActions } from 'core/modules/modal/reducer';
 import { getVisibleModal } from 'core/modules/modal/selectors';
 import { AppIcon } from './icons/AppIcon';
 import { GoogleIcon } from './icons/GoogleIcon';
+import { useGoogleAuth } from 'core/hooks/useGoogleAuth';
 
-export const LoginModal = React.memo(({}) => {
+export const LoginModal = React.memo(() => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const visibleModal = useSelector(getVisibleModal);
+  const { promptAsync, response } = useGoogleAuth();
   const closeModalHandler = () => {
     dispatch(modalActions.closeModal());
   };
 
   return (
     <Modal
-      transparent={true}
+      transparent
       animationType="slide"
       onRequestClose={closeModalHandler}
       visible={visibleModal === NavigationModal.Login}
@@ -36,11 +38,12 @@ export const LoginModal = React.memo(({}) => {
           <Box style={styles.description}>
             <NativeText textAlign={'center'} color={colors.textDarkGray}>
               Log in to sync your preferences across all of your devices.
+              {JSON.stringify(response ?? {})}
             </NativeText>
           </Box>
           <Box style={styles.buttons}>
             <Box>
-              <Button borderRadius={20} height={58} backgroundColor={colors.upBg}>
+              <Button borderRadius={20} height={58} backgroundColor={colors.upBg} onPress={() => promptAsync()}>
                 <Flex flexDirection={'row'}>
                   <Box flexDirection={'column'} justifyContent={'center'} mr={2}>
                     <GoogleIcon />

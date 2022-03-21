@@ -11,6 +11,7 @@ import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { If } from 'ui/atoms/If';
 import { InfoModal } from 'ui/InfoModal';
+import { LoginModal } from 'ui/LoginModal';
 import { MainHeader } from 'ui/MainHeader';
 import { SkeletonUserStocks } from 'ui/Skeletons/SkeletonUserStocks';
 import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
@@ -70,6 +71,7 @@ export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
         </If>
       </ScrollView>
       <InfoModal />
+      <LoginModal />
     </Box>
   );
 });
