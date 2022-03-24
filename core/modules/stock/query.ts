@@ -1,15 +1,15 @@
 import {
-  TrendingModel,
-  SearchModel,
-  SymbolInfoModel,
-  SymbolHystoryModel,
-  TweetsModel,
-  NewsItemsModel,
-  YahooSearchResult,
-  SymbolGeneralInfo,
-  HistoricalData,
-  Tweet,
+  HistoryResponseModel,
   NewsItem,
+  NewsItemsModel,
+  SearchModel,
+  SymbolGeneralInfo,
+  SymbolHystoryModel,
+  SymbolInfoModel,
+  TrendingModel,
+  Tweet,
+  TweetsModel,
+  YahooSearchResult,
 } from '@models';
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'core/operations/data-fetch';
@@ -27,8 +27,8 @@ export const stockApi = createApi({
     symbolInfo: builder.query<SymbolGeneralInfo, SymbolInfoModel>({
       query: data => ({ url: `stocks/symbol/info?symbol=${data.symbol}`, method: 'get' }),
     }),
-    graph: builder.query<HistoricalData, SymbolHystoryModel>({
-      query: data => ({ url: 'stocks/symbol/history', method: 'post', data }),
+    fullHistory: builder.query<HistoryResponseModel, SymbolHystoryModel>({
+      query: data => ({ url: 'stocks/symbol/history/full', method: 'post', data }),
     }),
     tweets: builder.query<Tweet[], TweetsModel>({
       query: data => ({ url: `stocks/symbol/tweets?query=${data.query}`, method: 'get' }),
@@ -43,7 +43,7 @@ export const {
   useGetTrendingSumbolsQuery,
   useLazySearchQuery,
   useSymbolInfoQuery,
-  useGraphQuery,
+  useFullHistoryQuery,
   useTweetsQuery,
   useNewsItemsQuery,
 } = stockApi;
