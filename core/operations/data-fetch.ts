@@ -3,8 +3,6 @@ import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import { baseUrl } from 'core/constants';
 import { State } from 'core/store/root-reducer';
 
-export const delay = (time = 2000) => new Promise(res => setTimeout(res, time));
-
 export const axiosBaseQuery =
   <CustomResponse = unknown>(): BaseQueryFn<
     {

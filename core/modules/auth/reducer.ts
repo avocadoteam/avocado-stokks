@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type AtuhState = {
   token: string;
   userId: number;
+  authType: 'google' | 'bare';
 };
 
 const initialState: AtuhState = {
   token: '',
   userId: 0,
+  authType: 'bare',
 };
 
 export const authSlice = createSlice({
@@ -17,6 +19,7 @@ export const authSlice = createSlice({
     completeAuth: (state, action: PayloadAction<AtuhState>) => {
       state.token = action.payload.token;
       state.userId = action.payload.userId;
+      state.authType = action.payload.authType;
     },
   },
 });

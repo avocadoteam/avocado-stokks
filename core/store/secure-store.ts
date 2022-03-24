@@ -5,7 +5,7 @@ export enum SecureStoreKey {
 }
 
 export type SeureStoreValue = {
-  [SecureStoreKey.Credentials]: { userId: number; password: string };
+  [SecureStoreKey.Credentials]: { userId: number; password: string; type: 'bare' | 'google' };
 };
 
 export const secureStore = {

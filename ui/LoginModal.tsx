@@ -1,30 +1,36 @@
-import React from 'react';
+import { useGoogleAuth } from 'core/hooks/useGoogleAuth';
+import { authGoogleUser } from 'core/modules/auth/google';
+import { authActions } from 'core/modules/auth/reducer';
+import { modalActions } from 'core/modules/modal/reducer';
+import { isLoginModalVisible } from 'core/modules/modal/selectors';
 import { Box, Button, Flex, Heading, Text as NativeText, useTheme } from 'native-base';
+import React, { useCallback, useEffect } from 'react';
 import { Dimensions, Modal, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavigationModal } from 'core/models';
-import { modalActions } from 'core/modules/modal/reducer';
-import { getVisibleModal } from 'core/modules/modal/selectors';
 import { AppIcon } from './icons/AppIcon';
 import { GoogleIcon } from './icons/GoogleIcon';
-import { useGoogleAuth } from 'core/hooks/useGoogleAuth';
 
 export const LoginModal = React.memo(() => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const visibleModal = useSelector(getVisibleModal);
+  const visibleModal = useSelector(isLoginModalVisible);
   const { promptAsync, response } = useGoogleAuth();
-  const closeModalHandler = () => {
+
+  const closeModalHandler = useCallback(() => {
     dispatch(modalActions.closeModal());
-  };
+  }, []);
+
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { authentication } = response;
+      authGoogleUser(authentication?.accessToken ?? '').then(d =>
+        dispatch(authActions.completeAuth({ ...d, authType: 'google' })),
+      );
+    }
+  }, [response]);
 
   return (
-    <Modal
-      transparent
-      animationType="slide"
-      onRequestClose={closeModalHandler}
-      visible={visibleModal === NavigationModal.Login}
-    >
+    <Modal transparent animationType="slide" onRequestClose={closeModalHandler} visible={visibleModal}>
       <Box style={styles.mainBox}>
         <Box style={{ ...styles.contentBox, backgroundColor: colors.bgTweet }}>
           <Box style={styles.appIcon}>
@@ -38,7 +44,6 @@ export const LoginModal = React.memo(() => {
           <Box style={styles.description}>
             <NativeText textAlign={'center'} color={colors.textDarkGray}>
               Log in to sync your preferences across all of your devices.
-              {JSON.stringify(response ?? {})}
             </NativeText>
           </Box>
           <Box style={styles.buttons}>

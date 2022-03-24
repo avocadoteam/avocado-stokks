@@ -18,11 +18,11 @@ import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
 import { TrendingStock } from 'ui/TrendingStock';
 import { UserStock } from 'ui/UserStock';
 
-interface MainScreenProps {
+type Props = {
   navigation: NavigationStackProp;
-}
+};
 
-export const MainScreen = React.memo<MainScreenProps>(({ navigation }) => {
+export const MainScreen = React.memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
   const userId = useSelector(getUserId);
   const dispatch = useDispatch();

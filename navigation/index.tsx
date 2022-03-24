@@ -2,7 +2,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useNotificationCb } from 'core/hooks/useNotificationCb';
 import { NavigationScreen } from 'core/models';
-import { authUserDev } from 'core/modules/auth/auth-flow';
+import { authUser } from 'core/modules/auth/auth-flow';
 import { authActions } from 'core/modules/auth/reducer';
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -17,7 +17,7 @@ export const RootNavigation = () => {
   useNotificationCb();
 
   useEffect(() => {
-    authUserDev().then(d => dispatch(authActions.completeAuth(d)));
+    authUser().then(d => dispatch(authActions.completeAuth(d)));
   }, []);
 
   return (
