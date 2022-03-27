@@ -27,7 +27,7 @@ export const stockApi = createApi({
     symbolInfo: builder.query<SymbolGeneralInfo, SymbolInfoModel>({
       query: data => ({ url: `stocks/symbol/info?symbol=${data.symbol}`, method: 'get' }),
     }),
-    fullHistory: builder.query<HistoryResponseModel, SymbolHystoryModel>({
+    graph: builder.query<HistoryResponseModel, SymbolHystoryModel>({
       query: data => ({ url: 'stocks/symbol/history/full', method: 'post', data }),
     }),
     tweets: builder.query<Tweet[], TweetsModel>({
@@ -43,7 +43,7 @@ export const {
   useGetTrendingSumbolsQuery,
   useLazySearchQuery,
   useSymbolInfoQuery,
-  useFullHistoryQuery,
+  useGraphQuery,
   useTweetsQuery,
   useNewsItemsQuery,
 } = stockApi;
