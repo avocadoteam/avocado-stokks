@@ -89,7 +89,7 @@ export const darkTheme = extendTheme({
     downTextSecondaryColor: 'rgba(236, 55, 55, 0.15)',
     upBg: 'rgba(3, 207, 109, 0.15)',
     upTextColor: '#03CF6D',
-    upTextSecondryColor: 'rgba(3, 207, 109, 0.15)',
+    upTextSecondaryColor: 'rgba(3, 207, 109, 0.15)',
     heading: '#fff',
     headingSmall: 'rgba(255, 255, 255, 0.9)',
     text: 'rgba(255, 255, 255, 0.9)',
