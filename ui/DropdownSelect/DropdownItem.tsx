@@ -15,7 +15,7 @@ export const DropdownItem = React.memo<DropdownItemProps>(({ onPress, isActive, 
   const { colors } = useTheme();
 
   return (
-    <Menu.Item>
+    <Menu.Item style={styles.wrapper}>
       <Pressable style={styles.mainBox} onPress={onPress}>
         <Box style={styles.leftBadge}>{icon}</Box>
         <Box style={styles.titleDropdown}>
@@ -32,6 +32,9 @@ export const DropdownItem = React.memo<DropdownItemProps>(({ onPress, isActive, 
 });
 
 const styles = StyleSheet.create({
+  wrapper: {
+    marginVertical: 7,
+  },
   mainBox: {
     width: 201,
     height: 36,

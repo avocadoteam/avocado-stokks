@@ -21,6 +21,7 @@ export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalH
   const dispatch = useDispatch();
   const symbol = useSelector(getSelectedSymbol);
   const userId = useSelector(getUserId);
+  console.log(userId, symbol, notification.id);
   const [subscribeNotification, payloadSubscribe] = useSubscribeNotificationMutation();
   const [updateNotification, payloadUpdate] = useUpdateNotificationMutation();
   const isLoading = useMemo(
@@ -50,19 +51,21 @@ export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalH
       } else {
         await tryUpdateNotification();
       }
-      closeModalHandler();
       dispatch(snackbarActions.openSnackbar(NavigationSnackbar.SubscribedNotification));
     } catch (e) {
       dispatch(snackbarActions.openSnackbar(NavigationSnackbar.Error));
+    } finally {
+      closeModalHandler();
     }
   }, [tryUpdateNotification, trySubscribeNotification]);
   const deleteHandler = useCallback(async () => {
     try {
       await tryDeleteNotification();
-      closeModalHandler();
       dispatch(snackbarActions.openSnackbar(NavigationSnackbar.UnsubscribedNotification));
     } catch (e) {
       dispatch(snackbarActions.openSnackbar(NavigationSnackbar.Error));
+    } finally {
+      closeModalHandler();
     }
   }, [notification, tryDeleteNotification]);
 

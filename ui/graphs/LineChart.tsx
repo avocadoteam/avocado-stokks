@@ -59,10 +59,10 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
               backgroundColor: colorFill,
             }}
           />
-          <Box style={styles.timeBox}>
-            <TimeBox colorBar={colorFillSecondary} timestamps={timestamps} width={width} rule={target} />
-          </Box>
         </If>
+        <Box style={styles.timeBox}>
+          <TimeBox colorBar={colorFillSecondary} timestamps={timestamps} width={width} rule={target} />
+        </Box>
       </Flex>
     </Pressable>
   );
