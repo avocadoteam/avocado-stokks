@@ -38,21 +38,6 @@ export const StockGraph = memo<Props>(({ up }) => {
             data={graphData.indicators.quote[0].close ?? []}
           />
         </Box>
-        <Button.Group justifyContent="space-between" colorScheme="gray" variant="ghost">
-          {periods.map(period => (
-            <Button
-              _text={{
-                color: colors.textGray,
-              }}
-              borderRadius={14}
-              key={period}
-              variant={target === targets[period] ? 'solid' : 'ghost'}
-              onPress={() => setHistoryTarget(targets[period])}
-            >
-              {period}
-            </Button>
-          ))}
-        </Button.Group>
       </Box>
       <Button.Group justifyContent="space-between" colorScheme="gray" variant="ghost">
         {periods.map(period => (

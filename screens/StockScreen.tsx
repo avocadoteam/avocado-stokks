@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useMemo } from 'react';
 import { Box, Flex, ScrollView, useTheme } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationStackProp } from 'react-navigation-stack';
@@ -17,6 +17,7 @@ import { notificationActions } from 'core/modules/notifications/reducer';
 import { SubscribedSnackbar } from 'ui/Snackbars/SubscribedSnackbar';
 import { UnsubscribedSnackbar } from 'ui/Snackbars/UnsubscribedSnackbar';
 import { ErrorSnackbar } from 'ui/Snackbars/ErrorSnackbar';
+import { getUserStoreData } from 'core/modules/user/selectors';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -27,6 +28,8 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const symbol = useSelector(getSelectedSymbol);
   const symbolInfo = useSymbolInfoQuery({ symbol }, { skip: !symbol }).data;
   const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
+  const stokks = useSelector(getUserStoreData);
+  const isStokkInUserStore = useMemo(() => stokks.some(s => s.symbol === symbol), [stokks, symbol]);
 
   const onPressBack = () => {
     navigation.goBack();
@@ -37,7 +40,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const notification = useGetNotificationQuery({ symbolId: symbolInfo?.symbolId ?? '', userId }, { skip: !symbolInfo });
   useEffect(() => {
     notification.refetch();
-  }, [symbol]);
+  }, [symbol, isStokkInUserStore]);
   useEffect(() => {
     if (notification.data) {
       dispatch(notificationActions.setNotification(notification.data));
@@ -51,7 +54,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <StockHeader onPressBack={onPressBack} />
       <ScrollView>
         <Box px={6} paddingBottom={6}>
-          <BannerHeading symbol={symbol} userId={userId} symbolInfo={symbolInfo} />
+          <BannerHeading isStokkInUserStore={isStokkInUserStore} symbol={symbol} userId={userId} symbolInfo={symbolInfo} />
           <StockGraph up={up} />
           <RegularMarketBanner data={symbolInfo} />
           <PopularTweetsBanner symbol={symbol} />

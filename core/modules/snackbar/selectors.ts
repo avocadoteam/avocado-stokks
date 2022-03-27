@@ -1,5 +1,5 @@
 import { createSelector } from '@reduxjs/toolkit';
-import { State } from '../../store/root-reducer';
+import { State } from '../store/root-reducer';
 
 const snackbarState = (state: State) => state.snackbar;
 

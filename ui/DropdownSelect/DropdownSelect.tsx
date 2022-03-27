@@ -1,6 +1,7 @@
 import React, { memo, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
-import { Text as NativeText, Menu, Pressable, useTheme } from 'native-base';
+import { StyleSheet, Pressable } from 'react-native';
+import { Text as NativeText, Menu, useTheme } from 'native-base';
+import { SSRProvider } from '@react-aria/ssr';
 import { DropdownItem } from 'ui/DropdownSelect/DropdownItem';
 
 type DropdownSelectProps = {
@@ -28,20 +29,22 @@ export const DropdownSelect = memo<DropdownSelectProps>(({ values, value, change
   );
 
   return (
-    <Menu
-      style={{ ...styles.mainBox, backgroundColor: colors.bgDropdown }}
-      closeOnSelect={false}
-      w={201}
-      trigger={triggerProps => {
-        return (
-          <Pressable accessibilityLabel="More options menu" {...triggerProps}>
-            {children}
-          </Pressable>
-        );
-      }}
-    >
-      {options}
-    </Menu>
+    <SSRProvider>
+      <Menu
+        style={{ ...styles.mainBox, borderColor: colors.separator, backgroundColor: colors.bgDropdown }}
+        closeOnSelect={false}
+        w={201}
+        trigger={triggerProps => {
+          return (
+            <Pressable style={{ zIndex: 1000 }} accessibilityLabel="More options menu" {...triggerProps}>
+              {children}
+            </Pressable>
+          );
+        }}
+      >
+        {options}
+      </Menu>
+    </SSRProvider>
   );
 });
 

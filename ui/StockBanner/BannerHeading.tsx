@@ -17,15 +17,14 @@ import { SkeletonBannerHeading } from 'ui/Skeletons/SkeletonStockBanner/Skeleton
 type Props = {
   symbol: string;
   userId: number;
+  isStokkInUserStore: boolean;
   symbolInfo: SymbolGeneralInfo | undefined;
 };
 
-export const BannerHeading = memo<Props>(({ symbolInfo, symbol, userId }) => {
+export const BannerHeading = memo<Props>(({ symbolInfo, symbol, userId, isStokkInUserStore }) => {
   const { colors } = useTheme();
   const notification = useSelector(getNotification);
   const isUserSubscribedNotification = useMemo(() => (!notification.deleted ? true : false), [notification.deleted]);
-  const stokks = useSelector(getUserStoreData);
-  const isStokkInUserStore = useMemo(() => stokks.some(s => s.symbol === symbol), [stokks, symbol]);
 
   const dispatch = useDispatch();
   const openModalHandler = useCallback(() => {

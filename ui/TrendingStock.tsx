@@ -2,10 +2,12 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { YahooSearchResult } from '@models';
 import { getUserId } from 'core/modules/auth/selectors';
 import { useAddToUserStoreMutation } from 'core/modules/user/query';
+import { getUserStoreData } from 'core/modules/user/selectors';
 import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Text as NativeText, TouchableHighlight } from 'react-native';
 import { useSelector } from 'react-redux';
+import { If } from './atoms/If';
 
 interface StockProps {
   onPress: (symbol: string) => void;
@@ -16,6 +18,8 @@ export const TrendingStock = React.memo<StockProps>(({ onPress, data }) => {
   const { colors } = useTheme();
   const [addToStore, { isLoading }] = useAddToUserStoreMutation();
   const userId = useSelector(getUserId);
+  const stokks = useSelector(getUserStoreData);
+  const isStokkInUserStore = useMemo(() => stokks.some(s => s.symbol === data.symbol), [stokks]);
 
   const onAdd = useCallback(() => {
     addToStore({ symbol: data.symbol, userId });
@@ -41,22 +45,24 @@ export const TrendingStock = React.memo<StockProps>(({ onPress, data }) => {
             {data.shortname}
           </NativeText>
         </Box>
-        <Box>
-          <Button
-            backgroundColor={colors.upBg}
-            color={colors.upTextColor}
-            size="sm"
-            rounded={40}
-            endIcon={<Icon as={MaterialCommunityIcons} name="plus" size={4} color={colors.upTextColor} />}
-            width={74}
-            height={38}
-            onPress={onAdd}
-            isLoading={isLoading}
-            isDisabled={isLoading}
-          >
-            <Text color={colors.upTextColor}>Add</Text>
-          </Button>
-        </Box>
+        <If is={!isStokkInUserStore}>
+          <Box>
+            <Button
+              backgroundColor={colors.upBg}
+              color={colors.upTextColor}
+              size="sm"
+              rounded={40}
+              endIcon={<Icon as={MaterialCommunityIcons} name="plus" size={4} color={colors.upTextColor} />}
+              width={74}
+              height={38}
+              onPress={onAdd}
+              isLoading={isLoading}
+              isDisabled={isLoading}
+            >
+              <Text color={colors.upTextColor}>Add</Text>
+            </Button>
+          </Box>
+        </If>
       </HStack>
     </TouchableHighlight>
   );
