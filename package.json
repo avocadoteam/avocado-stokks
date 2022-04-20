@@ -8,6 +8,7 @@
     "eject": "expo eject",
     "test": "jest --watchAll",
     "build:ios:dev": "expo build:ios -t simulator",
+    "build:ios": "eas build -p ios",
     "format": "prettier --write .",
     "ts": "tsc --project tsconfig.json --noEmit",
     "prepare": "husky install"
@@ -74,6 +75,7 @@
     "@types/react-native": "^0.67.3",
     "@types/react-native-svg-charts": "^5.0.12",
     "babel-plugin-module-resolver": "^4.1.0",
+    "eas-cli": "^0.51.0",
     "expo-cli": "^5.3.0",
     "husky": "^7.0.0",
     "jest-expo": "^44.0.1",
