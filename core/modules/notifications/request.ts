@@ -2,6 +2,7 @@ import { createListenerMiddleware } from '@reduxjs/toolkit';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
+import { Browser } from 'sentry-expo';
 import { authActions } from '../auth/reducer';
 import { notificationsApi } from './query';
 
@@ -15,13 +16,12 @@ const registerForPushNotifications = async () => {
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      console.debug('Failed to get push token for push notification!');
+      Browser.captureMessage('Failed to get push token for push notification!');
       return;
     }
-    console.debug(token);
     token = (await Notifications.getExpoPushTokenAsync()).data;
   } else {
-    console.debug('Must use physical device for Push Notifications');
+    Browser.captureMessage('Must use physical device for Push Notifications');
   }
 
   if (Platform.OS === 'android') {
@@ -44,7 +44,17 @@ notificationAwaiter.startListening({
     // listenerApi.cancelActiveListeners();
     // TODO: this needs to study hard the fq docs about certificates and keys
     // Run async logic
+    Browser.captureMessage('notificationAwaiter complete auth', {
+      contexts: {
+        action: action as any,
+      },
+    });
     const token = await registerForPushNotifications();
+    Browser.captureMessage('notificationAwaiter got token', {
+      contexts: {
+        token: token as any,
+      },
+    });
     // if (token) {
     //   notificationsApi.endpoints.installPushToken.initiate({ token, userId: action.payload.userId });
     // }
