@@ -9,6 +9,7 @@
     "test": "jest --watchAll",
     "build:ios:dev": "expo build:ios -t simulator",
     "build:ios": "eas build -p ios",
+    "build:android": "eas build -p android",
     "format": "prettier --write .",
     "ts": "tsc --project tsconfig.json --noEmit",
     "prepare": "husky install"
