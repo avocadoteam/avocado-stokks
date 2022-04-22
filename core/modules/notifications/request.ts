@@ -44,7 +44,7 @@ notificationAwaiter.startListening({
     // listenerApi.cancelActiveListeners();
     // TODO: this needs to study hard the fq docs about certificates and keys
     // Run async logic
-    // const token = await registerForPushNotifications();
+    const token = await registerForPushNotifications();
     // if (token) {
     //   notificationsApi.endpoints.installPushToken.initiate({ token, userId: action.payload.userId });
     // }

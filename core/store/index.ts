@@ -11,13 +11,9 @@ export const store = configureStore({
   reducer: rootReducer,
   devTools: true,
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(
-      urlParserApi.middleware,
-      userApi.middleware,
-      stockApi.middleware,
-      notificationsApi.middleware,
-      notificationAwaiter.middleware,
-    ),
+    getDefaultMiddleware()
+      .prepend(notificationAwaiter.middleware)
+      .concat(urlParserApi.middleware, userApi.middleware, stockApi.middleware, notificationsApi.middleware),
 });
 
 type extendend = { hot: { accept: (f: string, cb: () => void) => void } } & NodeModule;
