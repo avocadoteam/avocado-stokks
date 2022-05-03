@@ -1,7 +1,7 @@
 {
   "expo": {
     "owner": "avocado-games",
-    "name": "stokks-app",
+    "name": "stokks",
     "slug": "stokks-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -31,9 +31,6 @@
       },
       "package": "avocadogames.stokks",
       "versionCode": 1
-    },
-    "extra": {
-      "credentialSecret": "ggwp"
     },
     "plugins": [
       "sentry-expo"

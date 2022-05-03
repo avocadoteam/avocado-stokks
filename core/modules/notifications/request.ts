@@ -1,9 +1,11 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
+import { State } from 'core/store/root-reducer';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import { Browser } from 'sentry-expo';
 import { authActions } from '../auth/reducer';
+import { notificationToggle } from './actions';
 import { notificationsApi } from './query';
 
 const registerForPushNotifications = async () => {
@@ -36,6 +38,7 @@ const registerForPushNotifications = async () => {
 };
 
 export const notificationAwaiter = createListenerMiddleware();
+export const notificationManualAwaiter = createListenerMiddleware();
 
 notificationAwaiter.startListening({
   actionCreator: authActions.completeAuth,
@@ -56,7 +59,31 @@ notificationAwaiter.startListening({
       },
     });
     if (token) {
-      notificationsApi.endpoints.installPushToken.initiate({ token, userId: action.payload.userId });
+      listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, userId: action.payload.userId }));
+    }
+  },
+});
+notificationManualAwaiter.startListening({
+  actionCreator: notificationToggle,
+  effect: async (action, listenerApi) => {
+    // Can cancel other running instances
+    // listenerApi.cancelActiveListeners();
+    // TODO: this needs to study hard the fq docs about certificates and keys
+    // Run async logic
+    Browser.captureMessage('notificationAwaiter complete auth', {
+      contexts: {
+        action: action as any,
+      },
+    });
+    const token = await registerForPushNotifications();
+    Browser.captureMessage('notificationAwaiter got token', {
+      contexts: {
+        token: token as any,
+      },
+    });
+    if (token) {
+      const userId = (listenerApi.getState() as State).auth.userId;
+      listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, userId }));
     }
   },
 });
