@@ -1,4 +1,10 @@
-import { UserNotificationInfo, UserGetNotificationModel, UserNotificationModel, UserNotificationUpdateModel } from '@models';
+import {
+  UserNotificationInfo,
+  UserGetNotificationModel,
+  UserNotificationModel,
+  UserNotificationUpdateModel,
+  UserNotificationInstallModel,
+} from '@models';
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { axiosBaseQuery } from 'core/operations/data-fetch';
 
@@ -7,8 +13,7 @@ type UserNotificationUpdate = UserNotificationUpdateModel & {
   id: number;
 };
 
-type UserInstallPushToken = {
-  token: string;
+type UserInstallPushToken = UserNotificationInstallModel & {
   userId: number;
 };
 
