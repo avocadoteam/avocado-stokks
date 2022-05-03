@@ -37,12 +37,17 @@ export const StockScreen = memo<Props>(({ navigation }) => {
 
   const dispatch = useDispatch();
   const userId = useSelector(getUserId);
-  const notification = useGetNotificationQuery({ symbolId: symbolInfo?.symbolId ?? '', userId }, { skip: !symbolInfo });
+  const notification = useGetNotificationQuery(
+    { symbolId: symbolInfo?.symbolId ?? '', userId },
+    { skip: !symbolInfo?.symbolId },
+  );
+
   useEffect(() => {
     notification.refetch();
   }, [symbol, isStokkInUserStore]);
+
   useEffect(() => {
-    if (notification.data) {
+    if (notification.data?.id) {
       dispatch(notificationActions.setNotification(notification.data));
     } else {
       dispatch(notificationActions.setNotifyTriggerValue(String(symbolInfo?.regularMarketPrice.toFixed(2)) ?? '0'));

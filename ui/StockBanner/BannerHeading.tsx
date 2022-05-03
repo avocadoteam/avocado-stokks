@@ -4,7 +4,6 @@ import { NavigationModal } from 'core/models';
 import { modalActions } from 'core/modules/modal/reducer';
 import { getNotification } from 'core/modules/notifications/selectors';
 import { useAddToUserStoreMutation } from 'core/modules/user/query';
-import { getUserStoreData } from 'core/modules/user/selectors';
 import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
 import React, { memo, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -58,7 +57,7 @@ export const BannerHeading = memo<Props>(({ symbolInfo, symbol, userId, isStokkI
                 variant={'unstyled'}
                 onPress={openModalHandler}
                 endIcon={
-                  <If else={<NotificationOutlineIcon />} is={isUserSubscribedNotification}>
+                  <If is={isUserSubscribedNotification} else={<NotificationOutlineIcon />}>
                     <NotificationOutlineOffIcon />
                   </If>
                 }

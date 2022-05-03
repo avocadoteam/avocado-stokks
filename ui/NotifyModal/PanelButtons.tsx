@@ -23,21 +23,24 @@ export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalH
   const userId = useSelector(getUserId);
   const [subscribeNotification, payloadSubscribe] = useSubscribeNotificationMutation();
   const [updateNotification, payloadUpdate] = useUpdateNotificationMutation();
+
   const isLoading = useMemo(
     () => payloadSubscribe.isLoading || payloadUpdate.isLoading,
     [payloadSubscribe.isLoading, payloadUpdate.isLoading],
   );
 
   const trySubscribeNotification = useCallback(async () => {
-    const data = await subscribeNotification({ symbol, userId, ...notification });
+    const data = await subscribeNotification({ symbol, userId, ...notification }).unwrap();
     if (typeof data === 'number') {
       dispatch(notificationActions.setNotification({ ...notification, id: data }));
     }
   }, [userId, symbol, notification]);
+
   const tryUpdateNotification = useCallback(async () => {
     const data = await updateNotification({ delete: false, userId, ...notification }).unwrap();
     dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: null }));
   }, [userId, notification]);
+
   const tryDeleteNotification = useCallback(async () => {
     const data = await updateNotification({ delete: true, userId, ...notification }).unwrap();
     dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: new Date() }));
