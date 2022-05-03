@@ -9,6 +9,7 @@
     "test": "jest --watchAll",
     "build:ios:preview": "eas build -p ios --profile preview",
     "build:android:preview": "eas build -p android --profile preview",
+    "build:all:preview": "eas build -p android --profile preview",
     "build:ios:prod": "eas build -p ios",
     "build:android:prod": "eas build -p android",
     "format": "prettier --write .",
