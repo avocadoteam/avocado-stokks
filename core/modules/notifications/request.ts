@@ -7,6 +7,7 @@ import { Browser } from 'sentry-expo';
 import { authActions } from '../auth/reducer';
 import { notificationToggle } from './actions';
 import { notificationsApi } from './query';
+import { notificationActions } from './reducer';
 
 const registerForPushNotifications = async () => {
   let token: string = '';
@@ -43,10 +44,6 @@ export const notificationManualAwaiter = createListenerMiddleware();
 notificationAwaiter.startListening({
   actionCreator: authActions.completeAuth,
   effect: async (action, listenerApi) => {
-    // Can cancel other running instances
-    // listenerApi.cancelActiveListeners();
-    // TODO: this needs to study hard the fq docs about certificates and keys
-    // Run async logic
     Browser.captureMessage('notificationAwaiter complete auth', {
       contexts: {
         action: action as any,
@@ -60,16 +57,13 @@ notificationAwaiter.startListening({
     });
     if (token) {
       listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, userId: action.payload.userId }));
+      listenerApi.dispatch(notificationActions.allowNotifications(true));
     }
   },
 });
 notificationManualAwaiter.startListening({
   actionCreator: notificationToggle,
   effect: async (action, listenerApi) => {
-    // Can cancel other running instances
-    // listenerApi.cancelActiveListeners();
-    // TODO: this needs to study hard the fq docs about certificates and keys
-    // Run async logic
     Browser.captureMessage('notificationAwaiter complete auth', {
       contexts: {
         action: action as any,
@@ -84,6 +78,7 @@ notificationManualAwaiter.startListening({
     if (token) {
       const userId = (listenerApi.getState() as State).auth.userId;
       listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, userId }));
+      listenerApi.dispatch(notificationActions.allowNotifications(true));
     }
   },
 });

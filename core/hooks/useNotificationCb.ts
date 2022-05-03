@@ -7,7 +7,6 @@ import { notificationActions } from 'core/modules/notifications/reducer';
 
 export const useNotificationCb = () => {
   const responseListener = useRef<Subscription>();
-  const notificationListener = useRef<Subscription>();
 
   const dispatch = useDispatch();
 
@@ -27,12 +26,8 @@ export const useNotificationCb = () => {
   }, []);
 
   useEffect(() => {
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
-      dispatch(notificationActions.allowNotifications(!!notification));
+    Notifications.getPermissionsAsync().then(d => {
+      dispatch(notificationActions.allowNotifications(d.granted));
     });
-
-    return () => {
-      Notifications.removeNotificationSubscription(notificationListener.current!);
-    };
   }, []);
 };
