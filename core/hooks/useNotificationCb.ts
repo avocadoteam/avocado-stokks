@@ -2,9 +2,14 @@ import * as Sentry from 'sentry-expo';
 import { Subscription } from 'expo-modules-core';
 import * as Notifications from 'expo-notifications';
 import { useEffect, useRef } from 'react';
+import { useDispatch } from 'react-redux';
+import { notificationActions } from 'core/modules/notifications/reducer';
 
 export const useNotificationCb = () => {
   const responseListener = useRef<Subscription>();
+  const notificationListener = useRef<Subscription>();
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // This listener is fired whenever a user taps on or interacts with a notification (works when app is foregrounded, backgrounded, or killed)
@@ -18,6 +23,16 @@ export const useNotificationCb = () => {
 
     return () => {
       Notifications.removeNotificationSubscription(responseListener.current!);
+    };
+  }, []);
+
+  useEffect(() => {
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      dispatch(notificationActions.allowNotifications(!!notification));
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current!);
     };
   }, []);
 };

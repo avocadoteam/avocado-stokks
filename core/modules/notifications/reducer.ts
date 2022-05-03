@@ -3,6 +3,7 @@ import { NotificationIntervalTarget, TriggerName, TriggerParam, UserNotification
 
 export type NotificationsState = {
   noticification: UserNotificationInfo;
+  allowed: boolean;
 };
 
 const initialState: NotificationsState = {
@@ -14,6 +15,7 @@ const initialState: NotificationsState = {
     triggerValue: '0',
     deleted: null,
   },
+  allowed: false,
 };
 
 export const notificationSlice = createSlice({
@@ -31,6 +33,9 @@ export const notificationSlice = createSlice({
     },
     setNotification: (state, action: PayloadAction<UserNotificationInfo>) => {
       state.noticification = { ...action.payload };
+    },
+    allowNotifications: (state, a: PayloadAction<boolean>) => {
+      state.allowed = a.payload;
     },
   },
 });
