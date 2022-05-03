@@ -55,8 +55,8 @@ notificationAwaiter.startListening({
         token: token as any,
       },
     });
-    // if (token) {
-    //   notificationsApi.endpoints.installPushToken.initiate({ token, userId: action.payload.userId });
-    // }
+    if (token) {
+      notificationsApi.endpoints.installPushToken.initiate({ token, userId: action.payload.userId });
+    }
   },
 });

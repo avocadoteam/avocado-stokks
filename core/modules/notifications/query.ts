@@ -25,16 +25,10 @@ export const notificationsApi = createApi({
     updateNotification: builder.mutation<UserNotificationInfo, UserNotificationUpdate>({
       query: data => ({ url: `user/${data.userId}/notification/${data.id}`, method: 'put', data }),
     }),
-    // TODO: b-end
     installPushToken: builder.mutation<void, UserInstallPushToken>({
       query: data => ({ url: `user/${data.userId}/notification/install`, method: 'post', data }),
     }),
   }),
 });
 
-export const {
-  useGetNotificationQuery,
-  useSubscribeNotificationMutation,
-  useUpdateNotificationMutation,
-  useInstallPushTokenMutation,
-} = notificationsApi;
+export const { useGetNotificationQuery, useSubscribeNotificationMutation, useUpdateNotificationMutation } = notificationsApi;
