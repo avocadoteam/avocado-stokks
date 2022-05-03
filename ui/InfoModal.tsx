@@ -15,8 +15,6 @@ import { AppIcon } from './icons/AppIcon';
 export const InfoModal = React.memo(({}) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const [notifReq, setNotifReq] = useState('');
-  const [token, setToken] = useState('');
   const visibleModal = useSelector(getVisibleModal);
   const enabled = useSelector(isNotificationAllowed);
   const [height, setHeight] = useState(557);
