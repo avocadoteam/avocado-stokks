@@ -30,7 +30,13 @@ export const LoginModal = React.memo(() => {
   }, [response]);
 
   return (
-    <Modal transparent animationType="slide" onRequestClose={closeModalHandler} visible={visibleModal}>
+    <Modal
+      transparent
+      animationType="slide"
+      onDismiss={closeModalHandler}
+      onRequestClose={closeModalHandler}
+      visible={visibleModal}
+    >
       <Box style={styles.mainBox}>
         <Box style={{ ...styles.contentBox, backgroundColor: colors.bgTweet }}>
           <Box style={styles.appIcon}>

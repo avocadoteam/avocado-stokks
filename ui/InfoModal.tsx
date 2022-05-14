@@ -39,6 +39,7 @@ export const InfoModal = React.memo(({}) => {
     <Modal
       transparent
       animationType="slide"
+      onDismiss={closeModalHandler}
       onRequestClose={closeModalHandler}
       visible={visibleModal === NavigationModal.Info}
     >

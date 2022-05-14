@@ -1,7 +1,7 @@
 import React, { memo, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { StyleSheet } from 'react-native';
-import { Box, Flex, Text as NativeText, useTheme, Input } from 'native-base';
+import { Box, Flex, Text as NativeText, useTheme, Input, ScrollView } from 'native-base';
 import { notificationActions } from 'core/modules/notifications/reducer';
 import { TriggerParam } from '@models';
 import { DropdownSelect } from 'ui/DropdownSelect/DropdownSelect';
@@ -44,22 +44,24 @@ export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue 
         </DropdownSelect>
       </Box>
       <Box style={{ ...styles.pricePickerForm, backgroundColor: colors.bgScrollPicker }}>
-        <Input
-          borderColor={isFocusInput ? colors.borderInputFocused : 'transparent'}
-          textAlign={'center'}
-          fontSize={20}
-          fontWeight={'bold'}
-          height={70}
-          width={87}
-          borderRadius={16}
-          color={colors.text}
-          onChangeText={changeInputHandler}
-          onBlur={blurInputHandler}
-          onFocus={focusInputHandler}
-          keyboardType={'numeric'}
-          value={triggerValue}
-          maxLength={10}
-        />
+        <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
+          <Input
+            borderColor={isFocusInput ? colors.borderInputFocused : 'transparent'}
+            textAlign={'center'}
+            fontSize={20}
+            fontWeight={'bold'}
+            height={70}
+            width={87}
+            borderRadius={16}
+            color={colors.text}
+            onChangeText={changeInputHandler}
+            onBlur={blurInputHandler}
+            onFocus={focusInputHandler}
+            keyboardType={'numeric'}
+            value={triggerValue}
+            maxLength={10}
+          />
+        </ScrollView>
       </Box>
     </Box>
   );
@@ -74,6 +76,7 @@ const styles = StyleSheet.create({
   conditionPricePicker: {
     flexDirection: 'column',
     justifyContent: 'center',
+    zIndex: 100,
   },
   pricePickerForm: {
     justifyContent: 'flex-end',
