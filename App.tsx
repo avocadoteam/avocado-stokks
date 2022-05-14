@@ -25,13 +25,13 @@ export default function App() {
     return <SafeAreaProvider></SafeAreaProvider>;
   } else {
     return (
-      <SafeAreaProvider>
-        <Redux store={store}>
-          <NativeBaseProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
-            <RootNavigation />
-          </NativeBaseProvider>
-        </Redux>
-      </SafeAreaProvider>
+        <SafeAreaProvider>
+          <Redux store={store}>
+            <NativeBaseProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
+              <RootNavigation />
+            </NativeBaseProvider>
+          </Redux>
+        </SafeAreaProvider>
     );
   }
 }
