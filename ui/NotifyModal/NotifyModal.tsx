@@ -34,6 +34,7 @@ export const NotifyModal = memo(({}) => {
         transparent={true}
         animationType={'slide'}
         onRequestClose={closeModalHandler}
+        onDismiss={closeModalHandler}
         visible={visibleModal === NavigationModal.Notify}
       >
         <Box style={styles.mainBox}>
