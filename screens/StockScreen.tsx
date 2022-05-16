@@ -1,9 +1,9 @@
 import React, { memo, useEffect, useMemo } from 'react';
-import { Box, Flex, ScrollView, useTheme } from 'native-base';
+import { Box, ScrollView, useTheme } from 'native-base';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useSymbolInfoQuery } from 'core/modules/stock/query';
-import { getSelectedSymbol } from 'core/modules/stock/selectors';
+import { getSelectedSymbol, getGraphTouched } from 'core/modules/stock/selectors';
 import { BannerHeading } from 'ui/StockBanner/BannerHeading';
 import { StockGraph } from 'ui/StockBanner/StockGraph';
 import { StockHeader } from 'ui/StockHeader';
@@ -30,6 +30,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
   const stokks = useSelector(getUserStoreData);
   const isStokkInUserStore = useMemo(() => stokks.some(s => s.symbol === symbol), [stokks, symbol]);
+  const isGraphTouched = useSelector(getGraphTouched);
 
   const onPressBack = () => {
     navigation.goBack();
@@ -57,7 +58,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   return (
     <Box backgroundColor={colors.appBackground} flex={1}>
       <StockHeader onPressBack={onPressBack} />
-      <ScrollView>
+      <ScrollView scrollEnabled={!isGraphTouched}>
         <Box px={6} paddingBottom={6}>
           <BannerHeading isStokkInUserStore={isStokkInUserStore} symbol={symbol} userId={userId} symbolInfo={symbolInfo} />
           <StockGraph up={up} />
