@@ -1,5 +1,5 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { GestureResponderEvent, StyleSheet } from 'react-native';
 import * as shape from 'd3-shape';
 import { Box, Flex, useTheme, Pressable } from 'native-base';
 import { AreaChart } from 'react-native-svg-charts';
@@ -7,6 +7,8 @@ import { HistoryPeriodTarget } from '@models';
 import { If } from 'ui/atoms/If';
 import { TimeBox } from './TimeBox';
 import { useScrollBarHandler } from 'core/hooks/useScrollBarHandler';
+import { stockActions } from 'core/modules/stock/reducer';
+import { useDispatch } from 'react-redux';
 
 type Props = {
   up: boolean;
@@ -20,9 +22,15 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
   const width = 353;
   const colorFill = up ? colors.upTextColor : colors.downTextColor;
   const colorFillSecondary = up ? colors.upTextSecondaryColor : colors.downTextSecondaryColor;
-  const { positionX, isTouched, touchCancelHandler, touchMoveHandler, touchEndHandler, touchStartHandler } =
+  const { positionX, isTouched, touchMoveHandler, touchEndHandler, touchCancelHandler, touchStartHandler } =
     useScrollBarHandler(width);
-  const sliceIndex = Math.floor((positionX / width) * data.length);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(stockActions.setGraphTouched(isTouched));
+  }, [isTouched]);
+
+  const sliceIndex = useMemo(() => Math.floor((positionX / width) * data.length), [positionX, width, data.length]);
+
   return (
     <Pressable
       onTouchEnd={touchEndHandler}

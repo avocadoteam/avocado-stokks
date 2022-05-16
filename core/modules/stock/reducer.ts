@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type StockState = {
   selectedSymbol: string;
+  isGraphTouched: boolean;
 };
 
 const initialState: StockState = {
   selectedSymbol: '',
+  isGraphTouched: false,
 };
 
 export const stockSlice = createSlice({
@@ -14,6 +16,9 @@ export const stockSlice = createSlice({
   reducers: {
     selectSymbol: (state, action: PayloadAction<string>) => {
       state.selectedSymbol = action.payload;
+    },
+    setGraphTouched: (state, action: PayloadAction<boolean>) => {
+      state.isGraphTouched = action.payload;
     },
   },
 });

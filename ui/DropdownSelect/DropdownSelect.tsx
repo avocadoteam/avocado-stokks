@@ -29,6 +29,7 @@ export const DropdownSelect = memo<DropdownSelectProps>(({ values, value, change
 
   return (
     <Menu
+      defaultIsOpen={false}
       style={{ ...styles.mainBox, borderColor: colors.separator, backgroundColor: colors.bgDropdown }}
       closeOnSelect={false}
       w={201}
