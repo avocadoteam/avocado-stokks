@@ -5,7 +5,7 @@
     "slug": "stokks-app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/images/Logotype.png",
     "scheme": "stokks-app",
     "userInterfaceStyle": "automatic",
     "splash": {
