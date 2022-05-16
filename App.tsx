@@ -1,13 +1,16 @@
-import { NativeBaseProvider } from 'native-base';
-import React from 'react';
-import { useColorScheme } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider as Redux } from 'react-redux';
 import * as Sentry from 'sentry-expo';
-import useCachedResources from './core/hooks/useCachedResources';
-import { store } from './core/store';
+
 import { darkTheme, lightTheme } from './core/theme';
+
+import { NativeBaseProvider } from 'native-base';
+import { NavigationContainer } from '@react-navigation/native';
+import React from 'react';
+import { Provider as Redux } from 'react-redux';
 import { RootNavigation } from './navigation';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { store } from './core/store';
+import useCachedResources from './core/hooks/useCachedResources';
+import { useColorScheme } from 'react-native';
 
 Sentry.init({
   dsn: 'https://7cc7719f2c8d4f7d830604187af918d8@sr.testfriendship.special.vk-apps.com/7',
@@ -26,7 +29,9 @@ export default function App() {
       <SafeAreaProvider>
         <Redux store={store}>
           <NativeBaseProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
-            <RootNavigation />
+            <NavigationContainer>
+              <RootNavigation />
+            </NavigationContainer>
           </NativeBaseProvider>
         </Redux>
       </SafeAreaProvider>
