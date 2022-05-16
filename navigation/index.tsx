@@ -10,6 +10,7 @@ import { authUser } from 'core/modules/auth/auth-flow';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useDispatch } from 'react-redux';
 import { useNotificationCb } from 'core/hooks/useNotificationCb';
+import { SettingsScreen } from 'screens/SettingsScreen';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -28,6 +29,7 @@ export const RootNavigation = () => {
         <Screen name={NavigationScreen.Main} component={MainScreen} />
         <Screen name={NavigationScreen.Stock} component={StockScreen} />
         <Screen name={NavigationScreen.Search} component={SearchScreen} />
+        <Screen name={NavigationScreen.Settings} component={SettingsScreen} />
       </Navigator>
     </NavigationContainer>
   );
