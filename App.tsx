@@ -3,7 +3,6 @@ import * as Sentry from 'sentry-expo';
 import { darkTheme, lightTheme } from './core/theme';
 
 import { NativeBaseProvider } from 'native-base';
-import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { Provider as Redux } from 'react-redux';
 import { RootNavigation } from './navigation';
@@ -29,9 +28,7 @@ export default function App() {
       <SafeAreaProvider>
         <Redux store={store}>
           <NativeBaseProvider theme={colorScheme === 'light' ? lightTheme : darkTheme}>
-            <NavigationContainer>
-              <RootNavigation />
-            </NavigationContainer>
+            <RootNavigation />
           </NativeBaseProvider>
         </Redux>
       </SafeAreaProvider>

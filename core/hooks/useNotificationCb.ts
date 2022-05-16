@@ -2,17 +2,16 @@ import * as Notifications from 'expo-notifications';
 
 import { useEffect, useRef } from 'react';
 
+import { NavigationContainerRef } from '@react-navigation/native';
 import { NavigationScreen } from 'core/models';
 import { Subscription } from 'expo-modules-core';
 import { notificationActions } from 'core/modules/notifications/reducer';
 import { stockActions } from 'core/modules/stock/reducer';
 import { useDispatch } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
 
-export const useNotificationCb = () => {
+export const useNotificationCb = (navigation: NavigationContainerRef | null) => {
   const responseListener = useRef<Subscription>();
 
-  const navigation = useNavigation();
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -20,7 +19,7 @@ export const useNotificationCb = () => {
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       const data = response.notification.request.content.data as { symbolName: string };
       dispatch(stockActions.selectSymbol(data.symbolName));
-      navigation.navigate(NavigationScreen.Stock);
+      navigation?.navigate(NavigationScreen.Stock);
     });
 
     return () => {
