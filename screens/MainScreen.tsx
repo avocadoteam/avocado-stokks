@@ -1,22 +1,23 @@
-import { isDev } from 'core/constants';
-import { NavigationScreen } from 'core/models';
-import { clearStorageInDev } from 'core/modules/auth/auth-flow';
-import { getUserId } from 'core/modules/auth/selectors';
-import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
-import { stockActions } from 'core/modules/stock/reducer';
-import { useGetUserStoreQuery } from 'core/modules/user/query';
 import { Box, Button, ScrollView, Text, useTheme } from 'native-base';
 import React, { useCallback } from 'react';
-import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { If } from 'ui/atoms/If';
 import { InfoModal } from 'ui/InfoModal';
 import { LoginModal } from 'ui/LoginModal';
 import { MainHeader } from 'ui/MainHeader';
+import { NavigationScreen } from 'core/models';
+import { NavigationStackProp } from 'react-navigation-stack';
 import { SkeletonUserStocks } from 'ui/Skeletons/SkeletonUserStocks';
 import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
 import { TrendingStock } from 'ui/TrendingStock';
 import { UserStock } from 'ui/UserStock';
+import { clearStorageInDev } from 'core/modules/auth/auth-flow';
+import { getUserId } from 'core/modules/auth/selectors';
+import { isDev } from 'core/constants';
+import { stockActions } from 'core/modules/stock/reducer';
+import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
+import { useGetUserStoreQuery } from 'core/modules/user/query';
 
 type Props = {
   navigation: NavigationStackProp;
