@@ -9,8 +9,8 @@ import { SettingCell } from 'ui/SettingCell';
 export const ThemeBanner = memo(() => {
   const { colors } = useTheme();
   return (
-    <Box mb={2}>
-      <Heading size={'sm'} my={2} color={colors.heading}>
+    <Box mt={3}>
+      <Heading size={'sm'} color={colors.heading}>
         Theme
       </Heading>
       <Box>
