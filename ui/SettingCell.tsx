@@ -14,8 +14,8 @@ export const SettingCell = memo<Props>(({ before, after, children, textColor, on
   const { colors } = useTheme();
   return (
     <Pressable onPress={onPress}>
-      <Flex my={3} flexDirection="row">
-        <Box width={26} alignItems="center" mr={5}>
+      <Flex py={3} flexDirection="row">
+        <Box width={26} alignItems="center" justifyContent={'center'} mr={3}>
           {before}
         </Box>
         <Box style={styles.center}>
@@ -33,5 +33,8 @@ const { width } = Dimensions.get('window');
 const styles = StyleSheet.create({
   center: {
     width: width * 0.7,
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
 });

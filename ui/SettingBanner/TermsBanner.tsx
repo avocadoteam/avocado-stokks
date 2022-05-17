@@ -8,9 +8,9 @@ import { SettingCell } from 'ui/SettingCell';
 export const TermsBanner = memo(() => {
   const { colors } = useTheme();
   return (
-    <Box>
-      <Heading size={'sm'} my={2} mb={2} color={colors.heading}>
-        Theme
+    <Box mt={3}>
+      <Heading size={'sm'} color={colors.heading}>
+        Terms
       </Heading>
       <Box>
         <SettingCell before={<BlockedOutlineIcon />}>Privacy Policy</SettingCell>

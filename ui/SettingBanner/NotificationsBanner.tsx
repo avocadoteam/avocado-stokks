@@ -9,8 +9,8 @@ import { SettingCell } from 'ui/SettingCell';
 export const NotificationsBanner = memo(() => {
   const { colors } = useTheme();
   return (
-    <Box mb={2}>
-      <Heading size={'sm'} my={2} color={colors.heading}>
+    <Box mt={3}>
+      <Heading size={'sm'} color={colors.heading}>
         Notifications
       </Heading>
       <Box>
@@ -18,7 +18,7 @@ export const NotificationsBanner = memo(() => {
         <SettingCell before={<NotificationOutlineImportantIcon width={20} height={22} color={colors.headingSmall} />}>
           Important
         </SettingCell>
-        <SettingCell before={<NotificationOutlineOffIcon width={20} height={22} color={colors.headingSmall} />}>
+        <SettingCell before={<NotificationOutlineOffIcon width={24} height={24} color={colors.headingSmall} />}>
           Off
         </SettingCell>
       </Box>

@@ -7,7 +7,7 @@ import { SettingCell } from 'ui/SettingCell';
 export const DangerBanner = memo(() => {
   const { colors } = useTheme();
   return (
-    <Box my={2}>
+    <Box>
       <SettingCell textColor={colors.downTextColor} before={<RemoveIcon />}>
         Delete all data
       </SettingCell>
