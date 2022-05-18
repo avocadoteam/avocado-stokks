@@ -3,6 +3,7 @@ import { authReducer } from 'core/modules/auth/reducer';
 import { modalReducer } from 'core/modules/modal/reducer';
 import { notificationsApi } from 'core/modules/notifications/query';
 import { notificationReducer } from 'core/modules/notifications/reducer';
+import { settingsReducer } from 'core/modules/settings/reducer';
 import { snackbarReducer } from 'core/modules/snackbar/reducer';
 import { stockApi } from 'core/modules/stock/query';
 import { stockReducer } from 'core/modules/stock/reducer';
@@ -14,6 +15,7 @@ export const rootReducer = combineReducers({
   stock: stockReducer,
   modals: modalReducer,
   snackbar: snackbarReducer,
+  settings: settingsReducer,
   notifications: notificationReducer,
   [urlParserApi.reducerPath]: urlParserApi.reducer,
   [userApi.reducerPath]: userApi.reducer,
