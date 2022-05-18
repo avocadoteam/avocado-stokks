@@ -15,9 +15,6 @@ export const NotificationsBanner = memo(() => {
       </Heading>
       <Box>
         <SettingCell before={<NotificationOutlineIcon width={20} height={22} color={colors.headingSmall} />}>On</SettingCell>
-        <SettingCell before={<NotificationOutlineImportantIcon width={20} height={22} color={colors.headingSmall} />}>
-          Important
-        </SettingCell>
         <SettingCell before={<NotificationOutlineOffIcon width={24} height={24} color={colors.headingSmall} />}>
           Off
         </SettingCell>
