@@ -1,5 +1,5 @@
 import { Box, Button, ScrollView, Text, useTheme } from 'native-base';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { If } from 'ui/atoms/If';
