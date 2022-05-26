@@ -34,10 +34,6 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const isStokkInUserStore = useMemo(() => stokks.some(s => s.symbol === symbol), [stokks, symbol]);
   const isGraphTouched = useSelector(getGraphTouched);
 
-  const onPressBack = () => {
-    navigation.goBack();
-  };
-
   const dispatch = useDispatch();
   const userId = useSelector(getUserId);
   const notification = useGetNotificationQuery(
@@ -65,7 +61,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
 
   return (
     <Box backgroundColor={colors.appBackground} flex={1}>
-      <StockHeader onPressBack={onPressBack} />
+      <StockHeader onPressBack={navigation.goBack} />
       <ScrollView scrollEnabled={!isGraphTouched}>
         <Box px={6} paddingBottom={6}>
           <BannerHeading isStokkInUserStore={isStokkInUserStore} symbol={symbol} userId={userId} symbolInfo={symbolInfo} />
@@ -73,12 +69,12 @@ export const StockScreen = memo<Props>(({ navigation }) => {
           <RegularMarketBanner data={symbolInfo} />
           <PopularTweetsBanner symbol={symbol} />
           <LatestNewsBanner symbol={symbol} />
-          <NotifyModal />
         </Box>
       </ScrollView>
       <SubscribedSnackbar />
       <UnsubscribedSnackbar />
       <ErrorSnackbar />
+      <NotifyModal />
     </Box>
   );
 });
