@@ -1,15 +1,13 @@
-import { Box, Flex, Input, Text as NativeText, ScrollView, useTheme } from 'native-base';
+import { TriggerParam } from '@models';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { Box, Flex, Input, ScrollView, Text as NativeText, useTheme } from 'native-base';
 import React, { memo, useCallback, useState } from 'react';
-
-import { ArrowDropDownIcon } from 'ui/icons/ArrowDropDownIcon';
-import { DropdownSelect } from 'ui/DropdownSelect/DropdownSelect';
+import { StyleSheet } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { EqualToIcon } from 'ui/icons/EqualToIcon';
 import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
 import { LessThanIcon } from 'ui/icons/LessThanIcon';
-import { StyleSheet } from 'react-native';
-import { TriggerParam } from '@models';
-import { notificationActions } from 'core/modules/notifications/reducer';
-import { useDispatch } from 'react-redux';
+import { ScrollPicker } from 'ui/ScrollPicker';
 
 type PricePickerProps = {
   triggerValue: string;
@@ -19,7 +17,7 @@ type PricePickerProps = {
 export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const dropdownSelectHandler = (value: TriggerParam) => {
+  const pricePickerHandler = (value: TriggerParam) => {
     dispatch(notificationActions.setNotifyTriggerParam(value));
   };
 
@@ -33,16 +31,30 @@ export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue 
   const focusInputHandler = useCallback(() => {
     setFocusInput(true);
   }, []);
+  const triggerParams = [
+    { value: TriggerParam.Equals, title: 'Equals to' },
+    { value: TriggerParam.Greater, title: 'Greater than' },
+    { value: TriggerParam.Less, title: 'Less than' },
+  ];
 
   return (
     <Box style={styles.pricePicker}>
       <Box style={styles.conditionPricePicker}>
-        <DropdownSelect values={triggerParams} value={triggerParam} changeHandler={dropdownSelectHandler}>
-          <Flex direction="row">
+        <Flex direction="row">
+          <Box style={{ justifyContent: 'center', flexDirection: 'column' }} mr={2}>
             <NativeText style={{ color: colors.textGray }}>The price is</NativeText>
-            <ArrowDropDownIcon />
-          </Flex>
-        </DropdownSelect>
+          </Box>
+          <ScrollPicker
+            height={70}
+            width={130}
+            items={triggerParams}
+            selectedItem={{
+              value: triggerParam,
+              title: triggerParam,
+            }}
+            changeHandler={pricePickerHandler}
+          />
+        </Flex>
       </Box>
       <Box style={{ ...styles.pricePickerForm, backgroundColor: colors.bgScrollPicker }}>
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} keyboardShouldPersistTaps="handled">
@@ -52,6 +64,7 @@ export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue 
             fontSize={20}
             fontWeight={'bold'}
             height={70}
+            width={87}
             borderRadius={16}
             color={colors.text}
             onChangeText={changeInputHandler}

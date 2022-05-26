@@ -1,12 +1,11 @@
+import { createListenerMiddleware } from '@reduxjs/toolkit';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
-
 import { Platform } from 'react-native';
 import { authActions } from '../auth/reducer';
-import { createListenerMiddleware } from '@reduxjs/toolkit';
-import { notificationActions } from './reducer';
 import { notificationToggle } from './actions';
 import { notificationsApi } from './query';
+import { notificationActions } from './reducer';
 
 const registerForPushNotifications = async () => {
   let token: string = '';

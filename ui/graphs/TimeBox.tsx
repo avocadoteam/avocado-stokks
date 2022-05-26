@@ -1,8 +1,8 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Box, Flex, useTheme, Text as NativeText } from 'native-base';
 import { HistoryPeriodTarget } from '@models';
 import moment from 'moment';
+import { Box, Flex, Text as NativeText, useTheme } from 'native-base';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { If } from 'ui/atoms/If';
 
 type Props = {
@@ -49,24 +49,29 @@ const timestampsToElements = (
       reduceResultTimestamps[Math.floor(index / step)].w = reduceResultTimestamps[Math.floor(index / step)].w + r.w;
     }
   });
-  return reduceResultTimestamps.map(r => (
-    <Box>
-      <Box alignItems={'center'} key={r.t} style={{ width: Math.floor(r.w) }}>
-        <Box
-          alignItems={'center'}
-          key={r.t}
-          style={{
-            ...styles.bar,
-            backgroundColor: colorBar,
-          }}
-        ></Box>
-        <NativeText color={colors.textGray} fontSize={14}>
-          {r.t}
-          <If is={rule === HistoryPeriodTarget.Day}>:00</If>
-        </NativeText>
-      </Box>
-    </Box>
-  ));
+  return reduceResultTimestamps.map(r => {
+    const timeType = ruleToMomentType(rule);
+    if (r.w > 40 || (timeType !== 'HH' && timeType !== 'YYYY')) {
+      return (
+        <Box>
+          <Box alignItems={'center'} key={r.t} style={{ width: Math.floor(r.w) }}>
+            <Box
+              alignItems={'center'}
+              key={r.t}
+              style={{
+                ...styles.bar,
+                backgroundColor: colorBar,
+              }}
+            ></Box>
+            <NativeText color={colors.textGray} fontSize={14}>
+              {r.t}
+              <If is={rule === HistoryPeriodTarget.Day}>:00</If>
+            </NativeText>
+          </Box>
+        </Box>
+      );
+    }
+  });
 };
 
 const ruleToMomentType = (rule: HistoryPeriodTarget) => {

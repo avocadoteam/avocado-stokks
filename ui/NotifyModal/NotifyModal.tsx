@@ -1,17 +1,16 @@
+import { NavigationModal } from 'core/models';
+import { modalActions } from 'core/modules/modal/reducer';
+import { getVisibleModal } from 'core/modules/modal/selectors';
+import { getNotification } from 'core/modules/notifications/selectors';
 import { Box, useTheme } from 'native-base';
 import React, { memo, useCallback, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { Header } from './Header';
+import { StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
-import { NavigationModal } from 'core/models';
+import { useDispatch, useSelector } from 'react-redux';
+import { Header } from './Header';
 import { PanelButtons } from './PanelButtons';
 import { PricePicker } from './PricePicker';
-import { StyleSheet } from 'react-native';
 import { TimePicker } from './TimePicker';
-import { getNotification } from 'core/modules/notifications/selectors';
-import { getVisibleModal } from 'core/modules/modal/selectors';
-import { modalActions } from 'core/modules/modal/reducer';
 
 export const NotifyModal = memo(({}) => {
   const { colors } = useTheme();
