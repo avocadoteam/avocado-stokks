@@ -1,13 +1,13 @@
-import { createListenerMiddleware } from '@reduxjs/toolkit';
-import { State } from 'core/store/root-reducer';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+
 import { Platform } from 'react-native';
-import { Browser } from 'sentry-expo';
+import { State } from 'core/store/root-reducer';
 import { authActions } from '../auth/reducer';
+import { createListenerMiddleware } from '@reduxjs/toolkit';
+import { notificationActions } from './reducer';
 import { notificationToggle } from './actions';
 import { notificationsApi } from './query';
-import { notificationActions } from './reducer';
 
 const registerForPushNotifications = async () => {
   let token: string = '';
@@ -19,12 +19,9 @@ const registerForPushNotifications = async () => {
       finalStatus = status;
     }
     if (finalStatus !== 'granted') {
-      Browser.captureMessage('Failed to get push token for push notification!');
       return;
     }
     token = (await Notifications.getExpoPushTokenAsync()).data;
-  } else {
-    Browser.captureMessage('Must use physical device for Push Notifications');
   }
 
   if (Platform.OS === 'android') {
@@ -44,17 +41,7 @@ export const notificationManualAwaiter = createListenerMiddleware();
 notificationAwaiter.startListening({
   actionCreator: authActions.completeAuth,
   effect: async (action, listenerApi) => {
-    Browser.captureMessage('notificationAwaiter complete auth', {
-      contexts: {
-        action: action as any,
-      },
-    });
     const token = await registerForPushNotifications();
-    Browser.captureMessage('notificationAwaiter got token', {
-      contexts: {
-        token: token as any,
-      },
-    });
     if (token) {
       listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, userId: action.payload.userId }));
       listenerApi.dispatch(notificationActions.allowNotifications(true));
@@ -64,17 +51,7 @@ notificationAwaiter.startListening({
 notificationManualAwaiter.startListening({
   actionCreator: notificationToggle,
   effect: async (action, listenerApi) => {
-    Browser.captureMessage('notificationAwaiter complete auth', {
-      contexts: {
-        action: action as any,
-      },
-    });
     const token = await registerForPushNotifications();
-    Browser.captureMessage('notificationAwaiter got token', {
-      contexts: {
-        token: token as any,
-      },
-    });
     if (token) {
       const userId = (listenerApi.getState() as State).auth.userId;
       listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, userId }));

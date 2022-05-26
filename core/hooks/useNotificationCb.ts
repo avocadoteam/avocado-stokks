@@ -2,14 +2,12 @@ import * as Notifications from 'expo-notifications';
 
 import { useEffect, useRef } from 'react';
 
-import { NavigationContainerRef } from '@react-navigation/native';
-import { NavigationScreen } from 'core/models';
 import { Subscription } from 'expo-modules-core';
 import { notificationActions } from 'core/modules/notifications/reducer';
 import { stockActions } from 'core/modules/stock/reducer';
 import { useDispatch } from 'react-redux';
 
-export const useNotificationCb = (navigation: NavigationContainerRef | null) => {
+export const useNotificationCb = () => {
   const responseListener = useRef<Subscription>();
 
   const dispatch = useDispatch();
@@ -19,7 +17,6 @@ export const useNotificationCb = (navigation: NavigationContainerRef | null) => 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       const data = response.notification.request.content.data as { symbolName: string };
       dispatch(stockActions.selectSymbol(data.symbolName));
-      navigation?.navigate(NavigationScreen.Stock);
     });
 
     return () => {
@@ -29,7 +26,11 @@ export const useNotificationCb = (navigation: NavigationContainerRef | null) => 
 
   useEffect(() => {
     Notifications.getPermissionsAsync().then(d => {
-      dispatch(notificationActions.allowNotifications(d.granted));
+      dispatch(
+        notificationActions.allowNotifications(
+          d.granted || d.ios?.status === Notifications.IosAuthorizationStatus.PROVISIONAL,
+        ),
+      );
     });
   }, []);
 };

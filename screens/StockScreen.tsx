@@ -1,23 +1,25 @@
-import React, { memo, useEffect, useMemo } from 'react';
 import { Box, ScrollView, useTheme } from 'native-base';
+import React, { memo, useEffect, useMemo } from 'react';
+import { getGraphTouched, getSelectedSymbol } from 'core/modules/stock/selectors';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavigationStackProp } from 'react-navigation-stack';
-import { useSymbolInfoQuery } from 'core/modules/stock/query';
-import { getSelectedSymbol, getGraphTouched } from 'core/modules/stock/selectors';
+
 import { BannerHeading } from 'ui/StockBanner/BannerHeading';
+import { ErrorSnackbar } from 'ui/Snackbars/ErrorSnackbar';
+import { LatestNewsBanner } from 'ui/StockBanner/LatestNewsBanner';
+import { NavigationStackProp } from 'react-navigation-stack';
+import { NotifyModal } from 'ui/NotifyModal/NotifyModal';
+import { PopularTweetsBanner } from 'ui/StockBanner/PopularTweetsBanner';
+import { RegularMarketBanner } from 'ui/StockBanner/RegularMarketBanner';
 import { StockGraph } from 'ui/StockBanner/StockGraph';
 import { StockHeader } from 'ui/StockHeader';
-import { RegularMarketBanner } from 'ui/StockBanner/RegularMarketBanner';
-import { PopularTweetsBanner } from 'ui/StockBanner/PopularTweetsBanner';
-import { LatestNewsBanner } from 'ui/StockBanner/LatestNewsBanner';
-import { NotifyModal } from 'ui/NotifyModal/NotifyModal';
-import { getUserId } from 'core/modules/auth/selectors';
-import { useGetNotificationQuery } from 'core/modules/notifications/query';
-import { notificationActions } from 'core/modules/notifications/reducer';
 import { SubscribedSnackbar } from 'ui/Snackbars/SubscribedSnackbar';
 import { UnsubscribedSnackbar } from 'ui/Snackbars/UnsubscribedSnackbar';
-import { ErrorSnackbar } from 'ui/Snackbars/ErrorSnackbar';
+import { getUserId } from 'core/modules/auth/selectors';
 import { getUserStoreData } from 'core/modules/user/selectors';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { stockActions } from 'core/modules/stock/reducer';
+import { useGetNotificationQuery } from 'core/modules/notifications/query';
+import { useSymbolInfoQuery } from 'core/modules/stock/query';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -42,6 +44,12 @@ export const StockScreen = memo<Props>(({ navigation }) => {
     { symbolId: symbolInfo?.symbolId ?? '', userId },
     { skip: !symbolInfo?.symbolId },
   );
+
+  useEffect(() => {
+    return () => {
+      dispatch(stockActions.selectSymbol(''));
+    };
+  }, []);
 
   useEffect(() => {
     notification.refetch();

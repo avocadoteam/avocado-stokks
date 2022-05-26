@@ -1,13 +1,15 @@
-import { isNotificationAllowed } from 'core/modules/notifications/selectors';
+import * as Notifications from 'expo-notifications';
+
 import { Box, Heading, useTheme } from 'native-base';
-import React, { memo, useEffect } from 'react';
+import React, { memo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Separator } from 'ui/atoms/Separator';
+
 import { CheckCircleIcon } from 'ui/icons/CheckCircleIcon';
 import { NotificationOutlineIcon } from 'ui/icons/NotificationOutlineIcon';
 import { NotificationOutlineOffIcon } from 'ui/icons/NotificationOutlineOffIcon';
+import { Separator } from 'ui/atoms/Separator';
 import { SettingCell } from 'ui/SettingCell';
-import * as Notifications from 'expo-notifications';
+import { isNotificationAllowed } from 'core/modules/notifications/selectors';
 import { notificationActions } from 'core/modules/notifications/reducer';
 
 export const NotificationsBanner = memo(() => {
@@ -16,6 +18,14 @@ export const NotificationsBanner = memo(() => {
   const isNotificationTurnedOn = useSelector(isNotificationAllowed);
   const handleOffNotification = () => {
     dispatch(notificationActions.allowNotifications(false));
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: false,
+        shouldPlaySound: false,
+        shouldSetBadge: false,
+        iosDisplayInForeground: false,
+      }),
+    });
   };
   const handleOnNotification = () => {
     dispatch(notificationActions.allowNotifications(true));
