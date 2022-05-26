@@ -1,13 +1,13 @@
+import { Box, Button, HStack, Heading, Icon, Text, useTheme } from 'native-base';
+import { Text as NativeText, TouchableHighlight } from 'react-native';
+import React, { useCallback, useMemo } from 'react';
+
+import { If } from './atoms/If';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { YahooSearchResult } from '@models';
-import { getUserId } from 'core/modules/auth/selectors';
-import { useAddToUserStoreMutation } from 'core/modules/user/query';
 import { getUserStoreData } from 'core/modules/user/selectors';
-import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
-import React, { useCallback, useMemo } from 'react';
-import { Text as NativeText, TouchableHighlight } from 'react-native';
+import { useAddToUserStoreMutation } from 'core/modules/user/query';
 import { useSelector } from 'react-redux';
-import { If } from './atoms/If';
 
 interface StockProps {
   onPress: (symbol: string) => void;
@@ -17,13 +17,12 @@ interface StockProps {
 export const TrendingStock = React.memo<StockProps>(({ onPress, data }) => {
   const { colors } = useTheme();
   const [addToStore, { isLoading }] = useAddToUserStoreMutation();
-  const userId = useSelector(getUserId);
   const stokks = useSelector(getUserStoreData);
   const isStokkInUserStore = useMemo(() => stokks.some(s => s.symbol === data.symbol), [stokks]);
 
   const onAdd = useCallback(() => {
-    addToStore({ symbol: data.symbol, userId });
-  }, [userId]);
+    addToStore({ symbol: data.symbol });
+  }, []);
 
   const touchStock = useCallback(() => {
     onPress(data.symbol);
