@@ -1,14 +1,16 @@
-import { useGoogleAuth } from 'core/hooks/useGoogleAuth';
-import { authGoogleUser } from 'core/modules/auth/google';
-import { authActions } from 'core/modules/auth/reducer';
-import { modalActions } from 'core/modules/modal/reducer';
-import { isLoginModalVisible } from 'core/modules/modal/selectors';
 import { Box, Button, Flex, Heading, Text as NativeText, useTheme } from 'native-base';
+import { Dimensions, StyleSheet } from 'react-native';
 import React, { useCallback, useEffect } from 'react';
-import { Dimensions, Modal, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { AppIcon } from './icons/AppIcon';
 import { GoogleIcon } from './icons/GoogleIcon';
+import Modal from 'react-native-modal';
+import { authActions } from 'core/modules/auth/reducer';
+import { authGoogleUser } from 'core/modules/auth/google';
+import { isLoginModalVisible } from 'core/modules/modal/selectors';
+import { modalActions } from 'core/modules/modal/reducer';
+import { useGoogleAuth } from 'core/hooks/useGoogleAuth';
 
 export const LoginModal = React.memo(() => {
   const { colors } = useTheme();
@@ -31,11 +33,11 @@ export const LoginModal = React.memo(() => {
 
   return (
     <Modal
-      transparent
-      animationType="slide"
-      onDismiss={closeModalHandler}
-      onRequestClose={closeModalHandler}
-      visible={visibleModal}
+      onBackdropPress={closeModalHandler}
+      onSwipeComplete={closeModalHandler}
+      swipeDirection="down"
+      style={{ margin: 0 }}
+      isVisible={visibleModal}
     >
       <Box style={styles.mainBox}>
         <Box style={{ ...styles.contentBox, backgroundColor: colors.bgTweet }}>
@@ -83,7 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   contentBox: {
     height: height * 0.92,

@@ -1,52 +1,37 @@
-import { Box, Heading, Link, Text as NativeText, Switch, useTheme } from 'native-base';
-import { Modal, StyleSheet } from 'react-native';
+import { Box, Heading, Link, Text as NativeText, useTheme } from 'native-base';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { AppIcon } from './icons/AppIcon';
+import Modal from 'react-native-modal';
 import { NavigationModal } from 'core/models';
+import { StyleSheet } from 'react-native';
 import { Toggle } from './atoms/Toggle';
 import { getVisibleModal } from 'core/modules/modal/selectors';
-import { isNotificationAllowed } from 'core/modules/notifications/selectors';
 import { modalActions } from 'core/modules/modal/reducer';
-import { notificationActions } from 'core/modules/notifications/reducer';
-import { notificationToggle } from 'core/modules/notifications/actions';
-import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
 
 export const InfoModal = React.memo(({}) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const visibleModal = useSelector(getVisibleModal);
-  const enabled = useSelector(isNotificationAllowed);
   const [height, setHeight] = useState(557);
 
   const closeModalHandler = () => {
     dispatch(modalActions.closeModal());
     setHeight(557);
   };
-  const [touchStartHandler, touchMoveHandler] = useVerticalSwipeHandler({ min: 400, current: height, max: 600 }, setHeight, {
-    min: closeModalHandler,
-  });
-
-  const toggle = () => {
-    if (enabled) {
-      dispatch(notificationActions.allowNotifications(false));
-    } else {
-      dispatch(notificationToggle());
-    }
-  };
 
   return (
     <Modal
-      transparent
-      animationType="slide"
-      onDismiss={closeModalHandler}
-      onRequestClose={closeModalHandler}
-      visible={visibleModal === NavigationModal.Info}
+      onBackdropPress={closeModalHandler}
+      onSwipeComplete={closeModalHandler}
+      swipeDirection="down"
+      style={{ margin: 0 }}
+      isVisible={visibleModal === NavigationModal.Info}
     >
       <Box style={styles.mainBox}>
         <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>
-          <Toggle touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />
+          <Toggle />
           <Box style={styles.appIcon}>
             <AppIcon />
           </Box>
@@ -57,10 +42,6 @@ export const InfoModal = React.memo(({}) => {
           </Box>
           <Box style={styles.appVersion}>
             <NativeText color={colors.textDarkGray}>1.0</NativeText>
-          </Box>
-          <Box>
-            <NativeText color={colors.textDarkGray}>notifications</NativeText>
-            <Switch value={enabled} onChange={toggle} colorScheme="emerald" />
           </Box>
           <Box style={styles.additionalInfo}>
             <NativeText color={colors.textDarkGray}>Icons from</NativeText>
@@ -79,7 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     height: '100%',
-    backgroundColor: 'rgba(0,0,0,0.5)',
   },
   contentBox: {
     flexDirection: 'column',

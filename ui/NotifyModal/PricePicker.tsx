@@ -52,7 +52,6 @@ export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue 
             fontSize={20}
             fontWeight={'bold'}
             height={70}
-            width={87}
             borderRadius={16}
             color={colors.text}
             onChangeText={changeInputHandler}
