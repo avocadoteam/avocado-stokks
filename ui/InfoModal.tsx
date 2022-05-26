@@ -1,16 +1,17 @@
-import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
-import { NavigationModal } from 'core/models';
-import { modalActions } from 'core/modules/modal/reducer';
-import { getVisibleModal } from 'core/modules/modal/selectors';
-import { notificationToggle } from 'core/modules/notifications/actions';
-import { notificationActions } from 'core/modules/notifications/reducer';
-import { isNotificationAllowed } from 'core/modules/notifications/selectors';
-import { Box, Heading, Link, Switch, Text as NativeText, useTheme } from 'native-base';
-import React, { useState } from 'react';
+import { Box, Heading, Link, Text as NativeText, Switch, useTheme } from 'native-base';
 import { Modal, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Toggle } from './atoms/Toggle';
+
 import { AppIcon } from './icons/AppIcon';
+import { NavigationModal } from 'core/models';
+import { Toggle } from './atoms/Toggle';
+import { getVisibleModal } from 'core/modules/modal/selectors';
+import { isNotificationAllowed } from 'core/modules/notifications/selectors';
+import { modalActions } from 'core/modules/modal/reducer';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { notificationToggle } from 'core/modules/notifications/actions';
+import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
 
 export const InfoModal = React.memo(({}) => {
   const { colors } = useTheme();

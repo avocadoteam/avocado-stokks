@@ -1,14 +1,15 @@
+import { Box, Flex, Input, Text as NativeText, ScrollView, useTheme } from 'native-base';
 import React, { memo, useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { StyleSheet } from 'react-native';
-import { Box, Flex, Text as NativeText, useTheme, Input, ScrollView } from 'native-base';
-import { notificationActions } from 'core/modules/notifications/reducer';
-import { TriggerParam } from '@models';
+
+import { ArrowDropDownIcon } from 'ui/icons/ArrowDropDownIcon';
 import { DropdownSelect } from 'ui/DropdownSelect/DropdownSelect';
+import { EqualToIcon } from 'ui/icons/EqualToIcon';
 import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
 import { LessThanIcon } from 'ui/icons/LessThanIcon';
-import { EqualToIcon } from 'ui/icons/EqualToIcon';
-import { ArrowDropDownIcon } from 'ui/icons/ArrowDropDownIcon';
+import { StyleSheet } from 'react-native';
+import { TriggerParam } from '@models';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { useDispatch } from 'react-redux';
 
 type PricePickerProps = {
   triggerValue: string;
