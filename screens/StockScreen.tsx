@@ -64,7 +64,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <StockHeader onPressBack={navigation.goBack} />
       <ScrollView scrollEnabled={!isGraphTouched}>
         <Box px={6} paddingBottom={6}>
-          <BannerHeading isStokkInUserStore={isStokkInUserStore} symbol={symbol} userId={userId} symbolInfo={symbolInfo} />
+          <BannerHeading isStokkInUserStore={isStokkInUserStore} symbol={symbol} symbolInfo={symbolInfo} />
           <StockGraph up={up} />
           <RegularMarketBanner data={symbolInfo} />
           <PopularTweetsBanner symbol={symbol} />

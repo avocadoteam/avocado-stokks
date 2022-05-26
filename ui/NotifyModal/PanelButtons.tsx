@@ -1,16 +1,16 @@
-import { UserNotificationInfo } from '@models';
-import { NavigationSnackbar } from 'core/models';
-import { getUserId } from 'core/modules/auth/selectors';
-import { useSubscribeNotificationMutation, useUpdateNotificationMutation } from 'core/modules/notifications/query';
-import { notificationActions } from 'core/modules/notifications/reducer';
-import { snackbarActions } from 'core/modules/snackbar/reducer';
-import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { Box, Button, Flex } from 'native-base';
 import React, { memo, useCallback, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+import { useSubscribeNotificationMutation, useUpdateNotificationMutation } from 'core/modules/notifications/query';
+
 import { CheckMarkLargeIcon } from 'ui/icons/CheckMarkLargeIcon';
+import { NavigationSnackbar } from 'core/models';
+import { StyleSheet } from 'react-native';
 import { TrashLargeIcon } from 'ui/icons/TrashLargeIcon';
+import { UserNotificationInfo } from '@models';
+import { getSelectedSymbol } from 'core/modules/stock/selectors';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { snackbarActions } from 'core/modules/snackbar/reducer';
 
 type PanelButtonsProps = {
   notification: UserNotificationInfo;
@@ -20,7 +20,6 @@ type PanelButtonsProps = {
 export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalHandler }) => {
   const dispatch = useDispatch();
   const symbol = useSelector(getSelectedSymbol);
-  const userId = useSelector(getUserId);
   const [subscribeNotification, payloadSubscribe] = useSubscribeNotificationMutation();
   const [updateNotification, payloadUpdate] = useUpdateNotificationMutation();
 
@@ -30,21 +29,21 @@ export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalH
   );
 
   const trySubscribeNotification = useCallback(async () => {
-    const data = await subscribeNotification({ symbol, userId, ...notification }).unwrap();
+    const data = await subscribeNotification({ symbol, ...notification }).unwrap();
     if (typeof data === 'number') {
       dispatch(notificationActions.setNotification({ ...notification, id: data }));
     }
-  }, [userId, symbol, notification]);
+  }, [symbol, notification]);
 
   const tryUpdateNotification = useCallback(async () => {
-    const data = await updateNotification({ delete: false, userId, ...notification }).unwrap();
+    const data = await updateNotification({ delete: false, ...notification }).unwrap();
     dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: null }));
-  }, [userId, notification]);
+  }, [notification]);
 
   const tryDeleteNotification = useCallback(async () => {
-    const data = await updateNotification({ delete: true, userId, ...notification }).unwrap();
+    const data = await updateNotification({ delete: true, ...notification }).unwrap();
     dispatch(notificationActions.setNotification({ ...notification, ...data, deleted: new Date() }));
-  }, [userId, notification]);
+  }, [notification]);
 
   const acceptHandler = useCallback(async () => {
     try {

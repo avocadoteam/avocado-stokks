@@ -1,5 +1,5 @@
 import { Box, Button, ScrollView, Text, useTheme } from 'native-base';
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { If } from 'ui/atoms/If';
@@ -27,12 +27,7 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
   const userId = useSelector(getUserId);
   const dispatch = useDispatch();
-  const userStore = useGetUserStoreQuery(
-    {
-      userId,
-    },
-    { skip: !userId },
-  );
+  const userStore = useGetUserStoreQuery(undefined, { skip: !userId });
 
   const trendingSymbols = useGetTrendingSumbolsQuery(
     { count: 8 },
