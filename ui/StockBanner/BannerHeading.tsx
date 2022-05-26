@@ -1,17 +1,18 @@
-import { Ionicons } from '@expo/vector-icons';
-import { SymbolGeneralInfo } from '@models';
-import { NavigationModal } from 'core/models';
-import { modalActions } from 'core/modules/modal/reducer';
-import { getNotification } from 'core/modules/notifications/selectors';
-import { useAddToUserStoreMutation } from 'core/modules/user/query';
-import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
+import { Box, Button, HStack, Heading, Icon, Text, useTheme } from 'native-base';
 import React, { memo, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { If } from 'ui/atoms/If';
+
 import { CheckMarkGreenIcon } from 'ui/icons/CheckMarkGreenIcon';
+import { If } from 'ui/atoms/If';
+import { Ionicons } from '@expo/vector-icons';
+import { NavigationModal } from 'core/models';
 import { NotificationOutlineIcon } from 'ui/icons/NotificationOutlineIcon';
 import { NotificationOutlineOffIcon } from 'ui/icons/NotificationOutlineOffIcon';
 import { SkeletonBannerHeading } from 'ui/Skeletons/SkeletonStockBanner/SkeletonBannerHeading';
+import { SymbolGeneralInfo } from '@models';
+import { getNotification } from 'core/modules/notifications/selectors';
+import { modalActions } from 'core/modules/modal/reducer';
+import { useAddToUserStoreMutation } from 'core/modules/user/query';
 
 type Props = {
   symbol: string;

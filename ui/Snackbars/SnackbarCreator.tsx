@@ -1,9 +1,10 @@
-import { snackbarActions } from 'core/modules/snackbar/reducer';
 import { Box, Flex, Text as NativeText, useTheme } from 'native-base';
 import React, { memo, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
+
 import { Snackbar } from 'react-native-paper';
 import { StyleSheet } from 'react-native';
+import { snackbarActions } from 'core/modules/snackbar/reducer';
+import { useDispatch } from 'react-redux';
 
 type Props = {
   snackbarIsVisible: boolean;
@@ -36,9 +37,9 @@ export const SnackbarCreator = memo<Props>(
         }}
         style={{ backgroundColor: colors.bgSnackbar, ...styles.snackbar }}
       >
-        <Flex flexDirection={'row'}>
-          <Box>{before}</Box>
-          <Box ml={2}>
+        <Flex flexDirection="row" alignItems="center" justifyContent="center">
+          <Box mt={1}>{before}</Box>
+          <Box ml={2} mt={1}>
             <NativeText color={colors.headingSmall}>{children}</NativeText>
           </Box>
         </Flex>
