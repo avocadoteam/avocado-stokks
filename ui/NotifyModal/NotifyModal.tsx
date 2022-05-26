@@ -1,10 +1,9 @@
 import { Box, useTheme } from 'native-base';
-import { Modal, StyleSheet } from 'react-native';
+import { Modal, StyleSheet, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import React, { memo, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { Header } from './Header';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { NavigationModal } from 'core/models';
 import { PanelButtons } from './PanelButtons';
 import { PricePicker } from './PricePicker';
@@ -35,31 +34,30 @@ export const NotifyModal = memo(({}) => {
       transparent
       animationType="slide"
       onRequestClose={closeModalHandler}
-      onDismiss={closeModalHandler}
       visible={visibleModal === NavigationModal.Notify}
     >
-      <Box style={styles.mainBox}>
-        <KeyboardAwareScrollView>
+      <TouchableOpacity style={styles.mainBox} onPressOut={closeModalHandler}>
+        <TouchableWithoutFeedback>
           <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>
             <Header touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />
             <PricePicker triggerParam={notification.triggerParam} triggerValue={notification.triggerValue} />
             <TimePicker notifyInterval={notification.notifyInterval} />
             <PanelButtons notification={notification} closeModalHandler={closeModalHandler} />
           </Box>
-        </KeyboardAwareScrollView>
-      </Box>
+        </TouchableWithoutFeedback>
+      </TouchableOpacity>
     </Modal>
   );
 });
 
 const styles = StyleSheet.create({
   mainBox: {
-    flex: 1,
-    justifyContent: 'flex-end',
     height: '100%',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
   contentBox: {
+    display: 'flex',
+    marginTop: 'auto',
     flexDirection: 'column',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,

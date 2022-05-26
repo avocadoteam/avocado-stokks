@@ -1,9 +1,10 @@
-import { NewsItem } from '@models';
-import newsItemImage from 'assets/images/NewsItem.png';
 import { Box, Flex, Heading, useTheme } from 'native-base';
-import React from 'react';
-import { Image, StyleSheet, Text as NativeText } from 'react-native';
+import { Image, Text as NativeText, StyleSheet } from 'react-native';
+
 import { If } from './atoms/If';
+import { NewsItem } from '@models';
+import React from 'react';
+import newsItemImage from 'assets/images/NewsItem.png';
 
 type NewsItemProps = {
   data: NewsItem;
@@ -46,6 +47,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     flexDirection: 'column',
     justifyContent: 'center',
+    marginLeft: 'auto',
   },
   image: {
     borderRadius: 14,

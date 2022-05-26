@@ -24,11 +24,13 @@ export const RootNavigation = () => {
 
   useEffect(() => {
     authUser().then(d => dispatch(authActions.completeAuth(d)));
+  }, []);
 
+  useEffect(() => {
     if (symbol) {
       setScreen(NavigationScreen.Stock);
     }
-  }, []);
+  }, [symbol]);
 
   return (
     <NavigationContainer>

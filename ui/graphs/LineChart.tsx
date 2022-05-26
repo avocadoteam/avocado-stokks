@@ -1,14 +1,16 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
-import { GestureResponderEvent, StyleSheet } from 'react-native';
 import * as shape from 'd3-shape';
-import { Box, Flex, useTheme, Pressable } from 'native-base';
+
+import { Box, Flex, Pressable, useTheme } from 'native-base';
+import React, { useEffect, useMemo } from 'react';
+
 import { AreaChart } from 'react-native-svg-charts';
 import { HistoryPeriodTarget } from '@models';
 import { If } from 'ui/atoms/If';
+import { StyleSheet } from 'react-native';
 import { TimeBox } from './TimeBox';
-import { useScrollBarHandler } from 'core/hooks/useScrollBarHandler';
 import { stockActions } from 'core/modules/stock/reducer';
 import { useDispatch } from 'react-redux';
+import { useScrollBarHandler } from 'core/hooks/useScrollBarHandler';
 
 type Props = {
   up: boolean;
@@ -67,10 +69,10 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
               backgroundColor: colorFill,
             }}
           />
+          <Box style={styles.timeBox}>
+            <TimeBox colorBar={colorFillSecondary} timestamps={timestamps} width={width} rule={target} />
+          </Box>
         </If>
-        <Box style={styles.timeBox}>
-          <TimeBox colorBar={colorFillSecondary} timestamps={timestamps} width={width} rule={target} />
-        </Box>
       </Flex>
     </Pressable>
   );
