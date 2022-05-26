@@ -1,19 +1,15 @@
-import React, { memo } from 'react';
-import { GestureResponderEvent, StyleSheet } from 'react-native';
 import { Box, Heading, useTheme } from 'native-base';
+import React, { memo } from 'react';
+
+import { StyleSheet } from 'react-native';
 import { Toggle } from 'ui/atoms/Toggle';
 
-type HeaderProps = {
-  touchStartHandler: (e: GestureResponderEvent) => void;
-  touchMoveHandler: (e: GestureResponderEvent) => void;
-};
-
-export const Header = memo<HeaderProps>(({ touchStartHandler, touchMoveHandler }) => {
+export const Header = memo(({}) => {
   const { colors } = useTheme();
 
   return (
     <Box>
-      <Toggle touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />
+      <Toggle />
       <Box style={styles.header}>
         <Heading color={colors.headingSmall} size={'sm'}>
           Notify when
