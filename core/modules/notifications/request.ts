@@ -2,7 +2,6 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 
 import { Platform } from 'react-native';
-import { State } from 'core/store/root-reducer';
 import { authActions } from '../auth/reducer';
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 import { notificationActions } from './reducer';
@@ -38,12 +37,14 @@ const registerForPushNotifications = async () => {
 export const notificationAwaiter = createListenerMiddleware();
 export const notificationManualAwaiter = createListenerMiddleware();
 
+const device = Device.modelName + '_' + Device.osVersion;
+
 notificationAwaiter.startListening({
   actionCreator: authActions.completeAuth,
   effect: async (action, listenerApi) => {
     const token = await registerForPushNotifications();
     if (token) {
-      listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, userId: action.payload.userId }));
+      listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, device }));
       listenerApi.dispatch(notificationActions.allowNotifications(true));
     }
   },
@@ -53,8 +54,7 @@ notificationManualAwaiter.startListening({
   effect: async (action, listenerApi) => {
     const token = await registerForPushNotifications();
     if (token) {
-      const userId = (listenerApi.getState() as State).auth.userId;
-      listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, userId }));
+      listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, device }));
       listenerApi.dispatch(notificationActions.allowNotifications(true));
     }
   },

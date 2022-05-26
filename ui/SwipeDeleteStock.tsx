@@ -1,12 +1,11 @@
-import trashLottie from 'assets/lottie/trash/trash.json';
-import { getUserId } from 'core/modules/auth/selectors';
-import { useRemoveFromUserStoreMutation } from 'core/modules/user/query';
-import LottieView from 'lottie-react-native';
-import React, { memo, PropsWithChildren, useCallback, useRef } from 'react';
 import { Animated, I18nManager, StyleSheet, View } from 'react-native';
+import React, { PropsWithChildren, memo, useCallback, useRef } from 'react';
+
+import LottieView from 'lottie-react-native';
 import { RectButton } from 'react-native-gesture-handler';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
-import { useSelector } from 'react-redux';
+import trashLottie from 'assets/lottie/trash/trash.json';
+import { useRemoveFromUserStoreMutation } from 'core/modules/user/query';
 
 const AnimatedView = Animated.createAnimatedComponent(View);
 
@@ -15,7 +14,6 @@ type Props = PropsWithChildren<{
 }>;
 
 export const SwipeDeleteStock = memo<Props>(({ children, symbolId }) => {
-  const userId = useSelector(getUserId);
   const [deleteSymbol] = useRemoveFromUserStoreMutation();
   const swipRef = useRef<Swipeable | null>(null);
   const close = useCallback(() => {
@@ -40,10 +38,9 @@ export const SwipeDeleteStock = memo<Props>(({ children, symbolId }) => {
   const onSwipe = useCallback(() => {
     deleteSymbol({
       symbolId,
-      userId,
     });
     close();
-  }, [symbolId, userId, close]);
+  }, [symbolId, close]);
 
   return (
     <Swipeable

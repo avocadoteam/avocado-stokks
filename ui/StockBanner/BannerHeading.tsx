@@ -16,12 +16,11 @@ import { useAddToUserStoreMutation } from 'core/modules/user/query';
 
 type Props = {
   symbol: string;
-  userId: number;
   isStokkInUserStore: boolean;
   symbolInfo: SymbolGeneralInfo | undefined;
 };
 
-export const BannerHeading = memo<Props>(({ symbolInfo, symbol, userId, isStokkInUserStore }) => {
+export const BannerHeading = memo<Props>(({ symbolInfo, symbol, isStokkInUserStore }) => {
   const { colors } = useTheme();
   const notification = useSelector(getNotification);
   const isUserSubscribedNotification = useMemo(() => (!notification.deleted ? true : false), [notification.deleted]);
@@ -34,9 +33,9 @@ export const BannerHeading = memo<Props>(({ symbolInfo, symbol, userId, isStokkI
   const [addToUserStore, { isLoading }] = useAddToUserStoreMutation();
   const addStockkHandler = useCallback(() => {
     if (!isStokkInUserStore) {
-      addToUserStore({ symbol, userId });
+      addToUserStore({ symbol });
     }
-  }, [symbol, userId]);
+  }, [symbol]);
 
   const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
 

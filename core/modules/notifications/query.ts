@@ -1,37 +1,35 @@
 import {
-  UserNotificationInfo,
   UserGetNotificationModel,
+  UserNotificationInfo,
+  UserNotificationInstallModel,
   UserNotificationModel,
   UserNotificationUpdateModel,
-  UserNotificationInstallModel,
 } from '@models';
-import { createApi } from '@reduxjs/toolkit/query/react';
+
 import { axiosBaseQuery } from 'core/operations/data-fetch';
+import { createApi } from '@reduxjs/toolkit/query/react';
 
 type UserNotificationUpdate = UserNotificationUpdateModel & {
-  userId: number;
   id: number;
 };
 
-type UserInstallPushToken = UserNotificationInstallModel & {
-  userId: number;
-};
+type UserInstallPushToken = UserNotificationInstallModel;
 
 export const notificationsApi = createApi({
   reducerPath: 'notificationsApi',
   baseQuery: axiosBaseQuery(),
   endpoints: builder => ({
     getNotification: builder.query<UserNotificationInfo, UserGetNotificationModel>({
-      query: data => ({ url: `user/${data.userId}/notifications/${data.symbolId}`, method: 'get' }),
+      query: data => ({ url: `user/notifications/${data.symbolId}`, method: 'get' }),
     }),
     subscribeNotification: builder.mutation<number, UserNotificationModel>({
       query: data => ({ url: 'user/notification', method: 'post', data }),
     }),
     updateNotification: builder.mutation<UserNotificationInfo, UserNotificationUpdate>({
-      query: data => ({ url: `user/${data.userId}/notification/${data.id}`, method: 'put', data }),
+      query: data => ({ url: `user/notification/${data.id}`, method: 'put', data }),
     }),
     installPushToken: builder.mutation<void, UserInstallPushToken>({
-      query: data => ({ url: `user/${data.userId}/notification/install`, method: 'post', data }),
+      query: data => ({ url: `user/notification/install`, method: 'post', data }),
     }),
   }),
 });
