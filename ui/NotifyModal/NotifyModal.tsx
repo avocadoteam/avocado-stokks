@@ -1,16 +1,18 @@
-import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
-import { NavigationModal } from 'core/models';
-import { modalActions } from 'core/modules/modal/reducer';
-import { getVisibleModal } from 'core/modules/modal/selectors';
-import { getNotification } from 'core/modules/notifications/selectors';
 import { Box, useTheme } from 'native-base';
-import React, { memo, useCallback, useState } from 'react';
 import { Modal, StyleSheet } from 'react-native';
+import React, { memo, useCallback, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { Header } from './Header';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { NavigationModal } from 'core/models';
 import { PanelButtons } from './PanelButtons';
 import { PricePicker } from './PricePicker';
 import { TimePicker } from './TimePicker';
+import { getNotification } from 'core/modules/notifications/selectors';
+import { getVisibleModal } from 'core/modules/modal/selectors';
+import { modalActions } from 'core/modules/modal/reducer';
+import { useVerticalSwipeHandler } from 'core/hooks/useVerticalSwipeHandler';
 
 export const NotifyModal = memo(({}) => {
   const { colors } = useTheme();
@@ -29,24 +31,24 @@ export const NotifyModal = memo(({}) => {
   });
 
   return (
-    <Box>
-      <Modal
-        transparent={true}
-        animationType={'slide'}
-        onRequestClose={closeModalHandler}
-        onDismiss={closeModalHandler}
-        visible={visibleModal === NavigationModal.Notify}
-      >
-        <Box style={styles.mainBox}>
+    <Modal
+      transparent
+      animationType="slide"
+      onRequestClose={closeModalHandler}
+      onDismiss={closeModalHandler}
+      visible={visibleModal === NavigationModal.Notify}
+    >
+      <Box style={styles.mainBox}>
+        <KeyboardAwareScrollView>
           <Box style={{ ...styles.contentBox, height, backgroundColor: colors.bgTweet }}>
             <Header touchStartHandler={touchStartHandler} touchMoveHandler={touchMoveHandler} />
             <PricePicker triggerParam={notification.triggerParam} triggerValue={notification.triggerValue} />
             <TimePicker notifyInterval={notification.notifyInterval} />
             <PanelButtons notification={notification} closeModalHandler={closeModalHandler} />
           </Box>
-        </Box>
-      </Modal>
-    </Box>
+        </KeyboardAwareScrollView>
+      </Box>
+    </Modal>
   );
 });
 
