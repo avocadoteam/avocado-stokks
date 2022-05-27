@@ -31,7 +31,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const userId = useSelector(getUserId);
   const symbolInfo = useSymbolInfoQuery({ symbol }, { skip: !symbol || !userId }).data;
   const { data: stokks } = useGetUserStoreQuery(undefined, { skip: !userId });
-  const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
+
   const isStokkInUserStore = useMemo(() => !!stokks?.some(s => s.symbol === symbol), [stokks, symbol]);
   const isGraphTouched = useSelector(getGraphTouched);
 
@@ -65,7 +65,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <ScrollView scrollEnabled={!isGraphTouched}>
         <Box px={6} paddingBottom={6}>
           <BannerHeading isStokkInUserStore={isStokkInUserStore} symbol={symbol} symbolInfo={symbolInfo} />
-          <StockGraph up={up} />
+          <StockGraph />
           <RegularMarketBanner data={symbolInfo} />
           <PopularTweetsBanner symbol={symbol} />
           <LatestNewsBanner symbol={symbol} />
