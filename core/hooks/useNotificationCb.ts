@@ -2,7 +2,6 @@ import * as Notifications from 'expo-notifications';
 
 import { useEffect, useRef } from 'react';
 
-import { Alert } from 'react-native';
 import { Subscription } from 'expo-modules-core';
 import { notificationActions } from 'core/modules/notifications/reducer';
 import { stockActions } from 'core/modules/stock/reducer';
@@ -18,7 +17,6 @@ export const useNotificationCb = () => {
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       const data = response.notification.request.content.data as { symbolName: string };
       dispatch(stockActions.selectSymbol(data.symbolName));
-      Alert.alert('Get notification of symbol ' + data.symbolName);
     });
 
     return () => {
