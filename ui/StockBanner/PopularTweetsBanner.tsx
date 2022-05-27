@@ -1,10 +1,13 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Heading, useTheme, ScrollView, Box } from 'native-base';
-import { useTweetsQuery } from 'core/modules/stock/query';
-import { PopularTweet } from 'ui/PopularTweet';
+import { Box, Heading, ScrollView, useTheme } from 'native-base';
+
 import { If } from 'ui/atoms/If';
+import { PopularTweet } from 'ui/PopularTweet';
+import React from 'react';
 import { SkeletonPopularTweetsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonPopularTweetsBanner';
+import { StyleSheet } from 'react-native';
+import { getUserId } from 'core/modules/auth/selectors';
+import { useSelector } from 'react-redux';
+import { useTweetsQuery } from 'core/modules/stock/query';
 
 type PopularTweetsBannerProps = {
   symbol: string;
@@ -12,7 +15,8 @@ type PopularTweetsBannerProps = {
 
 export const PopularTweetsBanner = React.memo<PopularTweetsBannerProps>(({ symbol }) => {
   const { colors } = useTheme();
-  const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol }).data;
+  const userId = useSelector(getUserId);
+  const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol || !userId }).data;
   const tweetsJSX =
     tweets?.map(t => (
       <Box mx={2} key={`tweet${t.id}`}>
