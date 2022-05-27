@@ -1,12 +1,13 @@
-import { HistoryPeriodTarget } from '@models';
-import { useGraphQuery } from 'core/modules/stock/query';
-import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { Box, Button, useTheme } from 'native-base';
 import React, { memo, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { LineGraph } from 'ui/graphs/LineChart';
-import { SkeletonStockGraph } from 'ui/Skeletons/SkeletonStockBanner/SkeletonStockGraph';
 import { periods, targets } from './constants';
+
+import { GG } from 'ui/graphs/GG';
+import { HistoryPeriodTarget } from '@models';
+import { SkeletonStockGraph } from 'ui/Skeletons/SkeletonStockBanner/SkeletonStockGraph';
+import { getSelectedSymbol } from 'core/modules/stock/selectors';
+import { useGraphQuery } from 'core/modules/stock/query';
+import { useSelector } from 'react-redux';
 
 type Props = {
   up: boolean;
@@ -31,12 +32,7 @@ export const StockGraph = memo<Props>(({ up }) => {
     <Box>
       <Box>
         <Box alignItems="center" mb={8}>
-          <LineGraph
-            target={target}
-            up={up}
-            timestamps={graphData.timestamp ?? []}
-            data={graphData.indicators.quote[0].close ?? []}
-          />
+          <GG up={up} data={graphData.indicators.quote[0].close ?? []} />
         </Box>
       </Box>
       <Button.Group justifyContent="space-between" colorScheme="gray" variant="ghost">

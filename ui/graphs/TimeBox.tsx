@@ -1,9 +1,10 @@
-import { HistoryPeriodTarget } from '@models';
-import moment from 'moment';
 import { Box, Flex, Text as NativeText, useTheme } from 'native-base';
+
+import { HistoryPeriodTarget } from '@models';
+import { If } from 'ui/atoms/If';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { If } from 'ui/atoms/If';
+import moment from 'moment';
 
 type Props = {
   colorBar: string;
@@ -62,7 +63,7 @@ const timestampsToElements = (
                 ...styles.bar,
                 backgroundColor: colorBar,
               }}
-            ></Box>
+            />
             <NativeText color={colors.textGray} fontSize={14}>
               {r.t}
               <If is={rule === HistoryPeriodTarget.Day}>:00</If>
