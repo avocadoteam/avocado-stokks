@@ -1,5 +1,6 @@
 import {
   UserExpoSettingsInstallModel,
+  UserExpoSettingsPatchModel,
   UserGetNotificationModel,
   UserNotificationInfo,
   UserNotificationModel,
@@ -27,9 +28,17 @@ export const notificationsApi = createApi({
       query: data => ({ url: `user/notification/${data.id}`, method: 'put', data }),
     }),
     installPushToken: builder.mutation<void, UserExpoSettingsInstallModel>({
-      query: data => ({ url: `user/notification/install`, method: 'post', data }),
+      query: data => ({ url: `user/notification/expo-settings`, method: 'post', data }),
+    }),
+    editExpoSettings: builder.mutation<void, UserExpoSettingsPatchModel>({
+      query: data => ({ url: `user/notification/expo-settings`, method: 'patch', data }),
     }),
   }),
 });
 
-export const { useGetNotificationQuery, useSubscribeNotificationMutation, useUpdateNotificationMutation } = notificationsApi;
+export const {
+  useGetNotificationQuery,
+  useSubscribeNotificationMutation,
+  useUpdateNotificationMutation,
+  useEditExpoSettingsMutation,
+} = notificationsApi;
