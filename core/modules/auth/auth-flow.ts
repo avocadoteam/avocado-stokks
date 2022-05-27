@@ -1,7 +1,9 @@
-import axios from 'axios';
-import { baseUrl, isDev } from 'core/constants';
-import { secureStore, SecureStoreKey } from 'core/store/secure-store';
 import * as Crypto from 'expo-crypto';
+
+import { SecureStoreKey, secureStore } from 'core/store/secure-store';
+import { baseUrl, isDev } from 'core/constants';
+
+import axios from 'axios';
 
 const randomString = (length: number) => {
   let result = '';
@@ -31,11 +33,6 @@ export const authUser = async () => {
   const { token } = await auth({ password: credentials.password, username: credentials.userId });
 
   return { token, userId: credentials.userId, authType: credentials.type };
-};
-export const authUserDev = async () => {
-  const { token, userId } = await auth({ password: 'test123', username: 'testuserdev' });
-
-  return { token, userId };
 };
 
 export const clearStorageInDev = async () => {
