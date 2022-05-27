@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { MainScreen } from '../screens/MainScreen';
-import { NavigationContainer } from '@react-navigation/native';
 import { NavigationScreen } from 'core/models';
 import { SearchScreen } from 'screens/SearchScreen';
 import { SettingsScreen } from 'screens/SettingsScreen';
@@ -17,6 +17,7 @@ const { Navigator, Screen } = createStackNavigator();
 
 export const RootNavigation = () => {
   const [screen, setScreen] = useState(NavigationScreen.Main);
+  const navRef = useRef<NavigationContainerRef>(null);
   const dispatch = useDispatch();
   const symbol = useSelector(getSelectedSymbol);
 
@@ -29,11 +30,12 @@ export const RootNavigation = () => {
   useEffect(() => {
     if (symbol) {
       setScreen(NavigationScreen.Stock);
+      navRef.current?.navigate(NavigationScreen.Stock);
     }
   }, [symbol]);
 
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navRef}>
       <Navigator initialRouteName={screen} headerMode="none">
         <Screen name={NavigationScreen.Main} component={MainScreen} />
         <Screen name={NavigationScreen.Stock} component={StockScreen} />
