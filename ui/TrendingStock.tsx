@@ -1,13 +1,11 @@
 import { Box, Button, HStack, Heading, Icon, Text, useTheme } from 'native-base';
 import { Text as NativeText, TouchableHighlight } from 'react-native';
 import React, { useCallback, useMemo } from 'react';
+import { useAddToUserStoreMutation, useGetUserStoreQuery } from 'core/modules/user/query';
 
 import { If } from './atoms/If';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { YahooSearchResult } from '@models';
-import { getUserStoreData } from 'core/modules/user/selectors';
-import { useAddToUserStoreMutation } from 'core/modules/user/query';
-import { useSelector } from 'react-redux';
 
 interface StockProps {
   onPress: (symbol: string) => void;
@@ -17,8 +15,8 @@ interface StockProps {
 export const TrendingStock = React.memo<StockProps>(({ onPress, data }) => {
   const { colors } = useTheme();
   const [addToStore, { isLoading }] = useAddToUserStoreMutation();
-  const stokks = useSelector(getUserStoreData);
-  const isStokkInUserStore = useMemo(() => stokks.some(s => s.symbol === data.symbol), [stokks]);
+  const { data: stokks } = useGetUserStoreQuery();
+  const isStokkInUserStore = useMemo(() => !!stokks?.some(s => s.symbol === data.symbol), [stokks]);
 
   const onAdd = useCallback(() => {
     addToStore({ symbol: data.symbol });

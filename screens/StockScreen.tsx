@@ -15,10 +15,10 @@ import { StockHeader } from 'ui/StockHeader';
 import { SubscribedSnackbar } from 'ui/Snackbars/SubscribedSnackbar';
 import { UnsubscribedSnackbar } from 'ui/Snackbars/UnsubscribedSnackbar';
 import { getUserId } from 'core/modules/auth/selectors';
-import { getUserStoreData } from 'core/modules/user/selectors';
 import { notificationActions } from 'core/modules/notifications/reducer';
 import { stockActions } from 'core/modules/stock/reducer';
 import { useGetNotificationQuery } from 'core/modules/notifications/query';
+import { useGetUserStoreQuery } from 'core/modules/user/query';
 import { useSymbolInfoQuery } from 'core/modules/stock/query';
 
 type Props = {
@@ -28,17 +28,17 @@ type Props = {
 export const StockScreen = memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
   const symbol = useSelector(getSelectedSymbol);
-  const symbolInfo = useSymbolInfoQuery({ symbol }, { skip: !symbol }).data;
+  const userId = useSelector(getUserId);
+  const symbolInfo = useSymbolInfoQuery({ symbol }, { skip: !symbol || !userId }).data;
+  const { data: stokks } = useGetUserStoreQuery(undefined, { skip: !userId });
   const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
-  const stokks = useSelector(getUserStoreData);
-  const isStokkInUserStore = useMemo(() => stokks.some(s => s.symbol === symbol), [stokks, symbol]);
+  const isStokkInUserStore = useMemo(() => !!stokks?.some(s => s.symbol === symbol), [stokks, symbol]);
   const isGraphTouched = useSelector(getGraphTouched);
 
   const dispatch = useDispatch();
-  const userId = useSelector(getUserId);
   const notification = useGetNotificationQuery(
     { symbolId: symbolInfo?.symbolId ?? '', userId },
-    { skip: !symbolInfo?.symbolId },
+    { skip: !symbolInfo?.symbolId || !userId },
   );
 
   useEffect(() => {
