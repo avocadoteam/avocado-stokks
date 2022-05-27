@@ -1,13 +1,14 @@
-import { TriggerParam } from '@models';
-import { notificationActions } from 'core/modules/notifications/reducer';
-import { Box, Flex, Input, ScrollView, Text as NativeText, useTheme } from 'native-base';
+import { Box, Flex, Input, Text as NativeText, ScrollView, useTheme } from 'native-base';
 import React, { memo, useCallback, useState } from 'react';
-import { StyleSheet } from 'react-native';
-import { useDispatch } from 'react-redux';
+
 import { EqualToIcon } from 'ui/icons/EqualToIcon';
 import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
 import { LessThanIcon } from 'ui/icons/LessThanIcon';
 import { ScrollPicker } from 'ui/ScrollPicker';
+import { StyleSheet } from 'react-native';
+import { TriggerParam } from '@models';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { useDispatch } from 'react-redux';
 
 type PricePickerProps = {
   triggerValue: string;
@@ -64,7 +65,7 @@ export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue 
             fontSize={20}
             fontWeight={'bold'}
             height={70}
-            width={87}
+            minWidth={87}
             borderRadius={16}
             color={colors.text}
             onChangeText={changeInputHandler}
