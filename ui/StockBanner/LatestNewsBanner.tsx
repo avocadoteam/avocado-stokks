@@ -5,7 +5,9 @@ import { If } from 'ui/atoms/If';
 import { MainNewsItem } from 'ui/MainNewsItem';
 import React from 'react';
 import { SkeletonLatestNewsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonLatestNewsBanner';
+import { getUserId } from 'core/modules/auth/selectors';
 import { useNewsItemsQuery } from 'core/modules/stock/query';
+import { useSelector } from 'react-redux';
 
 type LatestNewsBannerProps = {
   symbol: string;
@@ -13,7 +15,8 @@ type LatestNewsBannerProps = {
 
 export const LatestNewsBanner = React.memo<LatestNewsBannerProps>(({ symbol }) => {
   const { colors } = useTheme();
-  const newsItems = useNewsItemsQuery({ query: symbol }, { skip: !symbol }).data;
+  const userId = useSelector(getUserId);
+  const newsItems = useNewsItemsQuery({ query: symbol }, { skip: !symbol || !userId }).data;
   const mainNewsItem = newsItems && newsItems[0] && <MainNewsItem data={newsItems[0]} />;
 
   if (Array.isArray(newsItems)) {

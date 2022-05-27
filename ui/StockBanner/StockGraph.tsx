@@ -30,7 +30,7 @@ export const StockGraph = memo(() => {
       symbol,
       target,
     },
-    { skip: !symbol },
+    { skip: !symbol || !userId },
   );
   if (!data) return <SkeletonStockGraph />;
 
