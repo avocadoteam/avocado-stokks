@@ -1,14 +1,16 @@
-import { HistoryPeriodTarget } from '@models';
-import { useScrollBarHandler } from 'core/hooks/useScrollBarHandler';
-import { stockActions } from 'core/modules/stock/reducer';
 import * as shape from 'd3-shape';
+
 import { Box, Pressable, useTheme } from 'native-base';
 import React, { useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+
 import { AreaChart } from 'react-native-svg-charts';
-import { useDispatch } from 'react-redux';
+import { HistoryPeriodTarget } from '@models';
 import { If } from 'ui/atoms/If';
+import { StyleSheet } from 'react-native';
 import { TimeBox } from './TimeBox';
+import { stockActions } from 'core/modules/stock/reducer';
+import { useDispatch } from 'react-redux';
+import { useScrollBarHandler } from 'core/hooks/useScrollBarHandler';
 
 type Props = {
   up: boolean;
@@ -21,6 +23,7 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
   const { colors } = useTheme();
   const width = 353;
   const height = 260;
+  const graphData = data?.filter(d => typeof d === 'number') ?? [];
   const colorFill = up ? colors.upTextColor : colors.downTextColor;
   const colorFillSecondary = up ? colors.upTextSecondaryColor : colors.downTextSecondaryColor;
   const { positionX, isTouched, touchMoveHandler, touchEndHandler, touchCancelHandler, touchStartHandler } =
@@ -46,7 +49,7 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
               fillOpacity: 0,
             }}
             style={{ width, height }}
-            data={data?.filter(d => typeof d === 'number') ?? []}
+            data={graphData}
             contentInset={{ top: 20, bottom: 20, left: -1, right: -1 }}
           />
         </Box>
@@ -58,7 +61,7 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
               fillOpacity: 0,
             }}
             style={{ width, height }}
-            data={data?.filter(d => typeof d === 'number') ?? []}
+            data={graphData}
             contentInset={{ top: 20, bottom: 20, left: -1, right: -1 }}
           />
         </Box>
