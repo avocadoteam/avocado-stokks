@@ -1,7 +1,7 @@
 import {
+  UserExpoSettingsInstallModel,
   UserGetNotificationModel,
   UserNotificationInfo,
-  UserNotificationInstallModel,
   UserNotificationModel,
   UserNotificationUpdateModel,
 } from '@models';
@@ -12,8 +12,6 @@ import { createApi } from '@reduxjs/toolkit/query/react';
 type UserNotificationUpdate = UserNotificationUpdateModel & {
   id: number;
 };
-
-type UserInstallPushToken = UserNotificationInstallModel;
 
 export const notificationsApi = createApi({
   reducerPath: 'notificationsApi',
@@ -28,7 +26,7 @@ export const notificationsApi = createApi({
     updateNotification: builder.mutation<UserNotificationInfo, UserNotificationUpdate>({
       query: data => ({ url: `user/notification/${data.id}`, method: 'put', data }),
     }),
-    installPushToken: builder.mutation<void, UserInstallPushToken>({
+    installPushToken: builder.mutation<void, UserExpoSettingsInstallModel>({
       query: data => ({ url: `user/notification/install`, method: 'post', data }),
     }),
   }),
