@@ -1,15 +1,16 @@
-import { useGoogleAuth } from 'core/hooks/useGoogleAuth';
-import { authGoogleUser } from 'core/modules/auth/google';
-import { authActions } from 'core/modules/auth/reducer';
-import { modalActions } from 'core/modules/modal/reducer';
-import { isLoginModalVisible } from 'core/modules/modal/selectors';
 import { Box, Button, Flex, Heading, Text as NativeText, useTheme } from 'native-base';
-import React, { useCallback, useEffect } from 'react';
 import { Dimensions, StyleSheet } from 'react-native';
-import Modal from 'react-native-modal';
+import React, { useCallback, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { AppIcon } from './icons/AppIcon';
 import { GoogleIcon } from './icons/GoogleIcon';
+import Modal from 'react-native-modal';
+import { authActions } from 'core/modules/auth/reducer';
+import { authGoogleUser } from 'core/modules/auth/google';
+import { isLoginModalVisible } from 'core/modules/modal/selectors';
+import { modalActions } from 'core/modules/modal/reducer';
+import { useGoogleAuth } from 'core/hooks/useGoogleAuth';
 
 export const LoginModal = React.memo(() => {
   const { colors } = useTheme();
@@ -24,9 +25,7 @@ export const LoginModal = React.memo(() => {
   useEffect(() => {
     if (response?.type === 'success') {
       const { authentication } = response;
-      authGoogleUser(authentication?.accessToken ?? '').then(d =>
-        dispatch(authActions.completeAuth({ ...d, authType: 'google' })),
-      );
+      authGoogleUser(authentication?.accessToken ?? '').then(d => dispatch(authActions.completeAuth(d)));
     }
   }, [response]);
 

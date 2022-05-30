@@ -1,4 +1,4 @@
-import { Box, Button, ScrollView, Text, useTheme } from 'native-base';
+import { Box, ScrollView, Text, useTheme } from 'native-base';
 import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -12,9 +12,7 @@ import { SkeletonUserStocks } from 'ui/Skeletons/SkeletonUserStocks';
 import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
 import { TrendingStock } from 'ui/TrendingStock';
 import { UserStock } from 'ui/UserStock';
-import { clearStorageInDev } from 'core/modules/auth/auth-flow';
-import { getUserId } from 'core/modules/auth/selectors';
-import { isDev } from 'core/constants';
+import { shouldSkipAuthQuery } from 'core/modules/auth/selectors';
 import { stockActions } from 'core/modules/stock/reducer';
 import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
 import { useGetUserStoreQuery } from 'core/modules/user/query';
@@ -25,14 +23,11 @@ type Props = {
 
 export const MainScreen = React.memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
-  const userId = useSelector(getUserId);
+  const skip = useSelector(shouldSkipAuthQuery);
   const dispatch = useDispatch();
-  const userStore = useGetUserStoreQuery(undefined, { skip: !userId });
+  const userStore = useGetUserStoreQuery(undefined, { skip });
 
-  const trendingSymbols = useGetTrendingSumbolsQuery(
-    { count: 8 },
-    { skip: !!userStore.data?.length || !userStore.isSuccess },
-  );
+  const trendingSymbols = useGetTrendingSumbolsQuery({ count: 8 });
 
   const onPressStock = useCallback((symbol: string) => {
     dispatch(stockActions.selectSymbol(symbol));
@@ -41,14 +36,14 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
 
   return (
     <Box backgroundColor={colors.appBackground} flex={1}>
-      <MainHeader showWelcome={trendingSymbols.isSuccess} />
-      <If is={trendingSymbols.isSuccess}>
+      <MainHeader showWelcome={trendingSymbols.isSuccess && skip} />
+      <If is={trendingSymbols.isSuccess && skip}>
         <Box marginX="24px" marginBottom="24px">
           <Text color={colors.textGray}>Add companies to your tracking list to get started.</Text>
         </Box>
       </If>
       <ScrollView>
-        <If is={trendingSymbols.isSuccess && !!trendingSymbols.data.length}>
+        <If is={trendingSymbols.isSuccess && !!trendingSymbols.data.length && skip}>
           {trendingSymbols.data?.map(ts => (
             <TrendingStock onPress={onPressStock} key={ts.symbol} data={ts} />
           ))}
@@ -62,9 +57,6 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
           ))}
         </If>
         {!Array.isArray(userStore.data) && <SkeletonUserStocks />}
-        <If is={isDev}>
-          <Button onPress={clearStorageInDev}>clear storage</Button>
-        </If>
       </ScrollView>
       <InfoModal />
       <LoginModal />

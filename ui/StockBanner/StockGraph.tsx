@@ -7,18 +7,16 @@ import { GG } from 'ui/graphs/GG';
 import { HistoryPeriodTarget } from '@models';
 import { SkeletonStockGraph } from 'ui/Skeletons/SkeletonStockBanner/SkeletonStockGraph';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
-import { getUserId } from 'core/modules/auth/selectors';
 import { useSelector } from 'react-redux';
 
 export const StockGraph = memo(() => {
   const { colors } = useTheme();
   const [target, setHistoryTarget] = useState(HistoryPeriodTarget.Day);
   const symbol = useSelector(getSelectedSymbol);
-  const userId = useSelector(getUserId);
   const { up } = useSymbolInfoQuery(
     { symbol },
     {
-      skip: !symbol || !userId,
+      skip: !symbol,
       selectFromResult: ({ data }) => {
         return { up: (data?.regularMarketChange ?? 0) > 0 };
       },
@@ -30,7 +28,7 @@ export const StockGraph = memo(() => {
       symbol,
       target,
     },
-    { skip: !symbol || !userId },
+    { skip: !symbol },
   );
   if (!data) return <SkeletonStockGraph />;
 

@@ -1,9 +1,10 @@
+import { HStack, Icon, IconButton, Input, useTheme } from 'native-base';
+import React, { useCallback, useMemo } from 'react';
+import { Subject, debounceTime, of, throttle } from 'rxjs';
+
 import { Ionicons } from '@expo/vector-icons';
 import { SearchModel } from '@models';
 import { useNavigation } from '@react-navigation/native';
-import { HStack, Icon, IconButton, Input, useTheme } from 'native-base';
-import React, { useCallback, useMemo } from 'react';
-import { debounceTime, of, Subject, tap, throttle } from 'rxjs';
 
 type Props = {
   search: (arg: SearchModel) => void;
@@ -52,6 +53,7 @@ export const SearchHeader = React.memo<Props>(({ search }) => {
         _focus={{
           borderColor: colors.searchBg,
         }}
+        fontSize="md"
         onChangeText={handleSearch}
       />
     </HStack>

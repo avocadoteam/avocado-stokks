@@ -6,7 +6,7 @@ export enum SecureStoreKey {
 }
 
 export type SecureStoreValue = {
-  [SecureStoreKey.Credentials]: { userId: number; password: string; type: 'bare' | 'google' };
+  [SecureStoreKey.Credentials]: { userId: number; password: string };
   [SecureStoreKey.Theme]: { theme: 'system' | 'light' | 'dark' };
 };
 
