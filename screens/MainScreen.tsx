@@ -1,21 +1,20 @@
+import { NavigationScreen } from 'core/models';
+import { shouldSkipAuthQuery } from 'core/modules/auth/selectors';
+import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
+import { stockActions } from 'core/modules/stock/reducer';
+import { useGetUserStoreQuery } from 'core/modules/user/query';
 import { Box, ScrollView, Text, useTheme } from 'native-base';
 import React, { useCallback } from 'react';
+import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { If } from 'ui/atoms/If';
 import { InfoModal } from 'ui/InfoModal';
 import { LoginModal } from 'ui/LoginModal';
 import { MainHeader } from 'ui/MainHeader';
-import { NavigationScreen } from 'core/models';
-import { NavigationStackProp } from 'react-navigation-stack';
 import { SkeletonUserStocks } from 'ui/Skeletons/SkeletonUserStocks';
 import { SwipeDeleteStock } from 'ui/SwipeDeleteStock';
 import { TrendingStock } from 'ui/TrendingStock';
 import { UserStock } from 'ui/UserStock';
-import { shouldSkipAuthQuery } from 'core/modules/auth/selectors';
-import { stockActions } from 'core/modules/stock/reducer';
-import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
-import { useGetUserStoreQuery } from 'core/modules/user/query';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -25,7 +24,7 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
   const skip = useSelector(shouldSkipAuthQuery);
   const dispatch = useDispatch();
-  const userStore = useGetUserStoreQuery(undefined, { skip });
+  const { data, isFetching } = useGetUserStoreQuery(undefined, { skip });
 
   const trendingSymbols = useGetTrendingSumbolsQuery({ count: 8 });
 
@@ -49,14 +48,14 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
           ))}
         </If>
 
-        <If is={userStore.isSuccess && !!userStore.data.length}>
-          {userStore.data?.map(ts => (
+        <If is={!!data?.length}>
+          {data?.map(ts => (
             <SwipeDeleteStock key={ts.symbol} symbolId={ts.symbolId}>
               <UserStock onPress={onPressStock} data={ts} />
             </SwipeDeleteStock>
           ))}
         </If>
-        {!Array.isArray(userStore.data) && <SkeletonUserStocks />}
+        {isFetching && !data?.length && <SkeletonUserStocks />}
       </ScrollView>
       <InfoModal />
       <LoginModal />
