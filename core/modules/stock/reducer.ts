@@ -3,11 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export type StockState = {
   selectedSymbol: string;
   isGraphTouched: boolean;
+  stockToBeAdded: string;
 };
 
 const initialState: StockState = {
   selectedSymbol: '',
   isGraphTouched: false,
+  stockToBeAdded: '',
 };
 
 export const stockSlice = createSlice({
@@ -19,6 +21,9 @@ export const stockSlice = createSlice({
     },
     setGraphTouched: (state, action: PayloadAction<boolean>) => {
       state.isGraphTouched = action.payload;
+    },
+    setStockToBeAdded: (state, action: PayloadAction<string>) => {
+      state.stockToBeAdded = action.payload;
     },
   },
 });

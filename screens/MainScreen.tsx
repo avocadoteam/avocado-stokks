@@ -22,8 +22,8 @@ type Props = {
 
 export const MainScreen = React.memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
-  const skip = useSelector(shouldSkipAuthQuery);
   const dispatch = useDispatch();
+  const skip = useSelector(shouldSkipAuthQuery);
   const { data, isFetching } = useGetUserStoreQuery(undefined, { skip });
 
   const trendingSymbols = useGetTrendingSumbolsQuery({ count: 8 });
@@ -42,7 +42,7 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
         </Box>
       </If>
       <ScrollView>
-        <If is={trendingSymbols.isSuccess && !!trendingSymbols.data.length && skip}>
+        <If is={trendingSymbols.isSuccess && !!trendingSymbols.data.length && (skip || !data?.length)}>
           {trendingSymbols.data?.map(ts => (
             <TrendingStock onPress={onPressStock} key={ts.symbol} data={ts} />
           ))}

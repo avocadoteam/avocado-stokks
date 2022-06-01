@@ -4,6 +4,7 @@ import { NavigationModal } from 'core/models';
 import { getUserId } from 'core/modules/auth/selectors';
 import { modalActions } from 'core/modules/modal/reducer';
 import { getNotification } from 'core/modules/notifications/selectors';
+import { stockActions } from 'core/modules/stock/reducer';
 import { useAddToUserStoreMutation } from 'core/modules/user/query';
 import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
 import React, { memo, useCallback, useMemo } from 'react';
@@ -34,6 +35,7 @@ export const BannerHeading = memo<Props>(({ symbolInfo, symbol, isStokkInUserSto
   const [addToUserStore, { isLoading }] = useAddToUserStoreMutation();
   const addStockkHandler = useCallback(() => {
     if (!userId) {
+      dispatch(stockActions.setStockToBeAdded(symbol));
       dispatch(modalActions.openModal(NavigationModal.Login));
 
       return;

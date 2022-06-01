@@ -1,9 +1,12 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 import { currentDevice } from 'core/constants';
+import { userApi } from 'core/modules/user/query';
+import { State } from 'core/store/root-reducer';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { Platform } from 'react-native';
 import { authActions } from '../auth/reducer';
+import { stockActions } from '../stock/reducer';
 import { notificationsApi } from './query';
 import { notificationActions } from './reducer';
 
@@ -42,6 +45,13 @@ notificationAwaiter.startListening({
     if (token) {
       listenerApi.dispatch(notificationsApi.endpoints.installPushToken.initiate({ token, device: currentDevice }));
       listenerApi.dispatch(notificationActions.allowNotifications(true));
+    }
+
+    const state = listenerApi.getState() as State;
+
+    if (state.stock.stockToBeAdded) {
+      listenerApi.dispatch(userApi.endpoints.addToUserStore.initiate({ symbol: state.stock.stockToBeAdded }));
+      listenerApi.dispatch(stockActions.setStockToBeAdded(''));
     }
   },
 });

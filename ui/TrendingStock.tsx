@@ -1,15 +1,15 @@
-import { Box, Button, HStack, Heading, Icon, Text, useTheme } from 'native-base';
-import { Text as NativeText, TouchableHighlight } from 'react-native';
-import React, { useCallback, useMemo } from 'react';
-import { useAddToUserStoreMutation, useGetUserStoreQuery } from 'core/modules/user/query';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { If } from './atoms/If';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { NavigationModal } from 'core/models';
 import { YahooSearchResult } from '@models';
-import { modalActions } from 'core/modules/modal/reducer';
+import { NavigationModal } from 'core/models';
 import { shouldSkipAuthQuery } from 'core/modules/auth/selectors';
+import { modalActions } from 'core/modules/modal/reducer';
+import { stockActions } from 'core/modules/stock/reducer';
+import { useAddToUserStoreMutation, useGetUserStoreQuery } from 'core/modules/user/query';
+import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
+import React, { useCallback, useMemo } from 'react';
+import { Text as NativeText, TouchableHighlight } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { If } from './atoms/If';
 
 interface StockProps {
   onPress: (symbol: string) => void;
@@ -26,6 +26,7 @@ export const TrendingStock = React.memo<StockProps>(({ onPress, data }) => {
 
   const onAdd = useCallback(() => {
     if (skip) {
+      dispatch(stockActions.setStockToBeAdded(data.symbol));
       dispatch(modalActions.openModal(NavigationModal.Login));
     } else {
       addToStore({ symbol: data.symbol });

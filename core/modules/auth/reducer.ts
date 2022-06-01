@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { secureStore, SecureStoreKey } from 'core/store/secure-store';
 import { userApi } from '../user/query';
 
 export type AtuhState = {
@@ -30,6 +31,8 @@ export const authSlice = createSlice({
     builder.addMatcher(userApi.endpoints.deleteUser.matchFulfilled, state => {
       state.token = '';
       state.userId = 0;
+
+      secureStore.delete(SecureStoreKey.Credentials);
     });
   },
 });
