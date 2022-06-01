@@ -1,4 +1,5 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { userApi } from '../user/query';
 
 export type AtuhState = {
   token: string;
@@ -24,6 +25,12 @@ export const authSlice = createSlice({
     stopLoading: state => {
       state.loading = false;
     },
+  },
+  extraReducers: builder => {
+    builder.addMatcher(userApi.endpoints.deleteUser.matchFulfilled, state => {
+      state.token = '';
+      state.userId = 0;
+    });
   },
 });
 

@@ -6,6 +6,7 @@ import React, { useCallback } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch } from 'react-redux';
 import { If } from 'ui/atoms/If';
+import { LoginModal } from 'ui/LoginModal';
 import { SearchHeader } from 'ui/SearchHeader';
 import { TrendingStock } from 'ui/TrendingStock';
 
@@ -33,6 +34,8 @@ export const SearchScreen = React.memo<Props>(({ navigation }) => {
           ))}
         </If>
       </ScrollView>
+
+      <LoginModal />
     </Box>
   );
 });

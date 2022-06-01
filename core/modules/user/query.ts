@@ -1,7 +1,6 @@
 import { UserDeleteStoreModel, UserStoreItem, UserStoreModel } from '@models';
-
-import { axiosBaseQuery } from 'core/operations/data-fetch';
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { axiosBaseQuery } from 'core/operations/data-fetch';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -20,7 +19,11 @@ export const userApi = createApi({
       query: data => ({ url: 'user/store', method: 'delete', data }),
       invalidatesTags: [{ type: 'UserStore', id: 'list' }],
     }),
+    deleteUser: builder.mutation<void, void>({
+      query: () => ({ url: 'user', method: 'delete' }),
+    }),
   }),
 });
 
-export const { useGetUserStoreQuery, useAddToUserStoreMutation, useRemoveFromUserStoreMutation } = userApi;
+export const { useGetUserStoreQuery, useAddToUserStoreMutation, useRemoveFromUserStoreMutation, useDeleteUserMutation } =
+  userApi;

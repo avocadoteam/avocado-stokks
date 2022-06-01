@@ -1,12 +1,11 @@
-import * as Device from 'expo-device';
-import * as Notifications from 'expo-notifications';
-
-import { Platform } from 'react-native';
-import { authActions } from '../auth/reducer';
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 import { currentDevice } from 'core/constants';
-import { notificationActions } from './reducer';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import { Platform } from 'react-native';
+import { authActions } from '../auth/reducer';
 import { notificationsApi } from './query';
+import { notificationActions } from './reducer';
 
 const registerForPushNotifications = async () => {
   let token: string = '';

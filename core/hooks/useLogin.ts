@@ -1,9 +1,8 @@
-import { SecureStoreKey, secureStore } from 'core/store/secure-store';
-
 import { auth } from 'core/modules/auth/auth-flow';
 import { authActions } from 'core/modules/auth/reducer';
-import { useDispatch } from 'react-redux';
+import { secureStore, SecureStoreKey } from 'core/store/secure-store';
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 
 export const useLogin = () => {
   const dispatch = useDispatch();
