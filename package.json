@@ -12,6 +12,7 @@
     "build:all:preview": "eas build -p all --profile preview",
     "build:ios:prod": "eas build -p ios",
     "build:android:prod": "eas build -p android",
+    "store:ios": "eas submit -p ios",
     "format": "prettier --write .",
     "ts": "tsc --project tsconfig.json --noEmit",
     "prepare": "husky install"
