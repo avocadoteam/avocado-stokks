@@ -21,6 +21,7 @@ export const userApi = createApi({
     }),
     deleteUser: builder.mutation<void, void>({
       query: () => ({ url: 'user', method: 'delete' }),
+      invalidatesTags: [{ type: 'UserStore', id: 'list' }],
     }),
   }),
 });
