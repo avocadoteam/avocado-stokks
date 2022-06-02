@@ -48,13 +48,11 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
           ))}
         </If>
 
-        <If is={!!data?.length}>
-          {data?.map(ts => (
-            <SwipeDeleteStock key={ts.symbol} symbolId={ts.symbolId}>
-              <UserStock onPress={onPressStock} data={ts} />
-            </SwipeDeleteStock>
-          ))}
-        </If>
+        {data?.map(ts => (
+          <SwipeDeleteStock key={ts.symbol} symbolId={ts.symbolId}>
+            <UserStock onPress={onPressStock} data={ts} />
+          </SwipeDeleteStock>
+        ))}
         {isFetching && !data?.length && <SkeletonUserStocks />}
       </ScrollView>
       <InfoModal />
