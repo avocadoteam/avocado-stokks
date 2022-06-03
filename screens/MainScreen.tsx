@@ -6,6 +6,7 @@ import { getActiveMainIndex } from 'core/modules/stock/selectors';
 import { useGetUserStoreQuery } from 'core/modules/user/query';
 import { Box, Heading, ScrollView, Text, useTheme } from 'native-base';
 import React, { useCallback } from 'react';
+import { RefreshControl, StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,7 +28,7 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
   const dispatch = useDispatch();
   const skip = useSelector(shouldSkipAuthQuery);
   const index = useSelector(getActiveMainIndex);
-  const { data, isFetching } = useGetUserStoreQuery(undefined, { skip });
+  const { data, isLoading, refetch, isFetching } = useGetUserStoreQuery(undefined, { skip });
 
   const trendingSymbols = useGetTrendingSumbolsQuery({ count: 120 });
 
@@ -44,7 +45,7 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
       <MainHeader showWelcome={trendingSymbols.isSuccess && skip} />
 
       <Swiper activeDotColor={colors.upTextColor} loop={false} onIndexChanged={onSwipe} index={index}>
-        <ScrollView>
+        <ScrollView style={styles.view}>
           <If is={trendingSymbols.isSuccess && skip}>
             <Box marginX="24px" marginBottom="24px">
               <Text color={colors.textGray}>Add companies to your tracking list to get started.</Text>
@@ -56,8 +57,8 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
             trendingSymbols.data?.map(ts => <TrendingStock onPress={onPressStock} key={ts.symbol} data={ts} />)
           )}
         </ScrollView>
-        <ScrollView>
-          {isFetching ? (
+        <ScrollView refreshControl={<RefreshControl refreshing={isFetching} onRefresh={refetch} />} style={styles.view}>
+          {isLoading ? (
             <SkeletonUserStocks />
           ) : data?.length ? (
             data?.map(ts => (
@@ -78,4 +79,10 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
       <LoginModal />
     </Box>
   );
+});
+
+const styles = StyleSheet.create({
+  view: {
+    marginBottom: 40,
+  },
 });
