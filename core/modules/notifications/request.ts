@@ -50,8 +50,10 @@ notificationAwaiter.startListening({
     const state = listenerApi.getState() as State;
 
     if (state.stock.stockToBeAdded) {
+      listenerApi.dispatch(userApi.endpoints.getUserStore.initiate());
       listenerApi.dispatch(userApi.endpoints.addToUserStore.initiate({ symbol: state.stock.stockToBeAdded }));
       listenerApi.dispatch(stockActions.setStockToBeAdded(''));
+      listenerApi.dispatch(stockActions.setActiveMainScreen(1));
     }
   },
 });

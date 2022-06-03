@@ -4,12 +4,14 @@ export type StockState = {
   selectedSymbol: string;
   isGraphTouched: boolean;
   stockToBeAdded: string;
+  activeMainIndex: number;
 };
 
 const initialState: StockState = {
   selectedSymbol: '',
   isGraphTouched: false,
   stockToBeAdded: '',
+  activeMainIndex: 0,
 };
 
 export const stockSlice = createSlice({
@@ -24,6 +26,9 @@ export const stockSlice = createSlice({
     },
     setStockToBeAdded: (state, action: PayloadAction<string>) => {
       state.stockToBeAdded = action.payload;
+    },
+    setActiveMainScreen: (state, action: PayloadAction<number>) => {
+      state.activeMainIndex = action.payload;
     },
   },
 });

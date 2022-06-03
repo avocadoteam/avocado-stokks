@@ -2,9 +2,11 @@ import { NavigationScreen } from 'core/models';
 import { shouldSkipAuthQuery } from 'core/modules/auth/selectors';
 import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
 import { stockActions } from 'core/modules/stock/reducer';
+import { getActiveMainIndex } from 'core/modules/stock/selectors';
 import { useGetUserStoreQuery } from 'core/modules/user/query';
-import { Box, ScrollView, Text, useTheme } from 'native-base';
+import { Box, Heading, ScrollView, Text, useTheme } from 'native-base';
 import React, { useCallback } from 'react';
+import Swiper from 'react-native-swiper';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
 import { If } from 'ui/atoms/If';
@@ -24,6 +26,7 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const skip = useSelector(shouldSkipAuthQuery);
+  const index = useSelector(getActiveMainIndex);
   const { data, isFetching } = useGetUserStoreQuery(undefined, { skip });
 
   const trendingSymbols = useGetTrendingSumbolsQuery({ count: 120 });
@@ -32,29 +35,45 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
     dispatch(stockActions.selectSymbol(symbol));
     navigation.navigate(NavigationScreen.Stock);
   }, []);
+  const onSwipe = useCallback((index: number) => {
+    dispatch(stockActions.setActiveMainScreen(index));
+  }, []);
 
   return (
     <Box backgroundColor={colors.appBackground} flex={1}>
       <MainHeader showWelcome={trendingSymbols.isSuccess && skip} />
-      <If is={trendingSymbols.isSuccess && skip}>
-        <Box marginX="24px" marginBottom="24px">
-          <Text color={colors.textGray}>Add companies to your tracking list to get started.</Text>
-        </Box>
-      </If>
-      <ScrollView>
-        <If is={trendingSymbols.isSuccess && !!trendingSymbols.data.length && (skip || !data?.length)}>
-          {trendingSymbols.data?.map(ts => (
-            <TrendingStock onPress={onPressStock} key={ts.symbol} data={ts} />
-          ))}
-        </If>
 
-        {data?.map(ts => (
-          <SwipeDeleteStock key={ts.symbol} symbolId={ts.symbolId}>
-            <UserStock onPress={onPressStock} data={ts} />
-          </SwipeDeleteStock>
-        ))}
-        {isFetching && !data?.length && <SkeletonUserStocks />}
-      </ScrollView>
+      <Swiper activeDotColor={colors.upTextColor} loop={false} onIndexChanged={onSwipe} index={index}>
+        <ScrollView>
+          <If is={trendingSymbols.isSuccess && skip}>
+            <Box marginX="24px" marginBottom="24px">
+              <Text color={colors.textGray}>Add companies to your tracking list to get started.</Text>
+            </Box>
+          </If>
+          {trendingSymbols.isFetching ? (
+            <SkeletonUserStocks />
+          ) : (
+            trendingSymbols.data?.map(ts => <TrendingStock onPress={onPressStock} key={ts.symbol} data={ts} />)
+          )}
+        </ScrollView>
+        <ScrollView>
+          {isFetching ? (
+            <SkeletonUserStocks />
+          ) : data?.length ? (
+            data?.map(ts => (
+              <SwipeDeleteStock key={ts.symbol} symbolId={ts.symbolId}>
+                <UserStock onPress={onPressStock} data={ts} />
+              </SwipeDeleteStock>
+            ))
+          ) : (
+            <Box marginX="24px" marginBottom="24px">
+              <Heading color={colors.textGray}>
+                {skip ? 'Authorize to get started with stokks' : 'Add at least one stock to your store'}
+              </Heading>
+            </Box>
+          )}
+        </ScrollView>
+      </Swiper>
       <InfoModal />
       <LoginModal />
     </Box>
