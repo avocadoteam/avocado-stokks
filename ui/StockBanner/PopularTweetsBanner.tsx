@@ -1,11 +1,10 @@
+import { useTweetsQuery } from 'core/modules/stock/query';
 import { Box, Heading, ScrollView, useTheme } from 'native-base';
-
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { If } from 'ui/atoms/If';
 import { PopularTweet } from 'ui/PopularTweet';
-import React from 'react';
 import { SkeletonPopularTweetsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonPopularTweetsBanner';
-import { StyleSheet } from 'react-native';
-import { useTweetsQuery } from 'core/modules/stock/query';
 
 type PopularTweetsBannerProps = {
   symbol: string;
@@ -21,7 +20,7 @@ export const PopularTweetsBanner = React.memo<PopularTweetsBannerProps>(({ symbo
         <Heading size={'sm'} my={5} mr={2} color={colors.heading}>
           Popular Tweets
         </Heading>
-        <ScrollView showsHorizontalScrollIndicator={false} horizontal={true} style={styles.mainBox}>
+        <ScrollView showsHorizontalScrollIndicator={false} horizontal style={styles.mainBox}>
           {tweets.map(t => (
             <Box mx={2} key={t.id}>
               <PopularTweet data={t} />

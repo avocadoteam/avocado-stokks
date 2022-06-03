@@ -42,7 +42,7 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
 
   return (
     <Box backgroundColor={colors.appBackground} flex={1}>
-      <MainHeader showWelcome={trendingSymbols.isSuccess && skip} />
+      <MainHeader />
 
       <Swiper activeDotColor={colors.upTextColor} loop={false} onIndexChanged={onSwipe} index={index}>
         <ScrollView style={styles.view}>

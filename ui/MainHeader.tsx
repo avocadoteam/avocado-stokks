@@ -1,19 +1,15 @@
-import React, { memo } from 'react';
-import { IconButton, Icon, HStack, Heading, useTheme, Flex } from 'native-base';
 import { AntDesign } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { useDoubleClick } from 'core/hooks/useDoubleClick';
 import { NavigationModal, NavigationScreen } from 'core/models';
+import { modalActions } from 'core/modules/modal/reducer';
+import { Flex, Heading, HStack, Icon, IconButton, useTheme } from 'native-base';
+import React, { memo } from 'react';
 import { Pressable } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { modalActions } from 'core/modules/modal/reducer';
-import { useDoubleClick } from 'core/hooks/useDoubleClick';
 import { SettingsOutlineIcon } from './icons/SettingsOutlineIcon';
 
-type Props = {
-  showWelcome: boolean;
-};
-
-export const MainHeader = memo<Props>(({ showWelcome }) => {
+export const MainHeader = memo(() => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const doubleClickTitleHandler = useDoubleClick(() => {
@@ -31,7 +27,7 @@ export const MainHeader = memo<Props>(({ showWelcome }) => {
   return (
     <HStack mt={12} py={2} px={6} justifyContent="space-between" alignItems="center">
       <Pressable onPress={doubleClickTitleHandler}>
-        <Heading color={colors.heading}>{showWelcome ? 'Welcome' : 'Stokks'}</Heading>
+        <Heading color={colors.heading}>Stokks</Heading>
       </Pressable>
       <Flex flexDirection="row">
         <IconButton

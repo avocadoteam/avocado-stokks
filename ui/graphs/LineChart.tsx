@@ -38,7 +38,7 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
       onTouchMove={touchMoveHandler}
       onTouchStart={touchStartHandler}
     >
-      <Box style={{ width, height }}>
+      <Box style={{ width, height, position: 'relative' }}>
         <Box style={{ width: positionX, overflow: 'hidden' }}>
           <AreaChart
             curve={shape.curveLinear}

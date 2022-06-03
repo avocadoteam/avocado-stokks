@@ -34,15 +34,13 @@ export const StockGraph = memo(() => {
   const [graphData] = data.chart.result;
   return (
     <Box>
-      <Box>
-        <Box alignItems="center" mb={8}>
-          <LineGraph
-            up={up}
-            data={graphData.indicators.quote[0].close ?? []}
-            target={target}
-            timestamps={graphData.timestamp}
-          />
-        </Box>
+      <Box alignItems="center" mb={8}>
+        <LineGraph
+          up={up}
+          data={graphData.indicators.quote[0].close ?? []}
+          target={target}
+          timestamps={graphData.timestamp}
+        />
       </Box>
       <Button.Group justifyContent="space-between" colorScheme="gray" variant="ghost">
         {periods.map(period => (
