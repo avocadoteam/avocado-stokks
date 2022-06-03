@@ -26,7 +26,7 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
   const skip = useSelector(shouldSkipAuthQuery);
   const { data, isFetching } = useGetUserStoreQuery(undefined, { skip });
 
-  const trendingSymbols = useGetTrendingSumbolsQuery({ count: 8 });
+  const trendingSymbols = useGetTrendingSumbolsQuery({ count: 120 });
 
   const onPressStock = useCallback((symbol: string) => {
     dispatch(stockActions.selectSymbol(symbol));
