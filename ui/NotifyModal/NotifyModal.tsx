@@ -1,9 +1,10 @@
 import { NavigationModal } from 'core/models';
 import { modalActions } from 'core/modules/modal/reducer';
 import { getVisibleModal } from 'core/modules/modal/selectors';
-import { getNotification } from 'core/modules/notifications/selectors';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { getModalHeight, getNotification } from 'core/modules/notifications/selectors';
 import { Box, useTheme } from 'native-base';
-import React, { memo, useCallback, useState } from 'react';
+import React, { memo, useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,16 +13,16 @@ import { PanelButtons } from './PanelButtons';
 import { PricePicker } from './PricePicker';
 import { TimePicker } from './TimePicker';
 
-export const NotifyModal = memo(({}) => {
+export const NotifyModal = memo(() => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
   const visibleModal = useSelector(getVisibleModal);
   const notification = useSelector(getNotification);
+  const height = useSelector(getModalHeight);
 
-  const [height, setHeight] = useState(404);
   const closeModalHandler = useCallback(() => {
     dispatch(modalActions.closeModal());
-    setHeight(404);
+    dispatch(notificationActions.setModalHeight(404));
   }, []);
 
   return (
@@ -50,6 +51,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
-    paddingHorizontal: 24,
+    paddingLeft: 24,
   },
 });
