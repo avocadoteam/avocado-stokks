@@ -1,13 +1,12 @@
+import { HistoryPeriodTarget } from '@models';
+import { useGraphQuery, useSymbolInfoQuery } from 'core/modules/stock/query';
+import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { Box, Button, useTheme } from 'native-base';
 import React, { memo, useState } from 'react';
-import { periods, targets } from './constants';
-import { useGraphQuery, useSymbolInfoQuery } from 'core/modules/stock/query';
-
-import { GG } from 'ui/graphs/GG';
-import { HistoryPeriodTarget } from '@models';
-import { SkeletonStockGraph } from 'ui/Skeletons/SkeletonStockBanner/SkeletonStockGraph';
-import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { useSelector } from 'react-redux';
+import { LineGraph } from 'ui/graphs/LineChart';
+import { SkeletonStockGraph } from 'ui/Skeletons/SkeletonStockBanner/SkeletonStockGraph';
+import { periods, targets } from './constants';
 
 export const StockGraph = memo(() => {
   const { colors } = useTheme();
@@ -37,7 +36,12 @@ export const StockGraph = memo(() => {
     <Box>
       <Box>
         <Box alignItems="center" mb={8}>
-          <GG up={up} data={graphData.indicators.quote[0].close ?? []} />
+          <LineGraph
+            up={up}
+            data={graphData.indicators.quote[0].close ?? []}
+            target={target}
+            timestamps={graphData.timestamp}
+          />
         </Box>
       </Box>
       <Button.Group justifyContent="space-between" colorScheme="gray" variant="ghost">

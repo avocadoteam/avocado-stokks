@@ -1,16 +1,14 @@
+import { HistoryPeriodTarget } from '@models';
+import { useScrollBarHandler } from 'core/hooks/useScrollBarHandler';
+import { stockActions } from 'core/modules/stock/reducer';
 import * as shape from 'd3-shape';
-
 import { Box, Pressable, useTheme } from 'native-base';
 import React, { useEffect } from 'react';
-
-import { AreaChart } from 'react-native-svg-charts';
-import { HistoryPeriodTarget } from '@models';
-import { If } from 'ui/atoms/If';
 import { StyleSheet } from 'react-native';
-import { TimeBox } from './TimeBox';
-import { stockActions } from 'core/modules/stock/reducer';
+import { AreaChart } from 'react-native-svg-charts';
 import { useDispatch } from 'react-redux';
-import { useScrollBarHandler } from 'core/hooks/useScrollBarHandler';
+import { If } from 'ui/atoms/If';
+import { TimeBox } from './TimeBox';
 
 type Props = {
   up: boolean;
@@ -51,6 +49,7 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
             style={{ width, height }}
             data={graphData}
             contentInset={{ top: 20, bottom: 20, left: -1, right: -1 }}
+            animate
           />
         </Box>
         <Box style={{ width, zIndex: -1, position: 'relative', bottom: height }}>

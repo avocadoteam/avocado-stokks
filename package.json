@@ -21,7 +21,6 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@connectedcars/react-native-slide-charts": "^1.0.5",
     "@expo/vector-icons": "^13.0.0",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/bottom-tabs": "5.11.2",
