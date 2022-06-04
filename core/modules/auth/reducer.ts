@@ -26,6 +26,11 @@ export const authSlice = createSlice({
     stopLoading: state => {
       state.loading = false;
     },
+    deleteAuth: state => {
+      state.token = '';
+      state.userId = 0;
+      secureStore.delete(SecureStoreKey.Credentials);
+    },
   },
   extraReducers: builder => {
     builder.addMatcher(userApi.endpoints.deleteUser.matchFulfilled, state => {

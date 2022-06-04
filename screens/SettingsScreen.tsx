@@ -1,12 +1,12 @@
-import React, { memo, useEffect, useMemo } from 'react';
 import { Box, ScrollView, useTheme } from 'native-base';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { memo } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
-import { SettingsHeader } from 'ui/SettingsHeader';
+import { DangerBanner } from 'ui/SettingBanner/DangerBanner';
+import { Logout } from 'ui/SettingBanner/Logout';
 import { NotificationsBanner } from 'ui/SettingBanner/NotificationsBanner';
 import { TermsBanner } from 'ui/SettingBanner/TermsBanner';
 import { ThemeBanner } from 'ui/SettingBanner/ThemeBanner';
-import { DangerBanner } from 'ui/SettingBanner/DangerBanner';
+import { SettingsHeader } from 'ui/SettingsHeader';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -27,6 +27,7 @@ export const SettingsScreen = memo<Props>(({ navigation }) => {
         <ThemeBanner />
         <TermsBanner />
         <DangerBanner />
+        <Logout />
       </ScrollView>
     </Box>
   );

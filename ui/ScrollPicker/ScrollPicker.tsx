@@ -126,7 +126,7 @@ export const ScrollPicker = memo<ScrollPickerProps>(
             borderRadius={borderRadius}
             color={colors.text}
             onChangeText={changeInputHandler}
-            autoFocus={true}
+            autoFocus
             onBlur={onBlurInput}
           />
         ) : (

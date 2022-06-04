@@ -1,10 +1,11 @@
-import { NavigationScreen } from 'core/models';
+import { NavigationModal, NavigationScreen } from 'core/models';
 import { shouldSkipAuthQuery } from 'core/modules/auth/selectors';
+import { modalActions } from 'core/modules/modal/reducer';
 import { useGetTrendingSumbolsQuery } from 'core/modules/stock/query';
 import { stockActions } from 'core/modules/stock/reducer';
 import { getActiveMainIndex } from 'core/modules/stock/selectors';
 import { useGetUserStoreQuery } from 'core/modules/user/query';
-import { Box, Heading, ScrollView, Text, useTheme } from 'native-base';
+import { Box, Button, Heading, ScrollView, Text, useTheme } from 'native-base';
 import React, { useCallback } from 'react';
 import { RefreshControl, StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
@@ -28,13 +29,16 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
   const dispatch = useDispatch();
   const skip = useSelector(shouldSkipAuthQuery);
   const index = useSelector(getActiveMainIndex);
-  const { data, isLoading, refetch, isFetching } = useGetUserStoreQuery(undefined, { skip });
+  const { data, isLoading, refetch, isFetching } = useGetUserStoreQuery(undefined, { skip, pollingInterval: 10000 });
 
   const trendingSymbols = useGetTrendingSumbolsQuery({ count: 120 });
 
   const onPressStock = useCallback((symbol: string) => {
     dispatch(stockActions.selectSymbol(symbol));
     navigation.navigate(NavigationScreen.Stock);
+  }, []);
+  const getStarted = useCallback(() => {
+    dispatch(modalActions.openModal(NavigationModal.Login));
   }, []);
   const onSwipe = useCallback((index: number) => {
     dispatch(stockActions.setActiveMainScreen(index));
@@ -71,6 +75,11 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
               <Heading color={colors.textGray}>
                 {skip ? 'Authorize to get started with stokks' : 'Add at least one stock to your store'}
               </Heading>
+              {skip ? (
+                <Button borderRadius={20} height={58} onPress={getStarted} mt={8}>
+                  Get started
+                </Button>
+              ) : null}
             </Box>
           )}
         </ScrollView>
