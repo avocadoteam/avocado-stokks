@@ -29,7 +29,10 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
   const dispatch = useDispatch();
   const skip = useSelector(shouldSkipAuthQuery);
   const index = useSelector(getActiveMainIndex);
-  const { data, isLoading, refetch, isFetching } = useGetUserStoreQuery(undefined, { skip, pollingInterval: 10000 });
+  const { data, isLoading, refetch, isFetching } = useGetUserStoreQuery(undefined, {
+    skip: skip || index !== 1,
+    pollingInterval: 10000,
+  });
 
   const trendingSymbols = useGetTrendingSumbolsQuery({ count: 120 });
 

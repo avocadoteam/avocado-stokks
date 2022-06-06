@@ -53,7 +53,7 @@ notificationAwaiter.startListening({
       listenerApi.dispatch(userApi.endpoints.getUserStore.initiate());
       listenerApi.dispatch(userApi.endpoints.addToUserStore.initiate({ symbol: state.stock.stockToBeAdded }));
       listenerApi.dispatch(stockActions.setStockToBeAdded(''));
-      listenerApi.dispatch(stockActions.setActiveMainScreen(1));
     }
+    listenerApi.dispatch(stockActions.setActiveMainScreen(1));
   },
 });
