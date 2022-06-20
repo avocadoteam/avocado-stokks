@@ -4,7 +4,7 @@ import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { Box, Button, useTheme } from 'native-base';
 import React, { memo, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { LineGraph } from 'ui/graphs/LineChart';
+import { GraphsScreen } from 'ui/graphs/new';
 import { SkeletonStockGraph } from 'ui/Skeletons/SkeletonStockBanner/SkeletonStockGraph';
 import { periods, targets } from './constants';
 
@@ -35,12 +35,13 @@ export const StockGraph = memo(() => {
   return (
     <Box>
       <Box alignItems="center" mb={8}>
-        <LineGraph
+        <GraphsScreen />
+        {/* <LineGraph
           up={up}
           data={graphData.indicators.quote[0].close ?? []}
           target={target}
           timestamps={graphData.timestamp}
-        />
+        /> */}
       </Box>
       <Button.Group justifyContent="space-between" colorScheme="gray" variant="ghost">
         {periods.map(period => (
