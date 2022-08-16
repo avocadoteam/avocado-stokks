@@ -71,7 +71,7 @@
     "react-redux": "^7.2.6",
     "rn-snackbar-component": "^0.0.5",
     "rxjs": "^7.3.0",
-    "sentry-expo": "^4.2.0",
+    "sentry-expo": "^5.0.2",
     "styled-components": "^5.3.3",
     "styled-system": "^5.1.5"
   },

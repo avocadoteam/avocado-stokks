@@ -2202,6 +2202,27 @@
     xcode "^3.0.1"
     xml2js "0.4.23"
 
+"@expo/config-plugins@~5.0.0":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@expo/config-plugins/-/config-plugins-5.0.1.tgz#66bc8d15785bdcd3598e466344f8c0518390179d"
+  integrity sha512-1OfnsOrfeSkB0VZfT01UjQ5Uq6p+yYbq8yNkj0e99K/6NLHpyvIxj+5tZIV0nQXgkOcqBIABL2uA7lwB8CkaBQ==
+  dependencies:
+    "@expo/config-types" "^46.0.0"
+    "@expo/json-file" "8.2.36"
+    "@expo/plist" "0.0.18"
+    "@expo/sdk-runtime-versions" "^1.0.0"
+    "@react-native/normalize-color" "^2.0.0"
+    chalk "^4.1.2"
+    debug "^4.3.1"
+    find-up "~5.0.0"
+    getenv "^1.0.0"
+    glob "7.1.6"
+    resolve-from "^5.0.0"
+    semver "^7.3.5"
+    slash "^3.0.0"
+    xcode "^3.0.1"
+    xml2js "0.4.23"
+
 "@expo/config-types@45.0.0", "@expo/config-types@^45.0.0":
   version "45.0.0"
   resolved "https://registry.yarnpkg.com/@expo/config-types/-/config-types-45.0.0.tgz#963c2fdce8fbcbd003758b92ed8a25375f437ef6"
@@ -2211,6 +2232,11 @@
   version "44.0.0"
   resolved "https://registry.yarnpkg.com/@expo/config-types/-/config-types-44.0.0.tgz#d3480fe2c99f9e895dae4ebba58b74ed72d03e26"
   integrity sha512-d+gpdKOAhqaD5RmcMzGgKzNtvE1w+GCqpFQNSXLliYlXjj+Tv0eL8EPeAdPtvke0vowpPFwd5McXLA90dgY6Jg==
+
+"@expo/config-types@^46.0.0", "@expo/config-types@^46.0.1":
+  version "46.0.2"
+  resolved "https://registry.yarnpkg.com/@expo/config-types/-/config-types-46.0.2.tgz#191f225ebfcbe624868ddc40efae79593f948dd8"
+  integrity sha512-PXkmOgNwRyBfgVT1HmFZhfh3Qm7WKKyV6mk3/5HJ/LzPh1t+Zs2JrWX8U2YncTLV1QzV7nV8tnkyvszzqnZEzQ==
 
 "@expo/config@6.0.18":
   version "6.0.18"
@@ -2660,10 +2686,17 @@
   dependencies:
     cross-spawn "^6.0.5"
 
-"@expo/spawn-async@1.6.0", "@expo/spawn-async@^1.2.8":
+"@expo/spawn-async@1.6.0":
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/@expo/spawn-async/-/spawn-async-1.6.0.tgz#b7267af6791134d47c69bf0986f151599535309f"
   integrity sha512-CynFS2y9S0OXgoBN3o6qvLSD5tBXCxEQnbByIleEocbKKYKb+/gjrjxYVvxPY8G+zqe82xG6IcmHbJoPl5g1WA==
+  dependencies:
+    cross-spawn "^7.0.3"
+
+"@expo/spawn-async@^1.6.0":
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/@expo/spawn-async/-/spawn-async-1.7.0.tgz#3ab6082b24318cccc4e73b13464da91325555500"
+  integrity sha512-sqPAjOEFTrjaTybrh9SnPFLInDXcoMC06psEFmH68jLTmoipSQCq8GCEfIoHhxRDALWB+DsiwXJSbXlE/iVIIQ==
   dependencies:
     cross-spawn "^7.0.3"
 
@@ -4055,15 +4088,28 @@
     "@sentry/utils" "6.17.9"
     tslib "^1.9.3"
 
-"@sentry/browser@^6.12.0":
-  version "6.18.2"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.18.2.tgz#f980add635c242420a7f0c4dd3ed5668f1f39513"
-  integrity sha512-EsqKSNboi2gOiMuEwQranLucxrARi00y2vgUnaPXcqTKTlVlHDetoWHvq8/r29idA1JHGka5tDrwrmWccWIkrg==
+"@sentry/browser@7.7.0":
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-7.7.0.tgz#7810ee98d4969bd0367e29ac0af6c5779db7e6c4"
+  integrity sha512-oyzpWcsjVZTaf14zAL89Ng1DUHlbjN+V8pl8dR9Y9anphbzL5BK9p0fSK4kPIrO4GukK+XrKnLJDPuE/o7WR3g==
   dependencies:
-    "@sentry/core" "6.18.2"
-    "@sentry/types" "6.18.2"
-    "@sentry/utils" "6.18.2"
+    "@sentry/core" "7.7.0"
+    "@sentry/types" "7.7.0"
+    "@sentry/utils" "7.7.0"
     tslib "^1.9.3"
+
+"@sentry/cli@1.74.4":
+  version "1.74.4"
+  resolved "https://registry.yarnpkg.com/@sentry/cli/-/cli-1.74.4.tgz#7df82f68045a155e1885bfcbb5d303e5259eb18e"
+  integrity sha512-BMfzYiedbModsNBJlKeBOLVYUtwSi99LJ8gxxE4Bp5N8hyjNIN0WVrozAVZ27mqzAuy6151Za3dpmOLO86YlGw==
+  dependencies:
+    https-proxy-agent "^5.0.0"
+    mkdirp "^0.5.5"
+    node-fetch "^2.6.7"
+    npmlog "^4.1.2"
+    progress "^2.0.3"
+    proxy-from-env "^1.1.0"
+    which "^2.0.2"
 
 "@sentry/cli@^1.52.4", "@sentry/cli@^1.72.0":
   version "1.74.2"
@@ -4089,15 +4135,14 @@
     "@sentry/utils" "6.17.9"
     tslib "^1.9.3"
 
-"@sentry/core@6.18.2":
-  version "6.18.2"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-6.18.2.tgz#d27619b7b4a4b90e2cfdc254d40ee9d630b251b9"
-  integrity sha512-r5ad/gq5S/JHc9sd5CUhZQT9ojQ+f+thk/AoGeGawX/8HURZYAgIqD565d6FK0VsZEDkdRMl58z1Qon20h3y1g==
+"@sentry/core@7.7.0":
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-7.7.0.tgz#1a2d477897552d179380f7c54c7d81a4e98ea29a"
+  integrity sha512-Z15ACiuiFINFcK4gbMrnejLn4AVjKBPJOWKrrmpIe8mh+Y9diOuswt5mMUABs+jhpZvqht3PBLLGBL0WMsYMYA==
   dependencies:
-    "@sentry/hub" "6.18.2"
-    "@sentry/minimal" "6.18.2"
-    "@sentry/types" "6.18.2"
-    "@sentry/utils" "6.18.2"
+    "@sentry/hub" "7.7.0"
+    "@sentry/types" "7.7.0"
+    "@sentry/utils" "7.7.0"
     tslib "^1.9.3"
 
 "@sentry/hub@6.17.9":
@@ -4109,13 +4154,13 @@
     "@sentry/utils" "6.17.9"
     tslib "^1.9.3"
 
-"@sentry/hub@6.18.2":
-  version "6.18.2"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-6.18.2.tgz#fdb8536f61899fd48f3d1b49a6957348ad729ec5"
-  integrity sha512-d0AugekMkbnN12b4EXMjseJxtLPc9S20DGobCPUb4oAQT6S2oDQEj1jwP6PQ5vtgyy+GMYWxBMgqAQ4pjVYISQ==
+"@sentry/hub@7.7.0":
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-7.7.0.tgz#9ad3471cf5ecaf1a9d3a3a04ca2515ffec9e2c09"
+  integrity sha512-6gydK234+a0nKhBRDdIJ7Dp42CaiW2juTiHegUVDq+482balVzbZyEAmESCmuzKJhx5BhlCElVxs/cci1NjMpg==
   dependencies:
-    "@sentry/types" "6.18.2"
-    "@sentry/utils" "6.18.2"
+    "@sentry/types" "7.7.0"
+    "@sentry/utils" "7.7.0"
     tslib "^1.9.3"
 
 "@sentry/integrations@6.17.9":
@@ -4128,13 +4173,13 @@
     localforage "^1.8.1"
     tslib "^1.9.3"
 
-"@sentry/integrations@^6.12.0":
-  version "6.18.2"
-  resolved "https://registry.yarnpkg.com/@sentry/integrations/-/integrations-6.18.2.tgz#caed0092e8a6c9fb0b8b7efd2deef946ca76e626"
-  integrity sha512-jzEH15m1dewzma2Fp0ENNRUDEOI3gGPfC/+lsLAuj9AMoNZ6qykQP8cB8OPTlzIZc0oyWGAE/1LoTrndPAvoPA==
+"@sentry/integrations@7.7.0":
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/@sentry/integrations/-/integrations-7.7.0.tgz#be4d89ccce756f3decc52b04cc09add19f142715"
+  integrity sha512-qHIw4JrluVfkcdA6v22KVumhuqdk9I0MxEaiHyP/uzx4xIoi9S4I86YbLHZUpjqreJIQkntsimJSepZJkxvG5g==
   dependencies:
-    "@sentry/types" "6.18.2"
-    "@sentry/utils" "6.18.2"
+    "@sentry/types" "7.7.0"
+    "@sentry/utils" "7.7.0"
     localforage "^1.8.1"
     tslib "^1.9.3"
 
@@ -4147,16 +4192,23 @@
     "@sentry/types" "6.17.9"
     tslib "^1.9.3"
 
-"@sentry/minimal@6.18.2":
-  version "6.18.2"
-  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-6.18.2.tgz#581c2fc030b9c89f1fcdc3e4855b91ce6c95db56"
-  integrity sha512-n7KYuo34W2LxE+3dnZ47of7XHuORINCnXq66XH72eoj67tf0XeWbIhEJrYGmoLRyRfoCYYrBLWiDl/uTjLzrzQ==
+"@sentry/react-native@4.2.2":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@sentry/react-native/-/react-native-4.2.2.tgz#613ffa2347746d2ed66200c314092411ad7aa43c"
+  integrity sha512-2zSgR73/jNByr4WDciE97n78Tj81Lrhhwj1/yMRWFDd9pF802ZYiRVeIkHArEYGHER41fiQojP7wBKftvnKgew==
   dependencies:
-    "@sentry/hub" "6.18.2"
-    "@sentry/types" "6.18.2"
-    tslib "^1.9.3"
+    "@sentry/browser" "7.7.0"
+    "@sentry/cli" "1.74.4"
+    "@sentry/core" "7.7.0"
+    "@sentry/hub" "7.7.0"
+    "@sentry/integrations" "7.7.0"
+    "@sentry/react" "7.7.0"
+    "@sentry/tracing" "7.7.0"
+    "@sentry/types" "7.7.0"
+    "@sentry/utils" "7.7.0"
+    "@sentry/wizard" "1.2.17"
 
-"@sentry/react-native@^3.1.1", "@sentry/react-native@^3.3.3":
+"@sentry/react-native@^3.3.3":
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/@sentry/react-native/-/react-native-3.3.3.tgz#47ca4668ba4f5835d34c738a81e63ff15f726c4b"
   integrity sha512-Lkq+ky9QZDxq2VoubOhW6/JImdmqbqU4WW5fEPkBsX7uwYkdFA4zlEiyEpTwaH9rwE7zLMWZVMIBpDRlLsQtew==
@@ -4184,6 +4236,17 @@
     hoist-non-react-statics "^3.3.2"
     tslib "^1.9.3"
 
+"@sentry/react@7.7.0":
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-7.7.0.tgz#a519dd727f863c1abf1a77beac01a3336c856828"
+  integrity sha512-93Khad3YAln6mKU9E15QH09XC1ARIOpNTRpnBl6AGl3bVhSdLExsbKDLa7Rx0mW2j4z/prOC6VEHf5mBvg4mPg==
+  dependencies:
+    "@sentry/browser" "7.7.0"
+    "@sentry/types" "7.7.0"
+    "@sentry/utils" "7.7.0"
+    hoist-non-react-statics "^3.3.2"
+    tslib "^1.9.3"
+
 "@sentry/tracing@6.17.9":
   version "6.17.9"
   resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-6.17.9.tgz#d4a6d96d88f10c9cd496e5b32f44d6e67d4c5dc7"
@@ -4195,15 +4258,25 @@
     "@sentry/utils" "6.17.9"
     tslib "^1.9.3"
 
+"@sentry/tracing@7.7.0":
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-7.7.0.tgz#67324b755a28e115289755e44a0b8b467a63d0b2"
+  integrity sha512-HNmvTwemuc21q/K6HXsSp9njkne6N1JQ71TB+QGqYU5VtxsVgYSUhhYqV6WcHz7LK4Hj6TvNFoeu69/rO0ysgw==
+  dependencies:
+    "@sentry/hub" "7.7.0"
+    "@sentry/types" "7.7.0"
+    "@sentry/utils" "7.7.0"
+    tslib "^1.9.3"
+
 "@sentry/types@6.17.9":
   version "6.17.9"
   resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.17.9.tgz#d579c33cde0301adaf8ff4762479ad017bf0dffa"
   integrity sha512-xuulX6qUCL14ayEOh/h6FUIvZtsi1Bx34dSOaWDrjXUOJHJAM7214uiqW1GZxPJ13YuaUIubjTSfDmSQ9CBzTw==
 
-"@sentry/types@6.18.2", "@sentry/types@^6.12.0":
-  version "6.18.2"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.18.2.tgz#f528fec8b75c19d5a6976004e71703184c6cf7be"
-  integrity sha512-WzpJf/Q5aORTzrSwer/As1NlO90dBAQpaHV2ikDDKqOyMWEgjKb5/4gh59p9gH8JMMnLetP1AvQel0fOj5UnUw==
+"@sentry/types@7.7.0":
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-7.7.0.tgz#dd6bd3d119d7efea0e85dbaa4b17de1c22b63c7a"
+  integrity sha512-4x8O7uerSGLnYC10krHl9t8h7xXHn5FextqKYbTCXCnx2hC8D+9lz8wcbQAFo0d97wiUYqI8opmEgFVGx7c5hQ==
 
 "@sentry/utils@6.17.9":
   version "6.17.9"
@@ -4213,15 +4286,15 @@
     "@sentry/types" "6.17.9"
     tslib "^1.9.3"
 
-"@sentry/utils@6.18.2":
-  version "6.18.2"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.18.2.tgz#c572a3ff49113e7dc4c97db1a18d117f199b9fff"
-  integrity sha512-EC619jesknyu4xpwud5WC/5odYLz6JUy7OSFy5405PpdGeh/m8XUvuJAx4zDx0Iz/Mlk0S1Md+ZcQwqkv39dkw==
+"@sentry/utils@7.7.0":
+  version "7.7.0"
+  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-7.7.0.tgz#013e3097c4268a76de578494c7df999635fb0ad4"
+  integrity sha512-fD+ROSFpeJlK7bEvUT2LOW7QqgjBpXJwVISKZ0P2fuzclRC3KoB2pbZgBM4PXMMTiSzRGWhvfRRjBiBvQJBBJQ==
   dependencies:
-    "@sentry/types" "6.18.2"
+    "@sentry/types" "7.7.0"
     tslib "^1.9.3"
 
-"@sentry/wizard@^1.2.17":
+"@sentry/wizard@1.2.17", "@sentry/wizard@^1.2.17":
   version "1.2.17"
   resolved "https://registry.yarnpkg.com/@sentry/wizard/-/wizard-1.2.17.tgz#c3247b47129d002cfa45d7a2048d13dc6513457b"
   integrity sha512-wXzjOZVDzh+1MhA9tpZXCKNTDusL2Dc298KGQkEkNefbW+OlYbsWwF7GAihLKUjYOSnKKZFzLIwbD+gxwxWxlw==
@@ -14134,7 +14207,7 @@ rgba-regex@^1.0.0:
   resolved "https://registry.yarnpkg.com/rgba-regex/-/rgba-regex-1.0.0.tgz#43374e2e2ca0968b0ef1523460b7d730ff22eeb3"
   integrity sha1-QzdOLiyglosO8VI0YLfXMP8i7rM=
 
-rimraf@^2.5.4, rimraf@^2.6.1, rimraf@^2.6.2, rimraf@^2.6.3:
+rimraf@^2.5.4, rimraf@^2.6.2, rimraf@^2.6.3:
   version "2.7.1"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.7.1.tgz#35797f13a7fdadc566142c29d4f07ccad483e3ec"
   integrity sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==
@@ -14400,20 +14473,20 @@ send@0.17.1:
     range-parser "~1.2.1"
     statuses "~1.5.0"
 
-sentry-expo@^4.2.0:
-  version "4.2.0"
-  resolved "https://registry.yarnpkg.com/sentry-expo/-/sentry-expo-4.2.0.tgz#8dc626b39cc1538c1284cc383b9d18c3252859c4"
-  integrity sha512-UL+i+kLDmB27kmY/BvkhY7aBqAxnVdy+IVg4jMX20V/iAgA1HBk2szf2gCt9vHDja6Q0HzgkdC91xiQ89jKiOw==
+sentry-expo@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/sentry-expo/-/sentry-expo-5.0.2.tgz#2dc1e3b0fb42c130758d1c812979e236a300dd59"
+  integrity sha512-okDqnFuQ1iQLWAEMW7SbLNcfg9XkKyr1FwP6cuLgVl4sPuZEr5mQtLSp4jXUncWYtIG2gnRkmXmZukkUat/OoQ==
   dependencies:
-    "@expo/config-plugins" "~4.1.4"
-    "@expo/config-types" "^45.0.0"
-    "@expo/spawn-async" "^1.2.8"
-    "@sentry/browser" "^6.12.0"
-    "@sentry/integrations" "^6.12.0"
-    "@sentry/react-native" "^3.1.1"
-    "@sentry/types" "^6.12.0"
-    mkdirp "^1.0.3"
-    rimraf "^2.6.1"
+    "@expo/config-plugins" "~5.0.0"
+    "@expo/config-types" "^46.0.1"
+    "@expo/spawn-async" "^1.6.0"
+    "@sentry/browser" "7.7.0"
+    "@sentry/integrations" "7.7.0"
+    "@sentry/react-native" "4.2.2"
+    "@sentry/types" "7.7.0"
+    mkdirp "^1.0.4"
+    rimraf "^3.0.2"
 
 serialize-error@6.0.0:
   version "6.0.0"
