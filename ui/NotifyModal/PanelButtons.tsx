@@ -1,16 +1,16 @@
+import { UserNotificationInfo } from '@models';
+import { NavigationSnackbar } from 'core/models';
+import { useSubscribeNotificationMutation, useUpdateNotificationMutation } from 'core/modules/notifications/query';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { snackbarActions } from 'core/modules/snackbar/reducer';
+import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { Box, Button, Flex } from 'native-base';
 import React, { memo, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useSubscribeNotificationMutation, useUpdateNotificationMutation } from 'core/modules/notifications/query';
 
-import { CheckMarkLargeIcon } from 'ui/icons/CheckMarkLargeIcon';
-import { NavigationSnackbar } from 'core/models';
 import { StyleSheet } from 'react-native';
+import { CheckMarkLargeIcon } from 'ui/icons/CheckMarkLargeIcon';
 import { TrashLargeIcon } from 'ui/icons/TrashLargeIcon';
-import { UserNotificationInfo } from '@models';
-import { getSelectedSymbol } from 'core/modules/stock/selectors';
-import { notificationActions } from 'core/modules/notifications/reducer';
-import { snackbarActions } from 'core/modules/snackbar/reducer';
 
 type PanelButtonsProps = {
   notification: UserNotificationInfo;
@@ -94,6 +94,7 @@ export const PanelButtons = memo<PanelButtonsProps>(({ notification, closeModalH
 const styles = StyleSheet.create({
   panelButtons: {
     marginTop: 40,
+    paddingRight: 24,
   },
   sideDelete: {
     display: 'flex',

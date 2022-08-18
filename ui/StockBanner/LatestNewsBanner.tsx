@@ -1,13 +1,11 @@
 import { Box, Heading, useTheme } from 'native-base';
 
-import { FeedNewsItems } from 'ui/FeedNewsItems';
-import { If } from 'ui/atoms/If';
-import { MainNewsItem } from 'ui/MainNewsItem';
-import React from 'react';
-import { SkeletonLatestNewsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonLatestNewsBanner';
-import { getUserId } from 'core/modules/auth/selectors';
 import { useNewsItemsQuery } from 'core/modules/stock/query';
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { If } from 'ui/atoms/If';
+import { FeedNewsItems } from 'ui/FeedNewsItems';
+import { MainNewsItem } from 'ui/MainNewsItem';
+import { SkeletonLatestNewsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonLatestNewsBanner';
 
 type LatestNewsBannerProps = {
   symbol: string;
@@ -21,7 +19,7 @@ export const LatestNewsBanner = React.memo<LatestNewsBannerProps>(({ symbol }) =
 
   if (Array.isArray(newsItems)) {
     return (
-      <If is={!!newsItems?.length}>
+      <If is={!!newsItems.length}>
         <Heading size={'sm'} my={5} mr={2} color={colors.heading}>
           Latest News
         </Heading>

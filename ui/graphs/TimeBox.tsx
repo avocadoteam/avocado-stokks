@@ -1,10 +1,9 @@
-import { Box, Flex, Text as NativeText, useTheme } from 'native-base';
-
 import { HistoryPeriodTarget } from '@models';
-import { If } from 'ui/atoms/If';
+import moment from 'moment';
+import { Box, Flex, Text as NativeText, useTheme } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import moment from 'moment';
+import { If } from 'ui/atoms/If';
 
 type Props = {
   colorBar: string;
@@ -50,6 +49,7 @@ const timestampsToElements = (
       reduceResultTimestamps[Math.floor(index / step)].w = reduceResultTimestamps[Math.floor(index / step)].w + r.w;
     }
   });
+  // @ts-ignore
   return reduceResultTimestamps.map(r => {
     const timeType = ruleToMomentType(rule);
     if (r.w > 40 || (timeType !== 'HH' && timeType !== 'YYYY')) {

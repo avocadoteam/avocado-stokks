@@ -1,8 +1,9 @@
+import { SecureStoreKey, secureStore } from 'core/store/secure-store';
+
+import { auth } from './auth-flow';
 import axios from 'axios';
 import { baseUrl } from 'core/constants';
 import { buildQueryString } from 'core/operations/common';
-import { secureStore, SecureStoreKey } from 'core/store/secure-store';
-import { auth } from './auth-flow';
 
 const getGUserInfo = async (accessToken: string) => {
   const { data } = await axios({
@@ -35,7 +36,6 @@ export const authGoogleUser = async (accessToken: string) => {
   await secureStore.set(SecureStoreKey.Credentials, {
     password: id,
     userId,
-    type: 'google',
   });
 
   const { token } = await auth({ password: id, username: userId });

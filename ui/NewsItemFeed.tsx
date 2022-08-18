@@ -1,10 +1,10 @@
-import { Box, Flex, Heading, useTheme } from 'native-base';
-import { Image, Text as NativeText, StyleSheet } from 'react-native';
-
-import { If } from './atoms/If';
 import { NewsItem } from '@models';
-import React from 'react';
 import newsItemImage from 'assets/images/NewsItem.png';
+import moment from 'moment';
+import { Box, Flex, Heading, Link, useTheme } from 'native-base';
+import { default as React, default as React } from 'react';
+import { Image, StyleSheet, Text as NativeText } from 'react-native';
+import { If } from './atoms/If';
 
 type NewsItemProps = {
   data: NewsItem;
@@ -22,11 +22,15 @@ export const NewsItemFeed = React.memo<NewsItemProps>(({ data, imgUrl }) => {
         </Box>
         <Box key={'text_news'} my={2}>
           <Heading color={colors.headingSmall} size={'sm'}>
-            {data.title}
+            <Link href={data.link} _text={{ color: colors.headingSmall }}>
+              {data.title}
+            </Link>
           </Heading>
         </Box>
         <Box key={'date_published'} my={2}>
-          <NativeText style={{ color: colors.textGray }}>{data.providerPublishTime}</NativeText>
+          <NativeText style={{ color: colors.textGray }}>
+            {moment.unix(data.providerPublishTime).format('HH:mm DD.MM.YYYY')}
+          </NativeText>
         </Box>
       </Flex>
       <If is={!!imgUrl}>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import * as Crypto from 'expo-crypto';
 
 import { SecureStoreKey, secureStore } from 'core/store/secure-store';
@@ -49,6 +50,11 @@ const createUser = async (data: { password: string }) => {
   });
   return result.data.data as number;
 };
+=======
+import axios from 'axios';
+import { baseUrl } from 'core/constants';
+import { secureStore, SecureStoreKey } from 'core/store/secure-store';
+>>>>>>> master
 
 /**
  *
@@ -62,4 +68,18 @@ export const auth = async (data: { username: number | string; password: string }
     data,
   });
   return result.data.data as { token: string; userId: number };
+};
+
+export const authUser = async (username: string, password: string) => {
+  try {
+    const { token, userId } = await auth({ password, username });
+
+    await secureStore.set(SecureStoreKey.Credentials, {
+      password,
+      userId,
+    });
+    return { token, userId };
+  } catch (error) {
+    return { error };
+  }
 };

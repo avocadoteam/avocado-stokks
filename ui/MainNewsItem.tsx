@@ -1,10 +1,11 @@
-import React from 'react';
-import { Box, Heading } from 'native-base';
-import { ImageBackground, StyleSheet, Text as NativeText } from 'react-native';
 import { NewsItem } from '@models';
 import { useGetImgFromArticleQuery } from 'core/modules/url-parser/query';
-import { NewsItemFeed } from './NewsItemFeed';
+import moment from 'moment';
+import { Box, Heading, Link } from 'native-base';
+import React from 'react';
+import { ImageBackground, StyleSheet, Text as NativeText } from 'react-native';
 import { If } from './atoms/If';
+import { NewsItemFeed } from './NewsItemFeed';
 
 type MainNewsItemProps = {
   data: NewsItem;
@@ -22,11 +23,13 @@ export const MainNewsItem = React.memo<MainNewsItemProps>(({ data }) => {
           </Box>
           <Box flexDirection="row">
             <Heading style={styles.text} size={'sm'}>
-              {data.title}
+              <Link href={data.link} _text={styles.text}>
+                {data.title}
+              </Link>
             </Heading>
           </Box>
           <Box>
-            <NativeText style={styles.text}>{data.providerPublishTime}</NativeText>
+            <NativeText style={styles.text}>{moment.unix(data.providerPublishTime).format('HH:mm DD.MM.YYYY')}</NativeText>
           </Box>
         </Box>
       </ImageBackground>

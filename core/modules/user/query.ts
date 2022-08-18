@@ -9,18 +9,27 @@ export const userApi = createApi({
   tagTypes: ['UserStore'],
   endpoints: builder => ({
     getUserStore: builder.query<UserStoreItem[], void>({
+<<<<<<< HEAD
       query: () => ({ url: `user/store`, method: 'get' }),
+=======
+      query: () => ({ url: `stocks/user/store`, method: 'get' }),
+>>>>>>> master
       providesTags: [{ type: 'UserStore', id: 'list' }],
     }),
     addToUserStore: builder.mutation<void, UserStoreModel>({
-      query: data => ({ url: 'user/store', method: 'put', data }),
+      query: data => ({ url: 'stocks/user/store', method: 'put', data }),
       invalidatesTags: [{ type: 'UserStore', id: 'list' }],
     }),
     removeFromUserStore: builder.mutation<void, UserDeleteStoreModel>({
-      query: data => ({ url: 'user/store', method: 'delete', data }),
+      query: data => ({ url: 'stocks/user/store', method: 'delete', data }),
+      invalidatesTags: [{ type: 'UserStore', id: 'list' }],
+    }),
+    deleteUser: builder.mutation<void, void>({
+      query: () => ({ url: 'stocks/user', method: 'delete' }),
       invalidatesTags: [{ type: 'UserStore', id: 'list' }],
     }),
   }),
 });
 
-export const { useGetUserStoreQuery, useAddToUserStoreMutation, useRemoveFromUserStoreMutation } = userApi;
+export const { useGetUserStoreQuery, useAddToUserStoreMutation, useRemoveFromUserStoreMutation, useDeleteUserMutation } =
+  userApi;

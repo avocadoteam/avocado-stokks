@@ -1,18 +1,20 @@
-import { Box, Button, HStack, Heading, Icon, Text, useTheme } from 'native-base';
+import { Ionicons } from '@expo/vector-icons';
+import { SymbolGeneralInfo } from '@models';
+import { NavigationModal } from 'core/models';
+import { getUserId } from 'core/modules/auth/selectors';
+import { modalActions } from 'core/modules/modal/reducer';
+import { getNotification } from 'core/modules/notifications/selectors';
+import { stockActions } from 'core/modules/stock/reducer';
+import { useAddToUserStoreMutation } from 'core/modules/user/query';
+import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
 import React, { memo, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { CheckMarkGreenIcon } from 'ui/icons/CheckMarkGreenIcon';
 import { If } from 'ui/atoms/If';
-import { Ionicons } from '@expo/vector-icons';
-import { NavigationModal } from 'core/models';
+import { CheckMarkGreenIcon } from 'ui/icons/CheckMarkGreenIcon';
 import { NotificationOutlineIcon } from 'ui/icons/NotificationOutlineIcon';
 import { NotificationOutlineOffIcon } from 'ui/icons/NotificationOutlineOffIcon';
 import { SkeletonBannerHeading } from 'ui/Skeletons/SkeletonStockBanner/SkeletonBannerHeading';
-import { SymbolGeneralInfo } from '@models';
-import { getNotification } from 'core/modules/notifications/selectors';
-import { modalActions } from 'core/modules/modal/reducer';
-import { useAddToUserStoreMutation } from 'core/modules/user/query';
 
 type Props = {
   symbol: string;
@@ -22,6 +24,7 @@ type Props = {
 
 export const BannerHeading = memo<Props>(({ symbolInfo, symbol, isStokkInUserStore }) => {
   const { colors } = useTheme();
+  const userId = useSelector(getUserId);
   const notification = useSelector(getNotification);
   const isUserSubscribedNotification = useMemo(() => (!notification.deleted ? true : false), [notification.deleted]);
 
@@ -32,6 +35,12 @@ export const BannerHeading = memo<Props>(({ symbolInfo, symbol, isStokkInUserSto
 
   const [addToUserStore, { isLoading }] = useAddToUserStoreMutation();
   const addStockkHandler = useCallback(() => {
+    if (!userId) {
+      dispatch(stockActions.setStockToBeAdded(symbol));
+      dispatch(modalActions.openModal(NavigationModal.Login));
+
+      return;
+    }
     if (!isStokkInUserStore) {
       addToUserStore({ symbol });
     }

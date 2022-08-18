@@ -1,7 +1,8 @@
-import { BaseQueryFn } from '@reduxjs/toolkit/query';
 import axios, { AxiosError, AxiosRequestConfig } from 'axios';
-import { baseUrl } from 'core/constants';
+
+import { BaseQueryFn } from '@reduxjs/toolkit/query';
 import { State } from 'core/store/root-reducer';
+import { baseUrl } from 'core/constants';
 
 export const axiosBaseQuery =
   <CustomResponse = unknown>(): BaseQueryFn<
@@ -22,9 +23,11 @@ export const axiosBaseQuery =
         url: `${baseUrl}${url}`,
         method,
         data,
-        headers: {
-          Authorization: `Bearer ${state.auth.token}`,
-        },
+        headers: state.auth.token
+          ? {
+              Authorization: `Bearer ${state.auth.token}`,
+            }
+          : {},
       });
       if (streamQuery) {
         return { data: streamQuery(result.data) };

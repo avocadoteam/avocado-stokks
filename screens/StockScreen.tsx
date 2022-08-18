@@ -1,25 +1,25 @@
+import { getUserId, shouldSkipAuthQuery } from 'core/modules/auth/selectors';
+import { useGetNotificationQuery } from 'core/modules/notifications/query';
+import { notificationActions } from 'core/modules/notifications/reducer';
+import { useSymbolInfoQuery } from 'core/modules/stock/query';
+import { stockActions } from 'core/modules/stock/reducer';
+import { getGraphTouched, getSelectedSymbol } from 'core/modules/stock/selectors';
+import { useGetUserStoreQuery } from 'core/modules/user/query';
 import { Box, ScrollView, useTheme } from 'native-base';
 import React, { memo, useEffect, useMemo } from 'react';
-import { getGraphTouched, getSelectedSymbol } from 'core/modules/stock/selectors';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { BannerHeading } from 'ui/StockBanner/BannerHeading';
-import { ErrorSnackbar } from 'ui/Snackbars/ErrorSnackbar';
-import { LatestNewsBanner } from 'ui/StockBanner/LatestNewsBanner';
 import { NavigationStackProp } from 'react-navigation-stack';
+import { useDispatch, useSelector } from 'react-redux';
+import { LoginModal } from 'ui/LoginModal';
 import { NotifyModal } from 'ui/NotifyModal/NotifyModal';
+import { ErrorSnackbar } from 'ui/Snackbars/ErrorSnackbar';
+import { SubscribedSnackbar } from 'ui/Snackbars/SubscribedSnackbar';
+import { UnsubscribedSnackbar } from 'ui/Snackbars/UnsubscribedSnackbar';
+import { BannerHeading } from 'ui/StockBanner/BannerHeading';
+import { LatestNewsBanner } from 'ui/StockBanner/LatestNewsBanner';
 import { PopularTweetsBanner } from 'ui/StockBanner/PopularTweetsBanner';
 import { RegularMarketBanner } from 'ui/StockBanner/RegularMarketBanner';
 import { StockGraph } from 'ui/StockBanner/StockGraph';
 import { StockHeader } from 'ui/StockHeader';
-import { SubscribedSnackbar } from 'ui/Snackbars/SubscribedSnackbar';
-import { UnsubscribedSnackbar } from 'ui/Snackbars/UnsubscribedSnackbar';
-import { getUserId } from 'core/modules/auth/selectors';
-import { notificationActions } from 'core/modules/notifications/reducer';
-import { stockActions } from 'core/modules/stock/reducer';
-import { useGetNotificationQuery } from 'core/modules/notifications/query';
-import { useGetUserStoreQuery } from 'core/modules/user/query';
-import { useSymbolInfoQuery } from 'core/modules/stock/query';
 
 type Props = {
   navigation: NavigationStackProp;
@@ -29,8 +29,9 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
   const symbol = useSelector(getSelectedSymbol);
   const userId = useSelector(getUserId);
-  const symbolInfo = useSymbolInfoQuery({ symbol }, { skip: !symbol || !userId }).data;
-  const { data: stokks } = useGetUserStoreQuery(undefined, { skip: !userId });
+  const skip = useSelector(shouldSkipAuthQuery);
+  const symbolInfo = useSymbolInfoQuery({ symbol }, { skip: !symbol }).data;
+  const { data: stokks } = useGetUserStoreQuery(undefined, { skip });
 
   const isStokkInUserStore = useMemo(() => !!stokks?.some(s => s.symbol === symbol), [stokks, symbol]);
   const isGraphTouched = useSelector(getGraphTouched);
@@ -38,7 +39,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   const dispatch = useDispatch();
   const notification = useGetNotificationQuery(
     { symbolId: symbolInfo?.symbolId ?? '', userId },
-    { skip: !symbolInfo?.symbolId || !userId },
+    { skip: !symbolInfo?.symbolId || skip },
   );
 
   useEffect(() => {
@@ -75,6 +76,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <UnsubscribedSnackbar />
       <ErrorSnackbar />
       <NotifyModal />
+      <LoginModal />
     </Box>
   );
 });

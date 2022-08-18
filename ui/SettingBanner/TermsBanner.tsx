@@ -17,7 +17,7 @@ export const TermsBanner = memo(() => {
           <Link
             isUnderlined={false}
             _text={{ color: colors.headingSmall, fontWeight: 'bold', fontSize: 16 }}
-            href={'https://pages.flycricket.io/stokks-0/privacy.html'}
+            href="https://pages.flycricket.io/stokks-0/privacy.html"
           >
             Privacy Policy
           </Link>
@@ -26,7 +26,7 @@ export const TermsBanner = memo(() => {
           <Link
             isUnderlined={false}
             _text={{ color: colors.headingSmall, fontWeight: 'bold', fontSize: 16 }}
-            href={'https://pages.flycricket.io/stokks-0/privacy.html'}
+            href="https://pages.flycricket.io/stokks-0/privacy.html"
           >
             Terms of Use
           </Link>

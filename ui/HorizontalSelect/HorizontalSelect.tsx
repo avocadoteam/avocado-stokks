@@ -1,6 +1,6 @@
+import { Box } from 'native-base';
 import React from 'react';
 import { ScrollView } from 'react-native';
-import { Box } from 'native-base';
 import { ActiveOption } from './ActiveOption';
 import { Option } from './Option';
 
@@ -14,7 +14,7 @@ export const HorizontalSelect = React.memo<ReminderPickerProps>(({ items, value,
   const options = mapItemsToOptions(items, value, changeHandler);
 
   return (
-    <ScrollView showsHorizontalScrollIndicator={false} horizontal={true}>
+    <ScrollView showsHorizontalScrollIndicator={false} horizontal>
       {options}
     </ScrollView>
   );

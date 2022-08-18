@@ -1,11 +1,11 @@
 import * as Sentry from 'sentry-expo';
 
 import React from 'react';
-import { Provider as Redux } from 'react-redux';
-import { RootNavigation } from './navigation';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { store } from './core/store';
+import { Provider as Redux } from 'react-redux';
 import useCachedResources from './core/hooks/useCachedResources';
+import { store } from './core/store';
+import { RootNavigation } from './navigation';
 import { ThemeProvider } from './ThemeProvider';
 
 Sentry.init({

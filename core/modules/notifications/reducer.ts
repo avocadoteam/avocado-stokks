@@ -1,9 +1,10 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { NotificationIntervalTarget, TriggerName, TriggerParam, UserNotificationInfo } from '@models';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export type NotificationsState = {
   noticification: UserNotificationInfo;
   allowed: boolean;
+  modalHeight: number;
 };
 
 const initialState: NotificationsState = {
@@ -16,6 +17,7 @@ const initialState: NotificationsState = {
     deleted: null,
   },
   allowed: false,
+  modalHeight: 404,
 };
 
 export const notificationSlice = createSlice({
@@ -36,6 +38,9 @@ export const notificationSlice = createSlice({
     },
     allowNotifications: (state, a: PayloadAction<boolean>) => {
       state.allowed = a.payload;
+    },
+    setModalHeight: (state, a: PayloadAction<number>) => {
+      state.modalHeight = a.payload;
     },
   },
 });

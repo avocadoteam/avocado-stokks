@@ -1,31 +1,33 @@
 import { NavigationContainer, NavigationContainerRef } from '@react-navigation/native';
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 
-import { MainScreen } from '../screens/MainScreen';
+import { createStackNavigator } from '@react-navigation/stack';
+import { useLogin } from 'core/hooks/useLogin';
+import { useNotificationCb } from 'core/hooks/useNotificationCb';
 import { NavigationScreen } from 'core/models';
+import { getSelectedSymbol } from 'core/modules/stock/selectors';
+import { useSelector } from 'react-redux';
 import { SearchScreen } from 'screens/SearchScreen';
 import { SettingsScreen } from 'screens/SettingsScreen';
+import { MainScreen } from '../screens/MainScreen';
 import { StockScreen } from '../screens/StockScreen';
-import { authActions } from 'core/modules/auth/reducer';
-import { authUser } from 'core/modules/auth/auth-flow';
-import { createStackNavigator } from '@react-navigation/stack';
-import { getSelectedSymbol } from 'core/modules/stock/selectors';
-import { useNotificationCb } from 'core/hooks/useNotificationCb';
 
 const { Navigator, Screen } = createStackNavigator();
 
 export const RootNavigation = () => {
   const [screen, setScreen] = useState(NavigationScreen.Main);
   const navRef = useRef<NavigationContainerRef>(null);
-  const dispatch = useDispatch();
   const symbol = useSelector(getSelectedSymbol);
 
+  useLogin();
   useNotificationCb();
 
   useEffect(() => {
-    authUser().then(d => dispatch(authActions.completeAuth(d)));
-  }, []);
+    if (symbol) {
+      setScreen(NavigationScreen.Stock);
+      navRef.current?.navigate(NavigationScreen.Stock);
+    }
+  }, [symbol]);
 
   useEffect(() => {
     if (symbol) {

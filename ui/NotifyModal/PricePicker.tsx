@@ -1,19 +1,21 @@
-import { Box, Flex, Input, Text as NativeText, ScrollView, useTheme } from 'native-base';
-import React, { memo, useCallback, useState } from 'react';
-
-import { EqualToIcon } from 'ui/icons/EqualToIcon';
-import { GreaterThanIcon } from 'ui/icons/GreaterThanIcon';
-import { LessThanIcon } from 'ui/icons/LessThanIcon';
-import { ScrollPicker } from 'ui/ScrollPicker';
-import { StyleSheet } from 'react-native';
 import { TriggerParam } from '@models';
 import { notificationActions } from 'core/modules/notifications/reducer';
+import { Box, Flex, Input, ScrollView, Text as NativeText, useTheme } from 'native-base';
+import React, { memo, useCallback, useState } from 'react';
+import { StyleSheet } from 'react-native';
 import { useDispatch } from 'react-redux';
+import { ScrollPicker } from 'ui/ScrollPicker';
 
 type PricePickerProps = {
   triggerValue: string;
   triggerParam: TriggerParam;
 };
+
+const triggerParams = [
+  { value: TriggerParam.Equals, title: 'Equals to' },
+  { value: TriggerParam.Greater, title: 'Greater than' },
+  { value: TriggerParam.Less, title: 'Less than' },
+];
 
 export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue }) => {
   const { colors } = useTheme();
@@ -28,9 +30,11 @@ export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue 
   }, []);
   const blurInputHandler = useCallback(() => {
     setFocusInput(false);
+    dispatch(notificationActions.setModalHeight(404));
   }, []);
   const focusInputHandler = useCallback(() => {
     setFocusInput(true);
+    dispatch(notificationActions.setModalHeight(540));
   }, []);
   const triggerParams = [
     { value: TriggerParam.Equals, title: 'Equals to' },
@@ -86,6 +90,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 19,
     height: 70,
+    paddingRight: 24,
   },
   conditionPricePicker: {
     flexDirection: 'column',
@@ -98,21 +103,3 @@ const styles = StyleSheet.create({
     borderRadius: 16,
   },
 });
-
-const triggerParams = [
-  {
-    title: 'Equals to',
-    value: TriggerParam.Equals,
-    icon: <EqualToIcon />,
-  },
-  {
-    title: 'Greater than',
-    value: TriggerParam.Greater,
-    icon: <GreaterThanIcon />,
-  },
-  {
-    title: 'Less than',
-    value: TriggerParam.Less,
-    icon: <LessThanIcon />,
-  },
-];

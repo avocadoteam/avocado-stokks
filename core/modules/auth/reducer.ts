@@ -1,26 +1,44 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { secureStore, SecureStoreKey } from 'core/store/secure-store';
+import { userApi } from '../user/query';
 
 export type AtuhState = {
   token: string;
   userId: number;
-  authType: 'google' | 'bare';
+  loading: boolean;
 };
 
 const initialState: AtuhState = {
   token: '',
   userId: 0,
-  authType: 'bare',
+  loading: true,
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    completeAuth: (state, action: PayloadAction<AtuhState>) => {
+    completeAuth: (state, action: PayloadAction<Pick<AtuhState, 'token' | 'userId'>>) => {
       state.token = action.payload.token;
       state.userId = action.payload.userId;
-      state.authType = action.payload.authType;
+      state.loading = false;
     },
+    stopLoading: state => {
+      state.loading = false;
+    },
+    deleteAuth: state => {
+      state.token = '';
+      state.userId = 0;
+      secureStore.delete(SecureStoreKey.Credentials);
+    },
+  },
+  extraReducers: builder => {
+    builder.addMatcher(userApi.endpoints.deleteUser.matchFulfilled, state => {
+      state.token = '';
+      state.userId = 0;
+
+      secureStore.delete(SecureStoreKey.Credentials);
+    });
   },
 });
 

@@ -5,8 +5,9 @@ import { Box, ScrollView, useTheme } from 'native-base';
 import React, { useCallback } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch } from 'react-redux';
-import { If } from 'ui/atoms/If';
+import { LoginModal } from 'ui/LoginModal';
 import { SearchHeader } from 'ui/SearchHeader';
+import { SkeletonUserStocks } from 'ui/Skeletons/SkeletonUserStocks';
 import { TrendingStock } from 'ui/TrendingStock';
 
 type Props = {
@@ -15,7 +16,7 @@ type Props = {
 
 export const SearchScreen = React.memo<Props>(({ navigation }) => {
   const { colors } = useTheme();
-  const [startSearch, searchResult] = useLazySearchQuery();
+  const [startSearch, { data, isFetching }] = useLazySearchQuery();
   const dispatch = useDispatch();
 
   const onPressStock = useCallback((symbol: string) => {
@@ -27,12 +28,14 @@ export const SearchScreen = React.memo<Props>(({ navigation }) => {
     <Box backgroundColor={colors.appBackground} flex={1}>
       <SearchHeader search={startSearch} />
       <ScrollView>
-        <If is={searchResult.isSuccess && !!searchResult.data.length}>
-          {searchResult.data?.map(ts => (
-            <TrendingStock onPress={onPressStock} key={ts.symbol} data={ts} />
-          ))}
-        </If>
+        {isFetching ? (
+          <SkeletonUserStocks />
+        ) : (
+          data?.map(ts => <TrendingStock onPress={onPressStock} key={ts.symbol} data={ts} />)
+        )}
       </ScrollView>
+
+      <LoginModal />
     </Box>
   );
 });
