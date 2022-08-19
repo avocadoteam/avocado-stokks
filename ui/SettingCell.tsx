@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, useTheme } from 'native-base';
 import React, { memo } from 'react';
-import { Dimensions, Pressable, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, TouchableHighlight } from 'react-native';
 
 type Props = {
   textColor?: string;
@@ -13,8 +13,8 @@ type Props = {
 export const SettingCell = memo<Props>(({ before, after, children, textColor, onPress }) => {
   const { colors } = useTheme();
   return (
-    <Pressable onPress={onPress}>
-      <Flex py={3} flexDirection="row">
+    <TouchableHighlight onPress={onPress}>
+      <Flex py={3} flexDirection="row" background={colors.appBackground} px={5}>
         <Box width={26} alignItems="center" justifyContent={'center'} mr={3}>
           {before}
         </Box>
@@ -25,7 +25,7 @@ export const SettingCell = memo<Props>(({ before, after, children, textColor, on
         </Box>
         <Box>{after}</Box>
       </Flex>
-    </Pressable>
+    </TouchableHighlight>
   );
 });
 

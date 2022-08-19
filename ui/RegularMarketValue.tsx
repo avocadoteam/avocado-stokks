@@ -1,17 +1,18 @@
-import React from 'react';
 import { Box, Heading, useTheme } from 'native-base';
+import React from 'react';
 import { Text as NativeText } from 'react-native';
 
 type RegularMarketProps = {
+  my?: number;
   title: string;
   value: number | string;
 };
 
-export const RegularMarketValue = React.memo<RegularMarketProps>(({ title, value }) => {
+export const RegularMarketValue = React.memo<RegularMarketProps>(({ my, title, value }) => {
   const { colors } = useTheme();
 
   return (
-    <Box>
+    <Box my={my}>
       <NativeText
         style={{
           color: colors.textGray,
@@ -20,7 +21,7 @@ export const RegularMarketValue = React.memo<RegularMarketProps>(({ title, value
       >
         {title}
       </NativeText>
-      <Heading size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>
+      <Heading mt={1} size={'sm'} color={colors.headingSmall} textTransform={'uppercase'}>
         {value}
       </Heading>
     </Box>

@@ -59,6 +59,7 @@ export const lightTheme = extendTheme({
     skeletonMainNewsBg: '#F4F4F4',
     skeletonMainNewsItem: '#EAEAEA',
     skeletonGraph: '#E5E5E5',
+    date_switch: 'rgba(117, 117, 117, 0.05)',
   },
   borders: {
     searchRadius: '16px',
@@ -125,6 +126,7 @@ export const darkTheme = extendTheme({
     skeletonMainNewsBg: '#2F2F2F',
     skeletonMainNewsItem: '#464646',
     skeletonGraph: '#5E5E5E',
+    date_switch: 'rgba(255, 255, 255, 0.15)',
   },
   borders: {
     searchRadius: '16px',

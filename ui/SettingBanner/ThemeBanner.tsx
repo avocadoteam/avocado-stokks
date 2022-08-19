@@ -20,7 +20,7 @@ export const ThemeBanner = memo(() => {
   }, []);
   return (
     <Box mt={3}>
-      <Heading size={'sm'} color={colors.heading}>
+      <Heading size={'sm'} color={colors.heading} px={5}>
         Theme
       </Heading>
       <Box>

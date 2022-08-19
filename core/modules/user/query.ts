@@ -1,7 +1,7 @@
 import { UserDeleteStoreModel, UserStoreItem, UserStoreModel } from '@models';
 
-import { axiosBaseQuery } from 'core/operations/data-fetch';
 import { createApi } from '@reduxjs/toolkit/query/react';
+import { axiosBaseQuery } from 'core/operations/data-fetch';
 
 export const userApi = createApi({
   reducerPath: 'userApi',
@@ -9,11 +9,7 @@ export const userApi = createApi({
   tagTypes: ['UserStore'],
   endpoints: builder => ({
     getUserStore: builder.query<UserStoreItem[], void>({
-<<<<<<< HEAD
-      query: () => ({ url: `user/store`, method: 'get' }),
-=======
       query: () => ({ url: `stocks/user/store`, method: 'get' }),
->>>>>>> master
       providesTags: [{ type: 'UserStore', id: 'list' }],
     }),
     addToUserStore: builder.mutation<void, UserStoreModel>({

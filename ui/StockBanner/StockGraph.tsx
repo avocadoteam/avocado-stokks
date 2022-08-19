@@ -3,6 +3,9 @@ import { useGraphQuery, useSymbolInfoQuery } from 'core/modules/stock/query';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { Box, Button, useTheme } from 'native-base';
 import React, { memo, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { LineGraph } from 'ui/graphs/LineChart';
+import { SkeletonStockGraph } from 'ui/Skeletons/SkeletonStockBanner/SkeletonStockGraph';
 import { periods, targets } from './constants';
 
 export const StockGraph = memo(() => {
@@ -24,7 +27,7 @@ export const StockGraph = memo(() => {
       symbol,
       target,
     },
-    { skip: !symbol || !userId },
+    { skip: !symbol },
   );
   if (!data) return <SkeletonStockGraph />;
 
@@ -39,14 +42,17 @@ export const StockGraph = memo(() => {
           timestamps={graphData.timestamp}
         />
       </Box>
-      <Button.Group justifyContent="space-between" colorScheme="gray" variant="ghost">
+      <Button.Group justifyContent="space-evenly" colorScheme="gray" variant="ghost">
         {periods.map(period => (
           <Button
+            width={48.83}
+            height={44}
             _text={{
               color: colors.textGray,
             }}
             borderRadius={14}
             key={period}
+            colorScheme={colors.date_switch}
             variant={target === targets[period] ? 'solid' : 'ghost'}
             onPress={() => setHistoryTarget(targets[period])}
           >

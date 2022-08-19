@@ -21,12 +21,12 @@ export const MainNewsItem = React.memo<MainNewsItemProps>(({ data }) => {
           <Box>
             <NativeText style={styles.text}>{data.publisher}</NativeText>
           </Box>
-          <Box flexDirection="row">
-            <Heading style={styles.text} size={'sm'}>
-              <Link href={data.link} _text={styles.text}>
+          <Box my={1}>
+            <Link isUnderlined={false} href={data.link} _text={styles.text}>
+              <Heading lineHeight={20.57} style={styles.text} size={'sm'}>
                 {data.title}
-              </Link>
-            </Heading>
+              </Heading>
+            </Link>
           </Box>
           <Box>
             <NativeText style={styles.text}>{moment.unix(data.providerPublishTime).format('HH:mm DD.MM.YYYY')}</NativeText>

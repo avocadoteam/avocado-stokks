@@ -8,7 +8,7 @@ import { isLoginModalVisible } from 'core/modules/modal/selectors';
 import AnimatedLottieView from 'lottie-react-native';
 import { Box, Button, Flex, FormControl, Heading, Input, Stack, Text as NativeText, useTheme } from 'native-base';
 import React, { useCallback, useEffect, useState } from 'react';
-import { Dimensions, StyleSheet } from 'react-native';
+import { Dimensions, StyleSheet, TouchableHighlight } from 'react-native';
 import Modal from 'react-native-modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppIcon } from './icons/AppIcon';
@@ -97,10 +97,12 @@ export const LoginModal = React.memo(() => {
                     </Box>
                   </Flex>
                 </Button>
-                <Box>
-                  <Button height={58} variant={'unstyled'} onPress={closeModalHandler}>
-                    <NativeText color={colors.textGray}>Later</NativeText>
-                  </Button>
+                <Box mx={-9} mt={2}>
+                  <TouchableHighlight onPress={closeModalHandler}>
+                    <Flex justifyContent="center" alignItems="center" height={50} background={colors.appBackground}>
+                      <NativeText color={colors.textGray}>Later</NativeText>
+                    </Flex>
+                  </TouchableHighlight>
                 </Box>
               </Box>
             </>
@@ -170,7 +172,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   contentBox: {
-    height: height * 0.92,
+    height: height * 0.96,
     flexDirection: 'column',
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
