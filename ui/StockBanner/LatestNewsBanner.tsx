@@ -1,11 +1,11 @@
 import { Box, Heading, useTheme } from 'native-base';
 
-import { FeedNewsItems } from 'ui/FeedNewsItems';
-import { If } from 'ui/atoms/If';
-import { MainNewsItem } from 'ui/MainNewsItem';
-import React from 'react';
-import { SkeletonLatestNewsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonLatestNewsBanner';
 import { useNewsItemsQuery } from 'core/modules/stock/query';
+import React from 'react';
+import { If } from 'ui/atoms/If';
+import { FeedNewsItems } from 'ui/FeedNewsItems';
+import { MainNewsItem } from 'ui/MainNewsItem';
+import { SkeletonLatestNewsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonLatestNewsBanner';
 
 type LatestNewsBannerProps = {
   symbol: string;

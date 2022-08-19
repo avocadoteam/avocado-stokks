@@ -1,26 +1,38 @@
-import React from 'react';
-import { Box, Flex } from 'native-base';
-import { StyleSheet } from 'react-native';
 import { SymbolGeneralInfo } from '@models';
-import { RegularMarketValue } from '../RegularMarketValue';
 import { convertNumberToShortForm } from 'core/utils';
+import { Box, Flex } from 'native-base';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { SkeletonRegularMarketBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonRegularMarketBanner';
+import { RegularMarketValue } from '../RegularMarketValue';
 
 type RegularMarketBannerProps = {
   data?: SymbolGeneralInfo;
 };
 
 export const RegularMarketBanner = React.memo<RegularMarketBannerProps>(({ data }) => {
-  const leftSide = createLeftSide(data);
-  const leftSideJSX = leftSide.map((el, index) => <RegularMarketValue key={`lMV${index}`} {...el} />);
-  const rightSide = createRightSide(data);
-  const rightSideJSX = rightSide.map((el, index) => <RegularMarketValue key={`rMV${index}`} {...el} />);
-
   if (data) {
     return (
       <Flex marginTop={8} direction="row" style={styles.mainBox}>
-        <Box style={styles.leftSide}>{leftSideJSX}</Box>
-        <Box style={styles.rightSide}>{rightSideJSX}</Box>
+        <Box style={styles.leftSide}>
+          <RegularMarketValue key="Open" title="Open" value={data?.regularMarketOpen ?? 0} />
+          <RegularMarketValue key="High" my={3} title="High" value={data?.regularMarketDayRange.high ?? 0} />
+          <RegularMarketValue key="Low" title="Low" value={data?.regularMarketDayRange.low ?? 0} />
+        </Box>
+        <Box style={styles.rightSide}>
+          <RegularMarketValue
+            key="MarketCup"
+            title="Market Cup"
+            value={data?.marketCap ? convertNumberToShortForm(data.marketCap) : 0}
+          />
+          <RegularMarketValue
+            key="Volume"
+            my={3}
+            title="Volume"
+            value={data?.regularMarketVolume ? convertNumberToShortForm(data.regularMarketVolume) : 0}
+          />
+          <RegularMarketValue key="Low" title="Low" value={data?.regularMarketDayRange.low ?? 0} />
+        </Box>
       </Flex>
     );
   } else {
@@ -39,19 +51,3 @@ const styles = StyleSheet.create({
     width: '100%',
   },
 });
-
-const createLeftSide = (data?: SymbolGeneralInfo) => {
-  return [
-    { title: 'Open', value: data?.regularMarketOpen ?? 0 },
-    { title: 'High', value: data?.regularMarketDayRange.high ?? 0 },
-    { title: 'Low', value: data?.regularMarketDayRange.low ?? 0 },
-  ];
-};
-
-const createRightSide = (data?: SymbolGeneralInfo) => {
-  return [
-    { title: 'Market Cup', value: data?.marketCap ? convertNumberToShortForm(data.marketCap) : 0 },
-    { title: 'Volume', value: data?.regularMarketVolume ? convertNumberToShortForm(data.regularMarketVolume) : 0 },
-    { title: 'Low', value: data?.regularMarketDayRange.low ?? 0 },
-  ];
-};

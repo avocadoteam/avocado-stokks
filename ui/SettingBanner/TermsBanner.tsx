@@ -9,7 +9,7 @@ export const TermsBanner = memo(() => {
   const { colors } = useTheme();
   return (
     <Box mt={3}>
-      <Heading size={'sm'} color={colors.heading}>
+      <Heading size={'sm'} color={colors.heading} px={5}>
         Terms
       </Heading>
       <Box>
