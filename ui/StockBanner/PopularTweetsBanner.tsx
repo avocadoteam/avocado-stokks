@@ -1,5 +1,5 @@
 import { useTweetsQuery } from 'core/modules/stock/query';
-import { Box, Heading, ScrollView, useTheme } from 'native-base';
+import { Box, Flex, Heading, ScrollView, useTheme } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { If } from 'ui/atoms/If';
@@ -21,11 +21,13 @@ export const PopularTweetsBanner = React.memo<PopularTweetsBannerProps>(({ symbo
           Popular Tweets
         </Heading>
         <ScrollView showsHorizontalScrollIndicator={false} horizontal style={styles.mainBox}>
-          {tweets.map(t => (
-            <Box mx={2} key={t.id}>
-              <PopularTweet data={t} />
-            </Box>
-          ))}
+          <Flex width={207 * tweets.length + 12 * (tweets.length - 1)} direction="row" justifyContent="space-between">
+            {tweets.map(t => (
+              <Box key={t.id}>
+                <PopularTweet data={t} />
+              </Box>
+            ))}
+          </Flex>
         </ScrollView>
       </If>
     );

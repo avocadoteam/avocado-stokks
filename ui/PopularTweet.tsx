@@ -32,11 +32,9 @@ export const PopularTweet = React.memo<PopularTweetProps>(({ data }) => {
         </Box>
       </Flex>
       <ScrollView showsVerticalScrollIndicator={false} horizontal={false} style={styles.description}>
-        <NativeText style={{ color: colors.text }}>
-          <Link href={data.source} _text={{ color: colors.text }} isUnderlined={false}>
-            {data.text}
-          </Link>
-        </NativeText>
+        <Link href={data.source} _text={{ color: colors.text }} isUnderlined={false}>
+          <NativeText style={{ color: colors.text }}>{data.text}</NativeText>
+        </Link>
       </ScrollView>
     </Box>
   );

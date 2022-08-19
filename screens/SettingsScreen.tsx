@@ -22,7 +22,7 @@ export const SettingsScreen = memo<Props>(({ navigation }) => {
   return (
     <Box backgroundColor={colors.appBackground} flex={1}>
       <SettingsHeader onPressBack={onPressBack} />
-      <ScrollView px={5}>
+      <ScrollView>
         <NotificationsBanner />
         <ThemeBanner />
         <TermsBanner />
