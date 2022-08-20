@@ -85,7 +85,7 @@ export const BannerHeading = memo<Props>(({ symbolInfo, symbol, isStokkInUserSto
           </HStack>
         </HStack>
         <Text fontSize={'sm'} color={colors.textGray}>
-          {symbolInfo?.fullExchangeName}
+          {symbolInfo?.label}
         </Text>
       </Box>
     );
