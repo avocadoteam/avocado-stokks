@@ -45,6 +45,7 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
             svg={{
               stroke: colorFill,
               fillOpacity: 0,
+              strokeWidth: 2,
             }}
             style={{ width, height }}
             data={graphData}
@@ -58,6 +59,7 @@ export const LineGraph = React.memo<Props>(({ data, up, target, timestamps }) =>
             svg={{
               stroke: colorFillSecondary,
               fillOpacity: 0,
+              strokeWidth: 2,
             }}
             style={{ width, height }}
             data={graphData}
