@@ -1,6 +1,7 @@
-import { Box, ScrollView, useTheme } from 'native-base';
+import { ScrollView, useTheme } from 'native-base';
 import React, { memo } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
+import { AnimatedBoxTheme } from 'ui/atoms/AnimatedBoxTheme';
 import { DangerBanner } from 'ui/SettingBanner/DangerBanner';
 import { Logout } from 'ui/SettingBanner/Logout';
 import { NotificationsBanner } from 'ui/SettingBanner/NotificationsBanner';
@@ -20,7 +21,7 @@ export const SettingsScreen = memo<Props>(({ navigation }) => {
   };
 
   return (
-    <Box backgroundColor={colors.appBackground} flex={1}>
+    <AnimatedBoxTheme>
       <SettingsHeader onPressBack={onPressBack} />
       <ScrollView>
         <NotificationsBanner />
@@ -29,6 +30,6 @@ export const SettingsScreen = memo<Props>(({ navigation }) => {
         <DangerBanner />
         <Logout />
       </ScrollView>
-    </Box>
+    </AnimatedBoxTheme>
   );
 });

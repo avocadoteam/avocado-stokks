@@ -9,6 +9,7 @@ import { Box, ScrollView, useTheme } from 'native-base';
 import React, { memo, useEffect, useMemo } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
+import { AnimatedBoxTheme } from 'ui/atoms/AnimatedBoxTheme';
 import { LoginModal } from 'ui/LoginModal';
 import { NotifyModal } from 'ui/NotifyModal/NotifyModal';
 import { ErrorSnackbar } from 'ui/Snackbars/ErrorSnackbar';
@@ -61,7 +62,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   }, [notification, symbol]);
 
   return (
-    <Box backgroundColor={colors.appBackground} flex={1}>
+    <AnimatedBoxTheme>
       <StockHeader onPressBack={navigation.goBack} />
       <ScrollView scrollEnabled={!isGraphTouched}>
         <Box px={6} paddingBottom={6}>
@@ -77,6 +78,6 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <ErrorSnackbar />
       <NotifyModal />
       <LoginModal />
-    </Box>
+    </AnimatedBoxTheme>
   );
 });
