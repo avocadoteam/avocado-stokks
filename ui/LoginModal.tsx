@@ -63,7 +63,7 @@ export const LoginModal = React.memo(() => {
       isVisible={visibleModal}
     >
       <Box style={styles.mainBox}>
-        <Box style={{ ...styles.contentBox, backgroundColor: colors.bgTweet }}>
+        <Box style={{ ...styles.contentBox, backgroundColor: colors.modalBackground }}>
           {view === 'G' ? (
             <>
               <Box style={styles.appIcon}>
@@ -99,7 +99,7 @@ export const LoginModal = React.memo(() => {
                 </Button>
                 <Box mx={-9} mt={2}>
                   <TouchableHighlight onPress={closeModalHandler}>
-                    <Flex justifyContent="center" alignItems="center" height={50} background={colors.appBackground}>
+                    <Flex justifyContent="center" alignItems="center" height={50} background={colors.modalBackground}>
                       <NativeText color={colors.textGray}>Later</NativeText>
                     </Flex>
                   </TouchableHighlight>

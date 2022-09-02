@@ -1,8 +1,8 @@
 import { SlideAreaChart, ToolTipProps } from '@connectedcars/react-native-slide-charts';
 import { memo, useMemo } from 'react';
 
-import { useDispatch } from 'react-redux';
 import { useTheme } from 'native-base';
+import { useDispatch } from 'react-redux';
 
 type Props = {
   up: boolean;

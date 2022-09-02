@@ -11,6 +11,7 @@ import { RefreshControl, StyleSheet } from 'react-native';
 import Swiper from 'react-native-swiper';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
+import { AnimatedBoxTheme } from 'ui/atoms/AnimatedBoxTheme';
 import { If } from 'ui/atoms/If';
 import { InfoModal } from 'ui/InfoModal';
 import { LoginModal } from 'ui/LoginModal';
@@ -48,9 +49,8 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
   }, []);
 
   return (
-    <Box backgroundColor={colors.appBackground} flex={1}>
+    <AnimatedBoxTheme>
       <MainHeader />
-
       <Swiper activeDotColor={colors.upTextColor} loop={false} onIndexChanged={onSwipe} index={index}>
         <ScrollView style={styles.view}>
           <If is={trendingSymbols.isSuccess && skip}>
@@ -89,7 +89,7 @@ export const MainScreen = React.memo<Props>(({ navigation }) => {
       </Swiper>
       <InfoModal />
       <LoginModal />
-    </Box>
+    </AnimatedBoxTheme>
   );
 });
 

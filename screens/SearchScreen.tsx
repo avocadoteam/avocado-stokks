@@ -1,10 +1,11 @@
 import { NavigationScreen } from 'core/models';
 import { useLazySearchQuery } from 'core/modules/stock/query';
 import { stockActions } from 'core/modules/stock/reducer';
-import { Box, ScrollView, useTheme } from 'native-base';
+import { ScrollView, useTheme } from 'native-base';
 import React, { useCallback } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch } from 'react-redux';
+import { AnimatedBoxTheme } from 'ui/atoms/AnimatedBoxTheme';
 import { LoginModal } from 'ui/LoginModal';
 import { SearchHeader } from 'ui/SearchHeader';
 import { SkeletonUserStocks } from 'ui/Skeletons/SkeletonUserStocks';
@@ -25,7 +26,7 @@ export const SearchScreen = React.memo<Props>(({ navigation }) => {
   }, []);
 
   return (
-    <Box backgroundColor={colors.appBackground} flex={1}>
+    <AnimatedBoxTheme>
       <SearchHeader search={startSearch} />
       <ScrollView>
         {isFetching ? (
@@ -36,6 +37,6 @@ export const SearchScreen = React.memo<Props>(({ navigation }) => {
       </ScrollView>
 
       <LoginModal />
-    </Box>
+    </AnimatedBoxTheme>
   );
 });

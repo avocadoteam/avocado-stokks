@@ -6,6 +6,8 @@ import { useLogin } from 'core/hooks/useLogin';
 import { useNotificationCb } from 'core/hooks/useNotificationCb';
 import { NavigationScreen } from 'core/models';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
+import { useTheme } from 'native-base';
+import { Appearance, StatusBar } from 'react-native';
 import { useSelector } from 'react-redux';
 import { SearchScreen } from 'screens/SearchScreen';
 import { SettingsScreen } from 'screens/SettingsScreen';
@@ -35,6 +37,13 @@ export const RootNavigation = () => {
       navRef.current?.navigate(NavigationScreen.Stock);
     }
   }, [symbol]);
+
+  const { colors } = useTheme();
+  const theme = Appearance.getColorScheme();
+  useEffect(() => {
+    StatusBar.setBackgroundColor(colors.appBackground);
+    StatusBar.setBarStyle(theme === 'light' ? 'dark-content' : 'light-content', true);
+  }, [theme]);
 
   return (
     <NavigationContainer ref={navRef}>
