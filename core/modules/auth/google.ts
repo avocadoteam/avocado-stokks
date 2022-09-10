@@ -1,9 +1,9 @@
-import { SecureStoreKey, secureStore } from 'core/store/secure-store';
+import { secureStore, SecureStoreKey } from 'core/store/secure-store';
 
-import { auth } from './auth-flow';
 import axios from 'axios';
 import { baseUrl } from 'core/constants';
 import { buildQueryString } from 'core/operations/common';
+import { auth } from './auth-flow';
 
 const getGUserInfo = async (accessToken: string) => {
   const { data } = await axios({
@@ -22,7 +22,7 @@ const getGUserInfo = async (accessToken: string) => {
 
 const createGoogleUser = async (data: { email: string; id: string }) => {
   const result = await axios({
-    url: `${baseUrl}user/google`,
+    url: `${baseUrl}stocks/user/google`,
     method: 'post',
     data,
   });
