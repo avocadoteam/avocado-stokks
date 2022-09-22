@@ -9,10 +9,10 @@ import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { useTheme } from 'native-base';
 import { Appearance, StatusBar } from 'react-native';
 import { useSelector } from 'react-redux';
+import { MainScreen } from 'screens/MainScreen';
 import { SearchScreen } from 'screens/SearchScreen';
 import { SettingsScreen } from 'screens/SettingsScreen';
-import { MainScreen } from '../screens/MainScreen';
-import { StockScreen } from '../screens/StockScreen';
+import { StockScreen } from 'screens/StockScreen';
 
 const { Navigator, Screen } = createStackNavigator();
 
@@ -23,13 +23,6 @@ export const RootNavigation = () => {
 
   useLogin();
   useNotificationCb();
-
-  useEffect(() => {
-    if (symbol) {
-      setScreen(NavigationScreen.Stock);
-      navRef.current?.navigate(NavigationScreen.Stock);
-    }
-  }, [symbol]);
 
   useEffect(() => {
     if (symbol) {
