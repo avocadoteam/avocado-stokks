@@ -1,5 +1,6 @@
+import { useUserTheme } from 'core/hooks/useUserTheme';
 import React, { memo, useEffect, useState } from 'react';
-import { Animated, Appearance } from 'react-native';
+import { Animated } from 'react-native';
 
 type Props = {
   flex?: number;
@@ -7,7 +8,7 @@ type Props = {
 };
 
 export const AnimatedBoxTheme = memo<Props>(({ children, flex }) => {
-  const theme = Appearance.getColorScheme();
+  const theme = useUserTheme();
   const [animation, setAnimation] = useState(new Animated.Value(0));
   const transition = {
     light: ['rgba(33, 33, 33, 1)', 'rgba(255, 255, 255, 1)'],
@@ -23,7 +24,7 @@ export const AnimatedBoxTheme = memo<Props>(({ children, flex }) => {
   useEffect(() => {
     Animated.timing(animation, {
       toValue: 300,
-      duration: 600,
+      duration: 300,
       useNativeDriver: false,
     }).start(({ finished }) => {
       if (finished) {

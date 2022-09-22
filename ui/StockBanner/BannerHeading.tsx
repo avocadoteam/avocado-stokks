@@ -50,7 +50,7 @@ export const BannerHeading = memo<Props>(({ symbolInfo, symbol, isStokkInUserSto
 
   if (symbolInfo) {
     return (
-      <Box mb={8}>
+      <Box>
         <HStack justifyContent="space-between" alignItems="center">
           <HStack alignItems="center">
             <Heading mr={2} color={colors.heading}>
