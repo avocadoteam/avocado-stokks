@@ -11,10 +11,13 @@ type LatestNewsBannerProps = {
 
 export const FeedNewsItems = React.memo<LatestNewsBannerProps>(({ data }) => {
   const dataImgUrl = useGetImgFromArticleQuery(
-    { links: data.map(d => d.link) },
-    { skip: !data.some(item => !item.imgUrl) },
+    { links: data.filter(d => !d.imgUrl).map(d => d.link) },
+    { skip: data.filter(d => !d.imgUrl).length === 0 },
   ).data;
-  const imgUrls = useMemo(() => (dataImgUrl ?? data).map(d => d.imgUrl as string | null), [dataImgUrl]);
+  const imgUrls = useMemo(
+    () => data.map(d => d.imgUrl ?? (dataImgUrl?.find(item => item.link === d.link)?.imgUrl as string | null)),
+    [dataImgUrl],
+  );
 
   const newsItems = data.map((n, index) => (
     <Box key={n.uuid}>
