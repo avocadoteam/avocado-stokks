@@ -2,6 +2,7 @@ import {
   HistoryResponseModel,
   NewsItem,
   NewsItemsModel,
+  SearchLangModel,
   SearchModel,
   SymbolGeneralInfo,
   SymbolHystoryModel,
@@ -30,11 +31,11 @@ export const stockApi = createApi({
     graph: builder.query<HistoryResponseModel, SymbolHystoryModel>({
       query: data => ({ url: 'stocks/symbol/history/full', method: 'post', data }),
     }),
-    tweets: builder.query<Tweet[], TweetsModel>({
-      query: data => ({ url: `stocks/symbol/tweets?query=${data.query}`, method: 'get' }),
+    tweets: builder.query<Tweet[], TweetsModel & SearchLangModel>({
+      query: data => ({ url: `stocks/symbol/tweets?query=${data.query}&lang=${data.lang}`, method: 'get' }),
     }),
-    newsItems: builder.query<NewsItem[], NewsItemsModel>({
-      query: data => ({ url: `stocks/symbol/news?query=${data.query}`, method: 'get' }),
+    newsItems: builder.query<NewsItem[], NewsItemsModel & SearchLangModel>({
+      query: data => ({ url: `stocks/symbol/news?query=${data.query}&lang=${data.lang}`, method: 'get' }),
     }),
   }),
 });

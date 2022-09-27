@@ -2,7 +2,7 @@ import { NewsItem } from '@models';
 import { useGetImgFromArticleQuery } from 'core/modules/url-parser/query';
 import moment from 'moment';
 import { Box, Heading, Link } from 'native-base';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { ImageBackground, StyleSheet, Text as NativeText } from 'react-native';
 import { If } from './atoms/If';
 import { NewsItemFeed } from './NewsItemFeed';
@@ -12,11 +12,12 @@ type MainNewsItemProps = {
 };
 
 export const MainNewsItem = React.memo<MainNewsItemProps>(({ data }) => {
-  const dataImgUrl = useGetImgFromArticleQuery({ links: [data.link] }).data;
+  const dataImgUrl = useGetImgFromArticleQuery({ links: [data.link] }, { skip: !!data.imgUrl }).data;
+  const imgUrl = useMemo(() => dataImgUrl?.[0].imgUrl ?? data.imgUrl, [dataImgUrl, data.imgUrl]);
 
   return (
-    <If is={!!dataImgUrl?.[0].imgUrl} else={<NewsItemFeed data={data} imgUrl={null} />}>
-      <ImageBackground style={styles.imageBackground} borderRadius={20} source={{ uri: dataImgUrl?.[0].imgUrl ?? '' }}>
+    <If is={!!imgUrl} else={<NewsItemFeed data={data} imgUrl={null} />}>
+      <ImageBackground style={styles.imageBackground} borderRadius={20} source={{ uri: imgUrl }}>
         <Box style={styles.mainBox}>
           <Box>
             <NativeText style={styles.text}>{data.publisher}</NativeText>

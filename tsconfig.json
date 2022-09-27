@@ -9,6 +9,7 @@
     "importHelpers": true,
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
     "baseUrl": ".",
     "paths": {
       "@models": ["./stokks-models/index"]

@@ -1,7 +1,9 @@
 import { Box, Heading, useTheme } from 'native-base';
 
+import { getLanguage } from 'core/modules/settings/selector';
 import { useNewsItemsQuery } from 'core/modules/stock/query';
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { If } from 'ui/atoms/If';
 import { FeedNewsItems } from 'ui/FeedNewsItems';
 import { MainNewsItem } from 'ui/MainNewsItem';
@@ -13,7 +15,8 @@ type LatestNewsBannerProps = {
 
 export const LatestNewsBanner = React.memo<LatestNewsBannerProps>(({ symbol }) => {
   const { colors } = useTheme();
-  const newsItems = useNewsItemsQuery({ query: symbol }, { skip: !symbol }).data;
+  const lang = useSelector(getLanguage);
+  const newsItems = useNewsItemsQuery({ query: symbol, lang }, { skip: !symbol }).data;
   const mainNewsItem = newsItems && newsItems[0] && <MainNewsItem data={newsItems[0]} />;
 
   if (Array.isArray(newsItems)) {
