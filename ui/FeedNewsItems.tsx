@@ -10,19 +10,22 @@ type LatestNewsBannerProps = {
 };
 
 export const FeedNewsItems = React.memo<LatestNewsBannerProps>(({ data }) => {
-  const dataImgUrl = useGetImgFromArticleQuery(
-    { links: data.filter(d => !d.imgUrl).map(d => d.link) },
-    { skip: data.filter(d => !d.imgUrl).length === 0 },
-  ).data;
+  const linksToParse = data.filter(d => !d.imgUrl).map(d => d.link);
+  const { data: dataImgUrls = [] } = useGetImgFromArticleQuery({ links: linksToParse }, { skip: !linksToParse.length });
+
   const imgUrls = useMemo(
-    () => data.map(d => d.imgUrl ?? (dataImgUrl?.find(item => item.link === d.link)?.imgUrl as string | null)),
-    [dataImgUrl],
+    () =>
+      data.reduce<Record<string, string | null>>((acc, next) => {
+        acc[next.uuid] = next.imgUrl ?? dataImgUrls.find(item => item.link === next.link)?.imgUrl ?? null;
+        return acc;
+      }, {}),
+    [dataImgUrls],
   );
 
   const newsItems = data.map((n, index) => (
     <Box key={n.uuid}>
       <Box py={1}>
-        <NewsItemFeed data={n} imgUrl={imgUrls[index]} />
+        <NewsItemFeed data={n} imgUrl={imgUrls[n.uuid]} />
       </Box>
       {index !== data.length - 1 && <Separator />}
     </Box>
