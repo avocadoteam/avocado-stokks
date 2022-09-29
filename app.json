@@ -3,7 +3,7 @@
     "owner": "avocado-games",
     "name": "stokks",
     "slug": "stokks-app",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/images/Logotype.png",
     "scheme": "stokks-app",
@@ -22,7 +22,7 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "avocadogames.stokks",
-      "buildNumber": "1.0.6"
+      "buildNumber": "1.0.7"
     },
     "android": {
       "adaptiveIcon": {
