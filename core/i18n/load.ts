@@ -1,5 +1,12 @@
 import { Language } from 'core/models';
-import { getAvailableBundleLanguage, i18n } from './index';
+import i18n, { getAvailableBundleLanguage } from './index';
+import { i18n as en } from './locales/loc_app_en';
+import { i18n as ru } from './locales/loc_app_ru';
+
+const languages = {
+  ru,
+  en,
+};
 
 export const getLocaleBundle = async (localeId = Language.RU) => {
   const lang = getAvailableBundleLanguage(localeId);
@@ -18,9 +25,10 @@ export const getLocaleBundle = async (localeId = Language.RU) => {
 };
 
 const tryGetLocaleBundle = async (lang: Language) => {
-  const bundle = await import(`./locales/loc_app_${lang}`);
+  //Dinamic import doesn't work in React-Native!
+  const bundle = { i18n: languages[lang] };
 
   Object.keys(bundle.i18n).forEach(ns => {
-    i18n.addResourceBundle(lang, ns, bundle.i18n[ns]);
+    i18n.addResourceBundle(lang, ns, bundle.i18n[ns as keyof { app: object }]);
   });
 };

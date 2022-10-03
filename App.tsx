@@ -1,6 +1,8 @@
 import * as Sentry from 'sentry-expo';
 
+import 'core/i18n';
 import React from 'react';
+import 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider as Redux } from 'react-redux';
 import useCachedResources from './core/hooks/useCachedResources';

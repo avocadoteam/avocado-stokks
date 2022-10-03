@@ -17,6 +17,7 @@ const fallbackLng = {
 };
 
 i18next.use(initReactI18next).init({
+  compatibilityJSON: 'v3',
   ns: 'app',
   fallbackLng,
   lng: Language.RU,
@@ -28,4 +29,4 @@ i18next.use(initReactI18next).init({
   },
 });
 
-export const i18n = i18next;
+export default i18next;

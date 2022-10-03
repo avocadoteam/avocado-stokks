@@ -1,6 +1,6 @@
 import { Language } from 'core/models';
 import moment from 'moment';
-import { getAvailableBundleLanguage, i18n } from './index';
+import i18n, { getAvailableBundleLanguage } from './index';
 import { getLocaleBundle } from './load';
 
 export const setLocale = async (localeId: Language = Language.EN) => {
