@@ -2,13 +2,13 @@ import { Box, Heading, Link, Text as NativeText, useTheme } from 'native-base';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { AppIcon } from './icons/AppIcon';
-import Modal from 'react-native-modal';
 import { NavigationModal } from 'core/models';
-import { StyleSheet } from 'react-native';
-import { Toggle } from './atoms/Toggle';
-import { getVisibleModal } from 'core/modules/modal/selectors';
 import { modalActions } from 'core/modules/modal/reducer';
+import { getVisibleModal } from 'core/modules/modal/selectors';
+import { StyleSheet } from 'react-native';
+import Modal from 'react-native-modal';
+import { Toggle } from './atoms/Toggle';
+import { AppIcon } from './icons/AppIcon';
 
 export const InfoModal = React.memo(({}) => {
   const { colors } = useTheme();

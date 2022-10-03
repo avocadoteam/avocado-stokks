@@ -21,22 +21,27 @@ export const AnimatedBoxTheme = memo<Props>(({ children, flex }) => {
     }),
   });
 
+  const [isScreenInitialized, setScreenInitialized] = useState(false);
   useEffect(() => {
-    Animated.timing(animation, {
-      toValue: 300,
-      duration: 300,
-      useNativeDriver: false,
-    }).start(({ finished }) => {
-      if (finished) {
-        setBgStyle({
-          backgroundColor: animation.interpolate({
-            inputRange: [0, 300],
-            outputRange: transition[theme ?? 'light'],
-          }),
-        });
-        setAnimation(new Animated.Value(0));
-      }
-    });
+    if (isScreenInitialized) {
+      Animated.timing(animation, {
+        toValue: 300,
+        duration: 600,
+        useNativeDriver: false,
+      }).start(({ finished }) => {
+        if (finished) {
+          setBgStyle({
+            backgroundColor: animation.interpolate({
+              inputRange: [0, 300],
+              outputRange: transition[theme ?? 'light'],
+            }),
+          });
+          setAnimation(new Animated.Value(0));
+        }
+      });
+    } else {
+      setScreenInitialized(true);
+    }
   }, [theme]);
 
   return <Animated.View style={[bgStyle, { flex: flex ?? 1 }]}>{children}</Animated.View>;

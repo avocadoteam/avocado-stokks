@@ -5,7 +5,9 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { useLogin } from 'core/hooks/useLogin';
 import { useNotificationCb } from 'core/hooks/useNotificationCb';
 import { useUserTheme } from 'core/hooks/useUserTheme';
+import { setLocale } from 'core/i18n/set';
 import { NavigationScreen } from 'core/models';
+import { getLanguage } from 'core/modules/settings/selector';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { useTheme } from 'native-base';
 import { StatusBar } from 'react-native';
@@ -21,9 +23,14 @@ export const RootNavigation = () => {
   const [screen, setScreen] = useState(NavigationScreen.Main);
   const navRef = useRef<NavigationContainerRef>(null);
   const symbol = useSelector(getSelectedSymbol);
+  const language = useSelector(getLanguage);
 
   useLogin();
   useNotificationCb();
+
+  useEffect(() => {
+    setLocale(language);
+  }, [language]);
 
   useEffect(() => {
     if (symbol) {

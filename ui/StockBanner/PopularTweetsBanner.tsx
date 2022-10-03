@@ -1,7 +1,9 @@
+import { getLanguage } from 'core/modules/settings/selector';
 import { useTweetsQuery } from 'core/modules/stock/query';
 import { Box, Flex, Heading, ScrollView, useTheme } from 'native-base';
 import React from 'react';
 import { StyleSheet } from 'react-native';
+import { useSelector } from 'react-redux';
 import { If } from 'ui/atoms/If';
 import { PopularTweet } from 'ui/PopularTweet';
 import { SkeletonPopularTweetsBanner } from 'ui/Skeletons/SkeletonStockBanner/SkeletonPopularTweetsBanner';
@@ -12,7 +14,9 @@ type PopularTweetsBannerProps = {
 
 export const PopularTweetsBanner = React.memo<PopularTweetsBannerProps>(({ symbol }) => {
   const { colors } = useTheme();
-  const tweets = useTweetsQuery({ query: symbol }, { skip: !symbol }).data;
+  const lang = useSelector(getLanguage);
+  const tweets = useTweetsQuery({ query: symbol, lang }, { skip: !symbol }).data;
+
   if (Array.isArray(tweets)) {
     return (
       <If is={!!tweets.length}>
