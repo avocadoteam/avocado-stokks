@@ -5,11 +5,11 @@ import { useSymbolInfoQuery } from 'core/modules/stock/query';
 import { stockActions } from 'core/modules/stock/reducer';
 import { getGraphTouched, getSelectedSymbol } from 'core/modules/stock/selectors';
 import { useGetUserStoreQuery } from 'core/modules/user/query';
-import { Box, ScrollView, useTheme } from 'native-base';
+import { Box, ScrollView } from 'native-base';
 import React, { memo, useEffect, useMemo } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
 import { useDispatch, useSelector } from 'react-redux';
-import { AnimatedBoxTheme } from 'ui/atoms/AnimatedBoxTheme';
+import { ScreenBox } from 'ui/atoms/ScreenBox';
 import { LoginModal } from 'ui/LoginModal';
 import { NotifyModal } from 'ui/NotifyModal/NotifyModal';
 import { ErrorSnackbar } from 'ui/Snackbars/ErrorSnackbar';
@@ -27,7 +27,6 @@ type Props = {
 };
 
 export const StockScreen = memo<Props>(({ navigation }) => {
-  const { colors } = useTheme();
   const symbol = useSelector(getSelectedSymbol);
   const userId = useSelector(getUserId);
   const skip = useSelector(shouldSkipAuthQuery);
@@ -62,7 +61,7 @@ export const StockScreen = memo<Props>(({ navigation }) => {
   }, [notification, symbol]);
 
   return (
-    <AnimatedBoxTheme>
+    <ScreenBox>
       <StockHeader onPressBack={navigation.goBack} />
       <ScrollView scrollEnabled={!isGraphTouched}>
         <Box px={6} paddingBottom={6}>
@@ -78,6 +77,6 @@ export const StockScreen = memo<Props>(({ navigation }) => {
       <ErrorSnackbar />
       <NotifyModal />
       <LoginModal />
-    </AnimatedBoxTheme>
+    </ScreenBox>
   );
 });

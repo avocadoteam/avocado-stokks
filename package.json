@@ -42,6 +42,7 @@
     "expo-device": "~4.2.0",
     "expo-font": "~10.1.0",
     "expo-linking": "~3.1.0",
+    "expo-localization": "^13.1.0",
     "expo-notifications": "~0.15.4",
     "expo-random": "~12.2.0",
     "expo-secure-store": "~11.2.0",
