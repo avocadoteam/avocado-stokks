@@ -9,6 +9,7 @@ import { useAddToUserStoreMutation } from 'core/modules/user/query';
 import { Box, Button, Heading, HStack, Icon, Text, useTheme } from 'native-base';
 import React, { memo, useCallback, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { If } from 'ui/atoms/If';
 import { CheckMarkGreenIcon } from 'ui/icons/CheckMarkGreenIcon';
 import { NotificationOutlineIcon } from 'ui/icons/NotificationOutlineIcon';
@@ -43,13 +44,13 @@ export const BannerHeading = memo<Props>(({ symbolInfo, symbol, isStokkInUserSto
     if (!isStokkInUserStore) {
       addToUserStore({ symbol });
     }
-  }, [symbol, userId]);
+  }, [symbol]);
 
   const up = (symbolInfo?.regularMarketChange ?? 0) > 0;
 
   if (symbolInfo) {
     return (
-      <Box mb={8}>
+      <Box>
         <HStack justifyContent="space-between" alignItems="center">
           <HStack alignItems="center">
             <Heading mr={2} color={colors.heading}>

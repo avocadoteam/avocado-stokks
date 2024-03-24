@@ -1,7 +1,7 @@
-import { ScrollView, useTheme } from 'native-base';
+import { ScrollView } from 'native-base';
 import React, { memo } from 'react';
 import { NavigationStackProp } from 'react-navigation-stack';
-import { AnimatedBoxTheme } from 'ui/atoms/AnimatedBoxTheme';
+import { ScreenBox } from 'ui/atoms/ScreenBox';
 import { DangerBanner } from 'ui/SettingBanner/DangerBanner';
 import { Logout } from 'ui/SettingBanner/Logout';
 import { NotificationsBanner } from 'ui/SettingBanner/NotificationsBanner';
@@ -14,14 +14,12 @@ type Props = {
 };
 
 export const SettingsScreen = memo<Props>(({ navigation }) => {
-  const { colors } = useTheme();
-
   const onPressBack = () => {
     navigation.goBack();
   };
 
   return (
-    <AnimatedBoxTheme>
+    <ScreenBox>
       <SettingsHeader onPressBack={onPressBack} />
       <ScrollView>
         <NotificationsBanner />
@@ -30,6 +28,6 @@ export const SettingsScreen = memo<Props>(({ navigation }) => {
         <DangerBanner />
         <Logout />
       </ScrollView>
-    </AnimatedBoxTheme>
+    </ScreenBox>
   );
 });

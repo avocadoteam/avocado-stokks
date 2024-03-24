@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getAvailableBundleLanguage } from 'core/i18n';
 import { Language } from 'core/models';
+import * as Localization from 'expo-localization';
 
 export type Theme = 'system' | 'light' | 'dark' | null;
 type InitialState = {
@@ -8,7 +10,7 @@ type InitialState = {
 };
 const initialState: InitialState = {
   theme: null,
-  language: Language.EN,
+  language: getAvailableBundleLanguage(Localization.locale as Language),
 };
 
 const settingsSlice = createSlice({

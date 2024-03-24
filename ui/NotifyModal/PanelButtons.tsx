@@ -6,8 +6,9 @@ import { snackbarActions } from 'core/modules/snackbar/reducer';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { Box, Button, Flex } from 'native-base';
 import React, { memo, useCallback, useMemo } from 'react';
-import { StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
+
+import { StyleSheet } from 'react-native';
 import { CheckMarkLargeIcon } from 'ui/icons/CheckMarkLargeIcon';
 import { TrashLargeIcon } from 'ui/icons/TrashLargeIcon';
 

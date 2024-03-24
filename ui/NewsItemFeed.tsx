@@ -2,7 +2,7 @@ import { NewsItem } from '@models';
 import newsItemImage from 'assets/images/NewsItem.png';
 import moment from 'moment';
 import { Box, Flex, Heading, Link, useTheme } from 'native-base';
-import React from 'react';
+import { default as React } from 'react';
 import { Image, StyleSheet, Text as NativeText } from 'react-native';
 import { If } from './atoms/If';
 

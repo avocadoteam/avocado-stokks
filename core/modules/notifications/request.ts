@@ -4,6 +4,7 @@ import { userApi } from 'core/modules/user/query';
 import { State } from 'core/store/root-reducer';
 import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
+
 import { Platform } from 'react-native';
 import { authActions } from '../auth/reducer';
 import { stockActions } from '../stock/reducer';

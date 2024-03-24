@@ -36,6 +36,11 @@ export const PricePicker = memo<PricePickerProps>(({ triggerParam, triggerValue 
     setFocusInput(true);
     dispatch(notificationActions.setModalHeight(540));
   }, []);
+  const triggerParams = [
+    { value: TriggerParam.Equals, title: 'Equals to' },
+    { value: TriggerParam.Greater, title: 'Greater than' },
+    { value: TriggerParam.Less, title: 'Less than' },
+  ];
 
   return (
     <Box style={styles.pricePicker}>

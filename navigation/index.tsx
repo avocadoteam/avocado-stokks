@@ -4,12 +4,13 @@ import React, { useEffect, useRef, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { useLogin } from 'core/hooks/useLogin';
 import { useNotificationCb } from 'core/hooks/useNotificationCb';
+import { useUserTheme } from 'core/hooks/useUserTheme';
 import { setLocale } from 'core/i18n/set';
 import { NavigationScreen } from 'core/models';
 import { getLanguage } from 'core/modules/settings/selector';
 import { getSelectedSymbol } from 'core/modules/stock/selectors';
 import { useTheme } from 'native-base';
-import { Appearance, StatusBar } from 'react-native';
+import { StatusBar } from 'react-native';
 import { useSelector } from 'react-redux';
 import { MainScreen } from 'screens/MainScreen';
 import { SearchScreen } from 'screens/SearchScreen';
@@ -39,7 +40,7 @@ export const RootNavigation = () => {
   }, [symbol]);
 
   const { colors } = useTheme();
-  const theme = Appearance.getColorScheme();
+  const theme = useUserTheme();
   useEffect(() => {
     StatusBar.setBackgroundColor(colors.appBackground);
     StatusBar.setBarStyle(theme === 'light' ? 'dark-content' : 'light-content', true);
